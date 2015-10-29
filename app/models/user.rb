@@ -1,2 +1,12 @@
 class User < ActiveRecord::Base
+  has_many :drops
+  has_many :comments
+  has_many :snaps
+  has_many :follower_follows, foreign_key: "followee_id", class_name: "Follow"
+  has_many :followee_follows, foreign_key: "follower_id", class_name: "Follow"
+  has_many :followers, through: :follower_follows, source: :follower
+  has_many :followees, through: :followee_follows, source: :followee
+  validates :username, :avatar, :uid, presence: true
+  validates :uid, uniqueness: true
+
 end
