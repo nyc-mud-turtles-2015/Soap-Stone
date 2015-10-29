@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029182946) do
+ActiveRecord::Schema.define(version: 20151029204215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20151029182946) do
     t.datetime  "updated_at",                                                              null: false
   end
 
+  add_index "drops", ["lonlat"], name: "index_drops_on_lonlat", using: :gist
   add_index "drops", ["user_id"], name: "index_drops_on_user_id", using: :btree
 
   create_table "follows", force: :cascade do |t|
