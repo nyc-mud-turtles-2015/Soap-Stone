@@ -14,7 +14,6 @@ SoapStone.Drop.prototype.save = function() {
       data.drop[key] = this[key];
     }
   }
-  console.log(data);
   return $.ajax({
     type: "POST",
     url:  "/drops",
