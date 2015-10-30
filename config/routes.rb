@@ -6,4 +6,7 @@ Rails.application.routes.draw do
   get "/login", :to => 'sessions#new', :as => 'login'
   get "/auth/auth0/callback" => "auth0#callback"
   get "/auth/failure" => "auth0#failure"
+  get 'drops/show', to: 'drops#show'
+
+
 end
