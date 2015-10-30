@@ -84,7 +84,7 @@ Drops.prototype.addDrop = function (drop) {
 
 Drops.prototype.loadDrops= function () {
 	var self = this;
-	var url = '/drops/show'
+	var url = '/drops'
 	return $.get(url)
 	.then(function(response) {
 		response.forEach(function(drop) {
