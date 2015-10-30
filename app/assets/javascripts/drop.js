@@ -7,10 +7,18 @@ SoapStone.Drop = function(args) {
 };
 
 SoapStone.Drop.prototype.save = function() {
+  var data = {};
+  data.drop = {};
+  for (var key in this) {
+    if (this.hasOwnProperty(key)) {
+      data.drop[key] = this[key];
+    }
+  }
+  console.log(data);
   return $.ajax({
     type: "POST",
     url:  "/drops",
-    data: this
+    data: data
   });
 };
 
@@ -20,7 +28,10 @@ SoapStone.DropView.prototype.getLocation = function() {
 return new Promise(function(resolve, reject) {
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(function(position) {
-          resolve(position.coords);
+          var coords = {};
+          coords.latitude = position.coords.latitude;
+          coords.longitude = position.coords.longitude;
+          resolve(coords);
         });
       } else {
           reject("Geolocation Not Available");
@@ -31,7 +42,9 @@ return new Promise(function(resolve, reject) {
 var view = new SoapStone.DropView();
 view.getLocation().then(function(location) {
   var drop = new SoapStone.Drop({coords: location});
-  drop.save();
+  drop.save()
+  .then(function(response) {console.log(response);})
+  .fail(function(response) {console.log(response);});
 });
 
 
