@@ -34,10 +34,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
- gem 'omniauth'
- gem 'omniauth-auth0'
- gem 'faker'
-
+  gem 'omniauth'
+  gem 'omniauth-auth0'
+  gem 'faker'
+  gem "paperclip", "~> 4.3"
+  gem 'aws-sdk-v1'
 
 group :test do 
   gem 'rspec-rails'
