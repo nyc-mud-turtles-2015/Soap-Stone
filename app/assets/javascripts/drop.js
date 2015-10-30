@@ -39,12 +39,31 @@ return new Promise(function(resolve, reject) {
   });
 };
 
-var view = new SoapStone.DropView();
-view.getLocation().then(function(location) {
-  var drop = new SoapStone.Drop({coords: location});
-  drop.save()
-  .then(function(response) {console.log(response);})
-  .fail(function(response) {console.log(response);});
-});
+SoapStone.Controller = function() {
+  this.view = new SoapStone.DropView();
+  this.view.controller = this;
+};
+
+SoapStone.Controller.prototype.createDrop = function(dropParams) {
+  this.view.getLocation().then(function(location) {
+    var dropData = {
+      text: dropParams.text,
+      photo: dropParams.photo,
+      coords: location
+    };
+    var drop = new SoapStone.Drop(dropData);
+    drop.save()
+    .then(function(response) {console.log(response);})
+    .fail(function(response) {console.log(response);});
+  });
+};
+
+SoapStone.app = new SoapStogne.Controller();
+
+//this needs to go in the event handler for form posting
+SoapStone.app.createDrop({});
+
+
+
 
 
