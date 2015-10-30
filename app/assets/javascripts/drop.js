@@ -14,7 +14,6 @@ SoapStone.Drop.prototype.save = function() {
       data.drop[key] = this[key];
     }
   }
-  console.log(data);
   return $.ajax({
     type: "POST",
     url:  "/drops",
@@ -42,11 +41,16 @@ return new Promise(function(resolve, reject) {
 };
 
 SoapStone.DropView.prototype.setUpEventHandlers = function(){
-    $("[data-role='drop-form']").on('submit', function(event){
-      event.preventDefault();
-      var text = this.find("[name='text']").val();
-      var photo = this.find("[name='photo']").val();
-      SoapStone.app.createDrop({text: text, photo: photo});
+  $("[data-role='drop-form']").on('submit', function(event){
+    event.preventDefault();
+    var text = $(this).find("[name='text']").val();
+    var photo = $(this).find("[name='photo']").val();
+    $("#form-container").hide();
+    SoapStone.app.createDrop({text: text, photo: photo});
+  })
+  
+  $("[data-role='new-drop']").on('click', function(event){
+    $("#form-container").show();
   })
 }
 
@@ -73,9 +77,4 @@ SoapStone.Controller.prototype.createDrop = function(dropParams) {
 //this needs to go in the event handler for form posting
 $( document ).ready(function() {
   SoapStone.app = new SoapStone.Controller();
-}
-
-
-
-
-
+});
