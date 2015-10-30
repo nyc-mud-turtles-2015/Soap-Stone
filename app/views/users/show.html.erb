@@ -1,0 +1,26 @@
+<h4><%= @user.username %></h4>
+
+<div>
+  <img src="<%= @user.avatar %>">
+</div>
+
+<h5><%= pluralize(@user.followers.count, 'Follower') %></h5>
+<div class="followers">
+  <% @user.followers.each do |follower| %>
+    <%= render partial: 'user', locals: { user: follower } %>
+  <% end %>
+</div>
+
+<h5><%= pluralize(@user.followees.count, 'following') %></h5>
+<div class="followees">
+  <% @user.followees.each do |followee| %>
+    <%= render partial: 'user', locals: { user: followee } %>
+  <% end %>
+</div>
+
+<h5><%= pluralize(@user.drops.count, 'drops') %></h5>
+<div class="drops">
+  <% @user.drops.each do |drop| %>
+    <%= render partial: 'drop', locals: { drop: drop } %>
+  <% end %>
+</div>
