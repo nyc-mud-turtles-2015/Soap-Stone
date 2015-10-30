@@ -95,13 +95,22 @@ Drops.prototype.loadDrops= function () {
 };
 
 var DropsView = function () {
- this.mapProp = {
-    center:new google.maps.LatLng(0,0), //find center of collection
-    zoom:16,
-    mapTypeId:google.maps.MapTypeId.ROADMAP
- };
- this.map = new google.maps.Map(document.getElementById("googleMap"),this.mapProp);
- this.centerMap() 
+  var self = this;
+  navigator.geolocation.getCurrentPosition(function(position){
+    var currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    self.mapProp = {
+      center: currentLocation, //find center of collection
+      zoom:15,
+      mapTypeId:google.maps.MapTypeId.ROADMAP
+   };
+   self.currentPositionMarker = new google.maps.Marker({
+      position: currentLocation,
+      animation: google.maps.Animation.DROP,
+      title: "you are here"
+    });
+    debugger;
+   self.map = new google.maps.Map(document.getElementById("googleMap"),self.mapProp);
+  })
 }
 
 DropsView.prototype.showDrops = function (drops) {
@@ -119,9 +128,20 @@ DropsView.prototype.showDrops = function (drops) {
 DropsView.prototype.centerMap = function(){
   var self = this;
   navigator.geolocation.getCurrentPosition(function(position){
-  self.map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude), 1);
+  self.map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude), 1);//second aurg?S
   });
 };
+DropsView.prototype.watchCurrentPosition = function() {
+  var positionTimer = navigator.geolocation.watchPosition(function (position) {
+      setMarkerPosition(this.currentPositionMarker,position);
+    });
+}
+function setMarkerPosition(marker, position) { 
+  marker.setPosition(new google.maps.LatLng( 
+    position.coords.latitude,
+    position.coords.longitude)
+  );
+}
 
 var Controller = function() {
 	this.dropsView = new DropsView();
