@@ -1,0 +1,11 @@
+<%= form_for @drop do |f| %>
+  <div>
+    <%= f.label :text %>
+    <%= f.text_field :text %>
+  </div>
+  <div>
+    <%= f.label :photo %>
+    <%= f.file_field :photo %>
+  </div>
+  <%= f.submit %>
+<% end %>
