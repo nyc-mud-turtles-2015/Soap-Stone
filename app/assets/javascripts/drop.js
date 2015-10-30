@@ -44,8 +44,8 @@ return new Promise(function(resolve, reject) {
 SoapStone.DropView.prototype.setUpEventHandlers = function(){
     $("[data-role='drop-form']").on('submit', function(event){
       event.preventDefault();
-      var text = this.find("[name='text']").val();
-      var photo = this.find("[name='photo']").val();
+      var text = $(this).find("[name='drop[text]']").val();
+      var photo = $(this).find("[name='drop[photo]']").val();
       SoapStone.app.createDrop({text: text, photo: photo});
   })
 }
@@ -73,9 +73,4 @@ SoapStone.Controller.prototype.createDrop = function(dropParams) {
 //this needs to go in the event handler for form posting
 $( document ).ready(function() {
   SoapStone.app = new SoapStone.Controller();
-}
-
-
-
-
-
+});
