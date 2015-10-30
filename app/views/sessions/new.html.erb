@@ -1,0 +1,17 @@
+<div id="root" style="width: 280px; margin: 40px auto; padding: 10px; border-style: dashed; border-width: 1px;">
+  embeded area
+</div>
+<script src="https://cdn.auth0.com/js/lock-7.9.min.js"></script>
+<script>
+ var lock = new Auth0Lock('qWcpgWl7NeB2YH9rWX9Hl1BJgY9M97Ui', 'soapstone.auth0.com');
+ var url = (document.location.origin + "/auth/auth0/callback")
+
+  lock.show({
+    container: 'root'
+  , callbackURL: url
+  , responseType: 'code'
+  , authParams: {
+    scope: 'openid profile'
+  }
+ });
+</script>
