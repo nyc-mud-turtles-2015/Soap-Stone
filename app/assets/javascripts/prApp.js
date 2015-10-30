@@ -96,11 +96,12 @@ Drops.prototype.loadDrops= function () {
 
 var DropsView = function () {
  this.mapProp = {
-    center:new google.maps.LatLng(40.7064,-74.0078), //find center of collection
+    center:new google.maps.LatLng(0,0), //find center of collection
     zoom:16,
     mapTypeId:google.maps.MapTypeId.ROADMAP
  };
- this.map = new google.maps.Map(document.getElementById("googleMap"),this.mapProp); 
+ this.map = new google.maps.Map(document.getElementById("googleMap"),this.mapProp);
+ this.centerMap() 
 }
 
 DropsView.prototype.showDrops = function (drops) {
@@ -113,6 +114,13 @@ DropsView.prototype.showDrops = function (drops) {
       SoapStone.app.showDrop(drop.id);
     });
 	});
+};
+
+DropsView.prototype.centerMap = function(){
+  var self = this;
+  navigator.geolocation.getCurrentPosition(function(position){
+  self.map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude), 1);
+  });
 };
 
 var Controller = function() {
@@ -130,4 +138,9 @@ Controller.prototype.loadDrops = function() {
 
 $(document).ready(function() {
 	App.controller = new Controller();
+  var test = App.controller;
+  $('#set-center').on('click',function(e){
+    test.dropsView.centerMap();
+  })
+
 });
