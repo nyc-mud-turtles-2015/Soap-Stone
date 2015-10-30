@@ -4,7 +4,8 @@ class Auth0Controller < ApplicationController
     user.avatar = request.env['omniauth.auth']['info']['image']
     user.username = request.env['omniauth.auth']['info']['name']
     user.save
-    session[:uid] = user.uid
+    session[:user_id] = user.id
+    session[:username] = user.username
     redirect_to root_path
   end
 
