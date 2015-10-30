@@ -3,15 +3,20 @@
 <div>
   <img src="<%= @user.avatar %>">
 </div>
-
-<h5><%= pluralize(@user.followers.count, 'Follower') %></h5>
+<div data-role="follow">
+  <button data-role="new-follow" value="<%= @user %>">follow</button>
+</div>
+<div data-role="unfollow" class="hidden">
+  <button data-role="unfollow">unfollow</button>
+</div>
+<h5><%= pluralize(@user.followers.count, 'follower') %></h5>
 <div class="followers">
   <% @user.followers.each do |follower| %>
     <%= render partial: 'user', locals: { user: follower } %>
   <% end %>
 </div>
 
-<h5><%= pluralize(@user.followees.count, 'following') %></h5>
+<h5><%= @user.followees.count %> following</h5>
 <div class="followees">
   <% @user.followees.each do |followee| %>
     <%= render partial: 'user', locals: { user: followee } %>
