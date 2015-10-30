@@ -69,21 +69,6 @@ var Drop = function (drop) {
 
 };
 
-// Drop.prototype.save = function() {
-// 	var url = '/drops';
-// 	var data = { user: this.user,
-// 		text: this.text, 
-// 		lonlat: this.lonlat,
-// 		photo: this.photo,
-// 		snaps_count: this.snaps_count,
-// 		comments_count: this.comments_count};
-// 	return $.ajax({
-// 		type: "POST",
-// 		url: url,
-// 		data: data
-// 	});
-// }
-
 function convertToLatLon(lonlat) {
 	var dataPoints = lonlat.replace(/[()]/g, '').split(' ');
 	return [Number(dataPoints[2]),Number(dataPoints[1])];
@@ -107,34 +92,6 @@ Drops.prototype.loadDrops= function () {
 		});
 	});
 };
-
-// function initialize() {
-// 	App.controller = new Controller();
-// 	App.controller.loadDrops();
-//   var mapProp = {
-//     center:new google.maps.LatLng(40.7127,-74.0059),
-//     zoom:5,
-//     mapTypeId:google.maps.MapTypeId.ROADMAP
-//   };
-//   var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-
-//  	App.controller.drops.drops.forEach(function(drop){
-//  		drop.marker.setMap(map);
-//  		drop.marker.addListener('click', function() {
-//     drop.infowindow.open(map, drop.marker);
-//     // debugger;
-//   	});
-//  	});
-// }
-
-// function loadScript() {
-//   var script = document.createElement("script");
-//   script.type = "text/javascript";
-//   script.src = "http://maps.googleapis.com/maps/api/js?key=&sensor=false&callback=initialize";
-//   document.body.appendChild(script);
-// }
-
-// window.onload = loadScript; //async
 
 var DropsView = function () {
  this.mapProp = {
