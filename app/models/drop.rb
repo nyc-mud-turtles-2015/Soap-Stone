@@ -4,7 +4,7 @@ class Drop < ActiveRecord::Base
   has_many :snaps
   validates :user, presence: true
   validate :has_some_content
-  has_attached_file :photo, styles: { medium: "640x640>", thumb: "292x292>" }, default_url: "/images/:style/missing.png"
+  has_attached_file :photo, styles: { medium: "640x640>", thumb: "292x292>" }, default_url: "/images/:style/missing.png",
                     :storage => :s3, 
                     :s3_credentials => Proc.new{|a| a.instance.s3_credentials }
   validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/

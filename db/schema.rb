@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029204215) do
+ActiveRecord::Schema.define(version: 20151030145640) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,14 +29,18 @@ ActiveRecord::Schema.define(version: 20151029204215) do
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "drops", force: :cascade do |t|
-    t.integer   "user_id",                                                                 null: false
+    t.integer   "user_id",                                                                     null: false
     t.string    "text"
     t.string    "photo"
     t.integer   "snaps_count"
     t.integer   "comments_count"
-    t.geography "lonlat",         limit: {:srid=>4326, :type=>"point", :geographic=>true}
-    t.datetime  "created_at",                                                              null: false
-    t.datetime  "updated_at",                                                              null: false
+    t.geography "lonlat",             limit: {:srid=>4326, :type=>"point", :geographic=>true}
+    t.datetime  "created_at",                                                                  null: false
+    t.datetime  "updated_at",                                                                  null: false
+    t.string    "photo_file_name"
+    t.string    "photo_content_type"
+    t.integer   "photo_file_size"
+    t.datetime  "photo_updated_at"
   end
 
   add_index "drops", ["lonlat"], name: "index_drops_on_lonlat", using: :gist
