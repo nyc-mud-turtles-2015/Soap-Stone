@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :maps, only: [:index]
   get "/drops/followees" => 'drops#followees'
   resources :drops, only: [:new, :index, :show, :create]
+  resources :users, only: [:show]
 
   get "/login", :to => 'sessions#new', :as => 'login'
   get "/auth/auth0/callback" => "auth0#callback"
