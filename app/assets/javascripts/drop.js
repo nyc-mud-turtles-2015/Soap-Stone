@@ -22,7 +22,9 @@ SoapStone.Drop.prototype.save = function() {
   });
 };
 
-SoapStone.DropView = function() {};
+SoapStone.DropView = function() {
+  this.setUpEventHandlers()
+};
 
 SoapStone.DropView.prototype.getLocation = function() {
 return new Promise(function(resolve, reject) {
@@ -38,6 +40,15 @@ return new Promise(function(resolve, reject) {
       }
   });
 };
+
+SoapStone.DropView.prototype.setUpEventHandlers = function(){
+    $("[data-role='drop-form']").on('submit', function(event){
+      event.preventDefault();
+      var text = this.find("[name='text']").val();
+      var photo = this.find("[name='photo']").val();
+      SoapStone.app.createDrop({text: text, photo: photo});
+  })
+}
 
 SoapStone.Controller = function() {
   this.view = new SoapStone.DropView();
@@ -58,10 +69,11 @@ SoapStone.Controller.prototype.createDrop = function(dropParams) {
   });
 };
 
-SoapStone.app = new SoapStogne.Controller();
 
 //this needs to go in the event handler for form posting
-SoapStone.app.createDrop({});
+$( document ).ready(function() {
+  SoapStone.app = new SoapStone.Controller();
+}
 
 
 
