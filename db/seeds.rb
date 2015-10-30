@@ -18,7 +18,7 @@ def seed!
 
   # create drops
   60.times do
-    Drop.create(user: users.sample, text: random_text, photo: random_image, lonlat: random_location)
+    Drop.create!(user: users.sample, text: random_text, photo: random_image, lonlat: random_location)
   end
   drops = Drop.all
 
@@ -57,7 +57,7 @@ def random_text
 end
 
 def random_image
-  "http://placekitten.com/600/600"
+  "https://robohash.org/#{Faker::Internet.user_name}.png"
 end
 
 def random_comment
