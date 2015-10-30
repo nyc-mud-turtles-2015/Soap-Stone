@@ -1,0 +1,11 @@
+<%= form_tag "", :"data-role" => "drop-form" do %>
+  <div>
+    <%= label_tag :text %>
+    <%= text_field_tag :text %>
+  </div>
+  <div>
+    <%= label_tag :photo %>
+    <%= file_field_tag :photo %>
+  </div>
+  <%= submit_tag %>
+<% end %>
