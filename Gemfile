@@ -36,6 +36,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
  gem 'omniauth'
  gem 'omniauth-auth0'
+ gem 'faker'
+
 
 group :test do 
   gem 'rspec-rails'
@@ -52,7 +54,6 @@ group :development, :test do
   gem 'pry-rails'
   gem 'bullet'
   gem 'database_cleaner'
-  
 end
 
 group :development do
