@@ -7,9 +7,8 @@ class DropsController < ApplicationController
   end
 
   def create
-    current_user = User.first #delete this when we have a real herper
+    # needs `current_user` helper method to exist
     drop = current_user.drops.new(drop_params)
-    drop.text = "Fake text" #delete this when we have real drop content
     if drop.save
       render plain: {success: true}.to_json
     else
