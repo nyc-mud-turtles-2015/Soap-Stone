@@ -9,6 +9,12 @@ class Drop < ActiveRecord::Base
                     :s3_credentials => Proc.new{|a| a.instance.s3_credentials }
   validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
 
+  @@factory = RGeo::Geographic.spherical_factory(srid: 4326)
+
+  def self.create_lonlat(coords)
+    @@factory.point(coords[:longitude], coords[:latitude])
+  end
+
   def has_some_content
     unless photo || text
       errors.add(:drop, "you need something in here to drop some sick art")
