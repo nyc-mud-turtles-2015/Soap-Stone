@@ -21,6 +21,12 @@ class Drop < ActiveRecord::Base
     end
   end
 
+  def show_json
+    to_json(:only => [:photo, :text, :created_at],
+      :include => { :user => { :only => [:username, :avatar],
+      }}) 
+  end
+
   def s3_credentials
     {
       bucket: Rails.application.secrets.s3_bucket,
