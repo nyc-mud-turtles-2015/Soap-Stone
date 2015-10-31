@@ -12,7 +12,7 @@ class Drop < ActiveRecord::Base
                    :default_formula => :sphere,
                    # :distance_field_name => :distance,
                    :lat_column_name => :lat,
-                   :lng_column_name => :lng
+                   :lng_column_name => :lon
 
 
   attr_accessor :current_user
