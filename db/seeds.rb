@@ -6,8 +6,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-@factory = RGeo::Geographic.spherical_factory(srid: 4326)
-
 def seed!
 
   # create users
@@ -19,7 +17,7 @@ def seed!
   # create drops
   60.times do
     lonlat_array = random_location
-    Drop.create(user: users.sample, text: random_text, photo: random_image, lon: lonlat_array[0], lat:lonlat_array[1] )
+    Drop.create(user: users.sample, text: random_text, lon: lonlat_array[0], lat:lonlat_array[1] )
   end
   drops = Drop.all
 
