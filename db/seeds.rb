@@ -18,7 +18,8 @@ def seed!
 
   # create drops
   60.times do
-    Drop.create(user: users.sample, text: random_text, photo: random_image, lonlat: random_location)
+    lonlat_array = random_location
+    Drop.create(user: users.sample, text: random_text, photo: random_image, lon: lonlat_array[0], lat:lonlat_array[1] )
   end
   drops = Drop.all
 
@@ -67,7 +68,7 @@ end
 def random_location
   lon = -74.0092818 + rand((-0.001)..(0.001))
   lat =  40.7062564 + rand((-0.001)..(0.001))
-  @factory.point(lon, lat)
+  [lon, lat]
 end
 
 seed!
