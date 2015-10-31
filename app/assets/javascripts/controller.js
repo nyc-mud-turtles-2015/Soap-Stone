@@ -10,17 +10,16 @@ SoapStone.Controller = function() {
 };
 
 SoapStone.Controller.prototype.createDrop = function(dropParams) {
-  this.dropView.getLocation().then(function(location) {
-    var dropData = {
-      text: dropParams.text,
-      photo: dropParams.photo,
-      coords: location
-    };
-    var drop = new SoapStone.Drop(dropData);
-    drop.save()
-    .then(function(response) {console.log(response);})
-    .fail(function(response) {console.log(response);});
-  });
+  var dropData = {
+    text: dropParams.text,
+    photo: dropParams.photo,
+    lat: this.mapView.trackingLocation.lat(),
+    lon: this.mapView.trackingLocation.lng()
+  };
+  var drop = new SoapStone.Drop(dropData);
+  drop.save()
+  .then(function(response) {console.log(response);})
+  .fail(function(response) {console.log(response);});
 };
 
 SoapStone.Controller.prototype.showDrop = function(id) {

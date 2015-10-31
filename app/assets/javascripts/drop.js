@@ -11,11 +11,14 @@ SoapStone.Drop.prototype.setAttributes = function(args) {
     this.coords.longitude = args.coords.longitude;
     this.coords.latitude = args.coords.latitude;
   }
-  if (args.lonlat) {
-    var points = args.lonlat.replace(/[()]/g, '').split(' ');
+  if (args.lon && args.lat) {
     this.coords = {};
-    this.coords.latitude = Number(points[2]);
-    this.coords.longitude = Number(points[1]);
+    this.coords.latitude = args.lat;
+    this.coords.longitude = args.lon;
+  }
+  if (this.coords) {
+    this.lat = this.coords.latitude;
+    this.lon = this.coords.longitude;
   }
   this.text = args.text;
   this.photo = args.photo;
@@ -89,21 +92,6 @@ SoapStone.DropView = function() {
   var showTemplateSource   = $("[data-template='show-drop']").html();
   this.showTemplate = Handlebars.compile(showTemplateSource);
   this.setUpEventHandlers();
-};
-
-SoapStone.DropView.prototype.getLocation = function() {
-return new Promise(function(resolve, reject) {
-      if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          var coords = {};
-          coords.latitude = position.coords.latitude;
-          coords.longitude = position.coords.longitude;
-          resolve(coords);
-        });
-      } else {
-          reject("Geolocation Not Available");
-      }
-  });
 };
 
 SoapStone.DropView.prototype.setUpEventHandlers = function(){

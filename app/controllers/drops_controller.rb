@@ -25,7 +25,6 @@ class DropsController < ApplicationController
   end
 
   def drop_params 
-    params.require(:drop).permit(:photo, :text)
-      .merge(lonlat: Drop.create_lonlat(params[:drop][:coords]))
+    params.require(:drop).permit(:photo, :text, :lon, :lat)
   end
 end

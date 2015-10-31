@@ -30,7 +30,7 @@ class Drop < ActiveRecord::Base
 
   def show_json
     to_json(methods: :snapped_by?,
-      only: [:photo, :text, :created_at, :lonlat, :snaps_count, :comments_count],
+      only: [:photo, :text, :created_at, :lon, :lat, :snaps_count, :comments_count],
       include: { 
         user:     { only: [:username, :avatar] }, 
         comments: { only: [:text, :created_at],
