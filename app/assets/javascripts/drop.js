@@ -15,8 +15,14 @@ SoapStone.Drop.prototype.setAttributes = function(args) {
   this.created_at = args.created_at;
   if (args.user) {
     this.user = {};
+    this.user.id = args.user.id;
     this.user.username = args.user.username;
     this.user.avatar = args.user.avatar;
+  }
+  if (args.comments) {
+    this.comments = args.comments.map(function(data) {
+      return new SoapStone.Comment(data);
+    });
   }
 };
 
@@ -51,6 +57,16 @@ SoapStone.Drop.prototype.find = function(id) {
       reject();
     });
   });
+};
+
+SoapStone.Comment = function(args) {
+  this.text = args.text;
+  if (args.user) {
+    this.user = {};
+    this.user.id = args.user.id;
+    this.user.username = args.user.username;
+    this.user.avatar = args.user.avatar;
+  }
 };
 
 

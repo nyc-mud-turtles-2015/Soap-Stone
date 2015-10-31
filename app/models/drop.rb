@@ -22,9 +22,13 @@ class Drop < ActiveRecord::Base
   end
 
   def show_json
-    to_json(:only => [:photo, :text, :created_at],
-      :include => { :user => { :only => [:username, :avatar],
-      }}) 
+    to_json(only: [:photo, :text, :created_at],
+      include: { 
+        user:     { only: [:username, :avatar] }, 
+        comments: { only: [:text, :created_at],
+          include: { user: { only: [:username, :avatar] } }
+        } }
+        ) 
   end
 
   def s3_credentials

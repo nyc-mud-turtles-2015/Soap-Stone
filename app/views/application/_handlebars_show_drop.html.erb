@@ -8,6 +8,15 @@
       <p class="username">{{user.username}}</p>
     </div>
     <div class="comment-list">
+      {{#each comments}}
+        <li>
+          <div class="userinfo">
+            <img src="{{user.avatar}}">
+            <p class="username">{{user.username}}</p>
+          </div>
+          <p class="comment">{{text}}</p>
+        </li>
+      {{/each}}
     </div>
     <div class="menu">
       <button>Snap<button>
