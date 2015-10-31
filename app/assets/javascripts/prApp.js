@@ -96,12 +96,23 @@ Drops.prototype.loadDrops= function () {
 
 var DropsView = function () {
   var self = this;
+  var mapStyles = [
+  {
+    featureType: "all",
+    elementType: "labels.icon",
+    stylers: [
+      { visibility: "off" }
+    ]
+  }
+];
   this.trackingLocation;
   navigator.geolocation.getCurrentPosition(function(position){
     self.trackingLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     self.mapProp = {
       center: self.trackingLocation, //find center of collection
       zoom:15,
+      streetViewControl: false,
+      styles: mapStyles,
       mapTypeId:google.maps.MapTypeId.ROADMAP
    };
    self.map = new google.maps.Map(document.getElementById("googleMap"),self.mapProp);
@@ -128,16 +139,20 @@ DropsView.prototype.showDrops = function (drops) {
 };
 
 DropsView.prototype.centerMap = function(){
+  console.log("centering");
   var self = this;
-  debugger;
+  // debugger;
+  self.map.panTo(self.trackingLocation)
   new google.maps.LatLng(self.trackingLocation);
   // navigator.geolocation.getCurrentPosition(function(position){
   //   self.map.panTo(new google.maps.LatLng(position.coords.latitude, position.coords.longitude), self.map.getZoom());//second aurg?S
   // });
 };
 DropsView.prototype.watchCurrentPosition = function() {
+  console.log("running the watchCurrent function");
   var self = this;
   var positionTimer = navigator.geolocation.watchPosition(function (position) {
+    console.log("in the watchCurrentPosition function", self.trackingLocation)
       self.trackingLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       console.log(position.coords.latitude, position.coords.longitude)
       setMarkerPosition(self.currentPositionMarker,position);
