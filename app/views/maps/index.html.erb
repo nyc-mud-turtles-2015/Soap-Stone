@@ -1,9 +1,12 @@
-<div id="googleMap" style="width:1024px;height:640px;"></div>
-<div data-role="menu">
-  <button data-role="new-drop">yo</button>
+<div data-view="map" class="pure-g">
+  <div class="pure-u-1">
+    <div id="googleMap" style="width:1024px;height:640px;"></div>
+    <div data-role="menu">
+      <button data-button="new-button" class="pure-button">yo</button>
+    </div>
+    <div data-view="new-form" id="form-container" class="hide">
+      <%= render partial: "drop_form" %>
+    </div>
+  </div>
 </div>
-<div id="form-container" class="hidden">
-  <%= render partial: "drop_form" %>
-</div>
-
 <%= render partial: "handlebars_show_drop" %>

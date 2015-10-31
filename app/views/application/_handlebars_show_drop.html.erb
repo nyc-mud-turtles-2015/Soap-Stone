@@ -1,19 +1,39 @@
 <script data-template='show-drop' type="text/x-handlebars-template">
-  <div class="view user">
-    <article class="drop">
-      <img src="{{photo}}">
-      <p class="droptext">{{text}}</p>
-    <div class="userinfo">
-      <img src="{{user.avatar}}">
-      <p class="username">{{user.username}}</p>
-    </div>
-    <div class="comment-list">
-    </div>
-    <div class="menu">
-      <button>Snap<button>
-      <input type="text">
-      <button>Comment<button>
-    </div>
+  <div data-view="drop" class="view user">
+    <article class="drop pure-g">
+      <button data-button="close-drop" class="close button-large pure-button">X</button>
+      <img src="http://unsplash.it/600/400?random" class="drop-img pure-img-responsive">
+      <div class="drop-info pure-g pure-u-1">
+        <div class="pure-u">
+          <a href="/users/{{user.id}}">
+            <img class="drop-avatar" src="{{user.avatar}}">
+          </a>
+        </div>
+        <div class="pure-u-3-4">
+          <h2 class="drop-text">{{text}}</h2>
+        </div>
+      </div>
+      <div class="comment-list">
+        <h3 class="pure-u-1">{{pluralize comments_count "comment"}}</h3>    
+        {{#each comments}}
+          <div class="comment-item pure-g pure-u-1">
+            <div class="pure-u">
+              <a href="/users/{{user.id}}">
+                <img class="comment-avatar" src="{{user.avatar}}">
+              </a>
+            </div>
+            <div class="pure-u-3-4">
+              <h3 class="comment-username">{{user.username}}</h3>
+              <p class="comment-text">{{text}}</p>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+      <div class="menu">
+        <button class="pure-button">{{pluralize snaps_count "Snap"}}<button>
+        <input type="text">
+        <button class="pure-button">Comment<button>
+      </div>
     </article>
   </div>
 </script>
