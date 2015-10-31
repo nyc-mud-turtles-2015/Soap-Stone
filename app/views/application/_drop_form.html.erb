@@ -1,7 +1,9 @@
-<%= form_tag "", :"data-role" => "drop-form" do %>
+<%= form_tag "", :"data-role" => "drop-form", :"class" => "pure-form-stacked" do %>
+  <button data-button="close-form" class="close button-large pure-button">X</button>
   <div>
+    <h2>Add a drop</h2>
     <%= label_tag :text %>
-    <%= text_field_tag :text %>
+    <%= text_field_tag :text, "", :"placeholder" => "Comment" %>
   </div>
   <div>
     <%= label_tag :photo %>

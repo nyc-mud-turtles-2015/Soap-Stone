@@ -11,6 +11,8 @@ class Drop < ActiveRecord::Base
 
   @@factory = RGeo::Geographic.spherical_factory(srid: 4326)
 
+  attr_accessor :current_user
+
   def self.create_lonlat(coords)
     @@factory.point(coords[:longitude], coords[:latitude])
   end
@@ -21,8 +23,14 @@ class Drop < ActiveRecord::Base
     end
   end
 
+  def snapped_by?(user=nil)
+    user ||= current_user
+    snaps.pluck(:user_id).include?(user.id)
+  end
+
   def show_json
-    to_json(only: [:photo, :text, :created_at],
+    to_json(methods: :snapped_by?,
+      only: [:photo, :text, :created_at, :snaps_count, :comments_count],
       include: { 
         user:     { only: [:username, :avatar] }, 
         comments: { only: [:text, :created_at],

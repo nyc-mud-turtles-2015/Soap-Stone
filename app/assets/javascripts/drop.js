@@ -13,6 +13,9 @@ SoapStone.Drop.prototype.setAttributes = function(args) {
   this.text = args.text;
   this.photo = args.photo;
   this.created_at = args.created_at;
+  this.snaps_count = args.snaps_count;
+  this.comments_count = args.comments_count;
+  this.snapped_by_you = args["snapped_by?"];
   if (args.user) {
     this.user = {};
     this.user.id = args.user.id;
@@ -100,15 +103,27 @@ SoapStone.DropView.prototype.setUpEventHandlers = function(){
     SoapStone.app.createDrop({text: text, photo: photo});
   })
   
-  $("[data-role='new-drop']").on('click', function(event){
-    $("#form-container").show();
+  $("[data-button='new-button']").on('click', function(event){
+    $("[data-view='new-form']").show();
+    $("[data-button='close-form']").on('click', function(event){
+      event.preventDefault();
+      $("[data-view='new-form']").hide();
+    })
   })
 }
 
 SoapStone.DropView.prototype.showDrop = function(drop) {
-  console.log(drop);
-  console.log(this.showTemplate(drop));
+  var self = this;
   $('body').append(this.showTemplate(drop));
+  $("[data-view='map']").hide();
+  $("[data-button='close-drop']").on('click', function (event) {
+    self.closeDrop();
+  });
+};
+
+SoapStone.DropView.prototype.closeDrop  = function() {
+  $("[data-view='drop']").remove();
+  $("[data-view='map']").show();
 };
 
 SoapStone.Controller = function() {
@@ -142,4 +157,18 @@ SoapStone.Controller.prototype.showDrop = function(id) {
 //this needs to go in the event handler for form posting
 $( document ).ready(function() {
   SoapStone.app = new SoapStone.Controller();
+});
+
+
+Handlebars.registerHelper('pluralize', function(count, singular, plural) {
+  console.log(arguments);
+  if (count === 1) {
+    return String(count) + " " + singular;
+  } else {
+    if (typeof plural === "string") {
+      return String(count) + " " + plural;
+    } else {
+      return String(count) + " " + singular + "s";
+    }
+  }
 });

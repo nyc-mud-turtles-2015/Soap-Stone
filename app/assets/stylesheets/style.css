@@ -1,3 +1,58 @@
-.hidden {
+.hide {
   display: none;
 }
+
+#form-container {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    background: rgba(100, 100, 100, 0.90);
+    text-align: center;
+    font-size: 120%;
+}
+
+#form-container form {
+    position: relative;
+    margin: 30px;
+    padding: 20px;
+    background: rgba(230, 230, 230, 1);
+    border-radius: 3px;
+}
+
+
+button.close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: rgba(180,180,180,0.7);
+}
+
+.comment-list {
+  margin: 0;
+  padding: 0;
+}
+
+.comment-item {
+    padding: 0.9em 1em;
+    border-bottom: 1px solid #ddd;
+    border-left: 6px solid transparent;
+}
+.comment-item:nth-child(1) {
+    border-top: 1px solid #ddd;
+}
+
+    .comment-avatar {
+        width: 40px;
+        height: 40px;
+    }
+
+    .comment-name {
+        margin: 0;
+    }
+
+    .comment-text {
+        font-size: 80%;
+        margin: 0.4em 0;
+    }
