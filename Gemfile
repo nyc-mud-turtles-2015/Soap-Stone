@@ -7,8 +7,8 @@ gem 'rails', '4.2.4'
 gem 'pg'
 
 
-gem 'activerecord-postgis-adapter'
-
+# gem 'activerecord-postgis-adapter'
+gem 'geokit-rails'
 
 # Use SCSS for stylesheets
 # gem 'sass-rails', '~> 5.0'

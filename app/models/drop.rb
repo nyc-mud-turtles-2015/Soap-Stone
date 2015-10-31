@@ -8,14 +8,14 @@ class Drop < ActiveRecord::Base
                     :storage => :s3, 
                     :s3_credentials => Proc.new{|a| a.instance.s3_credentials }
   validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
+  acts_as_mappable :default_units => :miles,
+                   :default_formula => :sphere,
+                   # :distance_field_name => :distance,
+                   :lat_column_name => :lat,
+                   :lng_column_name => :lon
 
-  @@factory = RGeo::Geographic.spherical_factory(srid: 4326)
 
   attr_accessor :current_user
-
-  def self.create_lonlat(coords)
-    @@factory.point(coords[:longitude], coords[:latitude])
-  end
 
   def has_some_content
     unless photo || text
