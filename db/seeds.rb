@@ -18,7 +18,7 @@ def seed!
 
   # create drops
   60.times do
-    Drop.create!(user: users.sample, text: random_text, photo: random_image, lonlat: random_location)
+    Drop.create(user: users.sample, text: random_text, photo: random_image, lonlat: random_location)
   end
   drops = Drop.all
 
