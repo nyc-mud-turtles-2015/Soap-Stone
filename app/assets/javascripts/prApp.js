@@ -130,7 +130,6 @@ DropsView.prototype.showDrops = function (drops) {
 	var self = this;
 	drops.drops.forEach(function(drop){
  		drop.marker.setMap(self.map);
- 		// debugger;
  		drop.marker.addListener('click', function() {
     	//drop.infowindow.open(self.map, drop.marker);
       SoapStone.app.showDrop(drop.id);
@@ -139,27 +138,20 @@ DropsView.prototype.showDrops = function (drops) {
 };
 
 DropsView.prototype.centerMap = function(){
-  console.log("centering");
   var self = this;
-  // debugger;
   self.map.panTo(self.trackingLocation)
-  new google.maps.LatLng(self.trackingLocation);
-  // navigator.geolocation.getCurrentPosition(function(position){
-  //   self.map.panTo(new google.maps.LatLng(position.coords.latitude, position.coords.longitude), self.map.getZoom());//second aurg?S
-  // });
 };
+
 DropsView.prototype.watchCurrentPosition = function() {
-  console.log("running the watchCurrent function");
   var self = this;
   var positionTimer = navigator.geolocation.watchPosition(function (position) {
-    console.log("in the watchCurrentPosition function", self.trackingLocation)
+    console.log("in the watchCurrentPosition function", self.trackingLocation.lat(), self.trackingLocation.lng() )
       self.trackingLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      console.log(position.coords.latitude, position.coords.longitude)
       setMarkerPosition(self.currentPositionMarker,position);
     });
 }
-function setMarkerPosition(marker, position) { 
-  marker.setPosition(new google.maps.LatLng( 
+function setMarkerPosition(marker, position) {
+  marker.setPosition(new google.maps.LatLng(
     position.coords.latitude,
     position.coords.longitude)
   );
