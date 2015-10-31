@@ -75,15 +75,15 @@ function convertToLatLon(lonlat) {
 	return [Number(dataPoints[2]),Number(dataPoints[1])];
 }
 
-var Drops = function () {
+SoapStone.Map = function () {
 	this.drops = [];
 };
 
-Drops.prototype.addDrop = function (drop) {
+SoapStone.Map.prototype.addDrop = function (drop) {
 	this.drops.push(new Drop(drop));
 }
 
-Drops.prototype.loadDrops= function () {
+SoapStone.Map.prototype.loadDrops= function () {
 	var self = this;
 	var url = '/drops'
 	return $.get(url)
@@ -94,40 +94,66 @@ Drops.prototype.loadDrops= function () {
 	});
 };
 
-var DropsView = function () {
-  var self = this;
-  var mapStyles = [
-  {
-    featureType: "all",
-    elementType: "labels.icon",
-    stylers: [
-      { visibility: "off" }
-    ]
-  }
-];
-  this.trackingLocation;
-  navigator.geolocation.getCurrentPosition(function(position){
-    self.trackingLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    self.mapProp = {
-      center: self.trackingLocation, //find center of collection
-      zoom:15,
-      streetViewControl: false,
-      styles: mapStyles,
-      mapTypeId:google.maps.MapTypeId.ROADMAP
-   };
-   self.map = new google.maps.Map(document.getElementById("googleMap"),self.mapProp);
-   self.currentPositionMarker = new google.maps.Marker({
-      map: self.map,
-      icon: "https://robohash.org/jake.bmp?size=40x40",
-      position: self.trackingLocation,
-      animation: google.maps.Animation.DROP,
-      title: "you are here"
-    });
-  })
-}
+SoapStone.MapView = function () {};
 
-DropsView.prototype.showDrops = function (drops) {
+SoapStone.MapView.prototype.getLocation = function() {
+return new Promise(function(resolve, reject) {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var coords = {};
+          coords.latitude = position.coords.latitude;
+          coords.longitude = position.coords.longitude;
+          resolve(coords);
+        });
+      } else {
+          reject(); //Geolocation not available
+      }
+  });
+};
+
+
+SoapStone.MapView.prototype.init = function () {
+  var self = this;
+    var mapStyles = [
+    {
+      featureType: "all",
+      elementType: "labels.icon",
+      stylers: [
+        { visibility: "off" }
+      ]
+    }
+  ];
+  return new Promise(function (resolve, reject) {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          self.trackingLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          self.mapProp = {
+            center: self.trackingLocation, //find center of collection
+            zoom:15,
+            streetViewControl: false,
+            styles: mapStyles,
+            mapTypeId:google.maps.MapTypeId.ROADMAP
+         };
+         self.map = new google.maps.Map(document.getElementById("googleMap"),self.mapProp);
+         self.currentPositionMarker = new google.maps.Marker({
+            map: self.map,
+            icon: "https://robohash.org/jake.bmp?size=40x40",
+            position: self.trackingLocation,
+            animation: google.maps.Animation.DROP,
+            title: "you are here"
+          });
+          resolve(self);
+        });
+      } else { 
+        reject(); //Geolocation not available
+      }
+  });
+};
+
+
+SoapStone.MapView.prototype.showDrops = function (drops) {
 	var self = this;
+  console.log(self);
 	drops.drops.forEach(function(drop){
  		drop.marker.setMap(self.map);
  		drop.marker.addListener('click', function() {
@@ -137,12 +163,12 @@ DropsView.prototype.showDrops = function (drops) {
 	});
 };
 
-DropsView.prototype.centerMap = function(){
+SoapStone.MapView.prototype.centerMap = function(){
   var self = this;
   self.map.panTo(self.trackingLocation)
 };
 
-DropsView.prototype.watchCurrentPosition = function() {
+SoapStone.MapView.prototype.watchCurrentPosition = function() {
   var self = this;
   var positionTimer = navigator.geolocation.watchPosition(function (position) {
     console.log("in the watchCurrentPosition function", self.trackingLocation.lat(), self.trackingLocation.lng() )
@@ -158,25 +184,27 @@ function setMarkerPosition(marker, position) {
 }
 
 var Controller = function() {
-	this.dropsView = new DropsView();
-	this.drops = new Drops();
+	this.mapView = new SoapStone.MapView();
+	this.drops = new SoapStone.Map();
 	this.loadDrops();
 };
 
 Controller.prototype.loadDrops = function() {
 	var self = this;
-	return this.drops.loadDrops().done(function(){
-		self.dropsView.showDrops(self.drops);
-	});
-}
+	return this.mapView.init().then(function () {
+    self.drops.loadDrops().then(function(){
+  		self.mapView.showDrops(self.drops);
+  	});
+  });
+};
 
 $(document).ready(function() {
 	App.controller = new Controller();
-  App.controller.dropsView.watchCurrentPosition();
+  App.controller.mapView.watchCurrentPosition();
 
   var test = App.controller;
   $('#set-center').on('click',function(e){
-    test.dropsView.centerMap();
+    test.mapView.centerMap();
   })
 
 });
