@@ -96,10 +96,11 @@ Drops.prototype.loadDrops= function () {
 
 var DropsView = function () {
   var self = this;
+  this.trackingLocation;
   navigator.geolocation.getCurrentPosition(function(position){
-    var currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    self.trackingLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     self.mapProp = {
-      center: currentLocation, //find center of collection
+      center: self.trackingLocation, //find center of collection
       zoom:15,
       mapTypeId:google.maps.MapTypeId.ROADMAP
    };
@@ -107,7 +108,7 @@ var DropsView = function () {
    self.currentPositionMarker = new google.maps.Marker({
       map: self.map,
       icon: "https://robohash.org/jake.bmp?size=40x40",
-      position: currentLocation,
+      position: self.trackingLocation,
       animation: google.maps.Animation.DROP,
       title: "you are here"
     });
@@ -128,14 +129,16 @@ DropsView.prototype.showDrops = function (drops) {
 
 DropsView.prototype.centerMap = function(){
   var self = this;
-    self.map.panTo(new google.maps.LatLng(40,-47);//position.coords.latitude, position.coords.longitude), self.map.getZoom());//second aurg?S
-  navigator.geolocation.getCurrentPosition(function(position){
-    debugger;
-  });
+  debugger;
+  new google.maps.LatLng(self.trackingLocation);
+  // navigator.geolocation.getCurrentPosition(function(position){
+  //   self.map.panTo(new google.maps.LatLng(position.coords.latitude, position.coords.longitude), self.map.getZoom());//second aurg?S
+  // });
 };
 DropsView.prototype.watchCurrentPosition = function() {
   var self = this;
   var positionTimer = navigator.geolocation.watchPosition(function (position) {
+      self.trackingLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       console.log(position.coords.latitude, position.coords.longitude)
       setMarkerPosition(self.currentPositionMarker,position);
     });
