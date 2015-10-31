@@ -6,7 +6,6 @@ class CreateDrops < ActiveRecord::Migration
       t.string :photo
       t.integer :snaps_count
       t.integer :comments_count
-      t.st_point :lonlat, geographic: true
 
       t.timestamps null: false
     end
