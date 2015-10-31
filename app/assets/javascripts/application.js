@@ -13,4 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require handlebars.js
+//= require helpers
+//= require app
+//= require drop
+//= require map
+//= require controller
 //= require_tree .

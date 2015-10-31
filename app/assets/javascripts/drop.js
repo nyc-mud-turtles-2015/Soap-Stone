@@ -5,10 +5,17 @@ SoapStone.Drop = function(args) {
 };
 
 SoapStone.Drop.prototype.setAttributes = function(args) {
+  this.id = args.id;
   if (args.coords) {
     this.coords = {};
     this.coords.longitude = args.coords.longitude;
     this.coords.latitude = args.coords.latitude;
+  }
+  if (args.lonlat) {
+    var points = args.lonlat.replace(/[()]/g, '').split(' ');
+    this.coords = {};
+    this.coords.latitude = Number(points[2]);
+    this.coords.longitude = Number(points[1]);
   }
   this.text = args.text;
   this.photo = args.photo;
@@ -27,6 +34,9 @@ SoapStone.Drop.prototype.setAttributes = function(args) {
       return new SoapStone.Comment(data);
     });
   }
+  this.marker = new google.maps.Marker({
+    position: new google.maps.LatLng(this.coords.latitude, this.coords.longitude),
+  });
 };
 
 SoapStone.Drop.prototype.save = function() {
@@ -34,7 +44,9 @@ SoapStone.Drop.prototype.save = function() {
   data.drop = {};
   for (var key in this) {
     if (this.hasOwnProperty(key)) {
-      data.drop[key] = this[key];
+      if (key !== 'marker') {
+        data.drop[key] = this[key];
+      }
     }
   }
   return $.ajax({
@@ -76,7 +88,7 @@ SoapStone.Comment = function(args) {
 SoapStone.DropView = function() {
   var showTemplateSource   = $("[data-template='show-drop']").html();
   this.showTemplate = Handlebars.compile(showTemplateSource);
-  this.setUpEventHandlers()
+  this.setUpEventHandlers();
 };
 
 SoapStone.DropView.prototype.getLocation = function() {
@@ -101,16 +113,16 @@ SoapStone.DropView.prototype.setUpEventHandlers = function(){
     var photo = $(this).find("[name='photo']").val();
     $("#form-container").hide();
     SoapStone.app.createDrop({text: text, photo: photo});
-  })
+  });
   
   $("[data-button='new-button']").on('click', function(event){
     $("[data-view='new-form']").show();
     $("[data-button='close-form']").on('click', function(event){
       event.preventDefault();
       $("[data-view='new-form']").hide();
-    })
-  })
-}
+    });
+  });
+};
 
 SoapStone.DropView.prototype.showDrop = function(drop) {
   var self = this;
@@ -126,49 +138,3 @@ SoapStone.DropView.prototype.closeDrop  = function() {
   $("[data-view='map']").show();
 };
 
-SoapStone.Controller = function() {
-  this.view = new SoapStone.DropView();
-  this.view.controller = this;
-};
-
-SoapStone.Controller.prototype.createDrop = function(dropParams) {
-  this.view.getLocation().then(function(location) {
-    var dropData = {
-      text: dropParams.text,
-      photo: dropParams.photo,
-      coords: location
-    };
-    var drop = new SoapStone.Drop(dropData);
-    drop.save()
-    .then(function(response) {console.log(response);})
-    .fail(function(response) {console.log(response);});
-  });
-};
-
-SoapStone.Controller.prototype.showDrop = function(id) {
-  var self = this;
-  drop = new SoapStone.Drop();
-  drop.find(id).then(function(drop) {
-    self.view.showDrop(drop);
-  });
-};
-
-
-//this needs to go in the event handler for form posting
-$( document ).ready(function() {
-  SoapStone.app = new SoapStone.Controller();
-});
-
-
-Handlebars.registerHelper('pluralize', function(count, singular, plural) {
-  console.log(arguments);
-  if (count === 1) {
-    return String(count) + " " + singular;
-  } else {
-    if (typeof plural === "string") {
-      return String(count) + " " + plural;
-    } else {
-      return String(count) + " " + singular + "s";
-    }
-  }
-});

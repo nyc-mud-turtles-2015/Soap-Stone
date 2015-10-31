@@ -1,4 +1,3 @@
-
 class DropsController < ApplicationController
 
   def new
@@ -12,7 +11,7 @@ class DropsController < ApplicationController
 
   def show
     drop = Drop.find(params[:id])
-    drop.current_user = User.first
+    drop.current_user = current_user
     render json: drop.show_json
   end
 

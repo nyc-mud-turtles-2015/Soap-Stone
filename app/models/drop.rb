@@ -23,14 +23,14 @@ class Drop < ActiveRecord::Base
     end
   end
 
-  def snapped_by?(user=nil)
+  def snapped_by?(user = nil)
     user ||= current_user
     snaps.pluck(:user_id).include?(user.id)
   end
 
   def show_json
     to_json(methods: :snapped_by?,
-      only: [:photo, :text, :created_at, :snaps_count, :comments_count],
+      only: [:photo, :text, :created_at, :lonlat, :snaps_count, :comments_count],
       include: { 
         user:     { only: [:username, :avatar] }, 
         comments: { only: [:text, :created_at],
