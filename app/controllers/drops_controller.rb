@@ -10,6 +10,11 @@ class DropsController < ApplicationController
     render json: drops
   end
 
+  def show
+    drop = Drop.find(params[:id])
+    render json: drop.show_json
+  end
+
   def create
     drop = current_user.drops.new(drop_params)
     if drop.save

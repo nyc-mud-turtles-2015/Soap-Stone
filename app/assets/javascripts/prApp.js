@@ -42,6 +42,7 @@ function showError(error) {
 var App = {};
 
 var Drop = function (drop) {
+  this.id = drop.id;
 	this.user = drop.user_id;
 	this.text = drop.text;
 	this.latlon = convertToLatLon(drop.lonlat); //needs conversion
@@ -108,7 +109,8 @@ DropsView.prototype.showDrops = function (drops) {
  		drop.marker.setMap(self.map);
  		// debugger;
  		drop.marker.addListener('click', function() {
-    	drop.infowindow.open(self.map, drop.marker);
+    	//drop.infowindow.open(self.map, drop.marker);
+      SoapStone.app.showDrop(drop.id);
     });
 	});
 };

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root 'maps#index'
 
   resources :maps, only: [:index]
-  resources :drops, only: [:new, :index, :create]
+  resources :drops, only: [:new, :index, :show, :create]
 
   get "/login", :to => 'sessions#new', :as => 'login'
   get "/auth/auth0/callback" => "auth0#callback"
