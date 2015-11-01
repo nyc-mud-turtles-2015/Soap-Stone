@@ -3,12 +3,14 @@
 <div>
   <img src="<%= @user.avatar %>">
 </div>
-<div data-role="follow">
-  <button data-role="new-follow" value="<%= @user %>">follow</button>
+<% if current_user == @user %>
+<div id="edit">
+  <button data-role="edit-profile" value="<%= @user %>">edit profile</button>
 </div>
-<div data-role="unfollow" class="hidden">
-  <button data-role="unfollow">unfollow</button>
-</div>
+<% else %>
+  <%= render 'follow_form' %>
+<% end %>
+
 <h5><%= pluralize(@user.followers.count, 'follower') %></h5>
 <div class="followers">
   <% @user.followers.each do |follower| %>
