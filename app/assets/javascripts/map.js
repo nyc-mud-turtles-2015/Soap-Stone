@@ -7,14 +7,15 @@ SoapStone.Map = function () {
 };
 
 SoapStone.Map.prototype.addClickableDrop = function (drop) {
-  this.clickableDrops.push(new SoapStone.Drop(drop));
-  this.clickableDrops[this.clickableDrops.length-1].marker.setMap(SoapStone.app.mapView.map)
+  var newDrop = new SoapStone.Drop(drop)
+  newDrop.marker.setMap(SoapStone.app.mapView.map)
+  this.clickableDrops.push(newDrop);
 };
 
 SoapStone.Map.prototype.addOutsideDrop = function (drop) {
-	this.outsideDrops.push(new SoapStone.Drop(drop));
-  this.outsideDrops[this.outsideDrops.length-1].marker.setMap(SoapStone.app.mapView.map)
-
+  var newDrop = new SoapStone.Drop(drop)
+  newDrop.marker.setMap(SoapStone.app.mapView.map)
+  this.outsideDrops.push(newDrop);
 };
 
 SoapStone.Map.prototype.clearMarkers = function(){
