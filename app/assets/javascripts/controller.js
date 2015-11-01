@@ -6,7 +6,7 @@ SoapStone.Controller = function() {
 
   this.mapView.watchCurrentPosition();
   this.map = new SoapStone.Map();
-  this.loadDrops();
+  this.initDrops();
 };
 
 SoapStone.Controller.prototype.createDrop = function() {
@@ -28,11 +28,25 @@ SoapStone.Controller.prototype.showDrop = function(id) {
   });
 };
 
-SoapStone.Controller.prototype.loadDrops = function() {
+SoapStone.Controller.prototype.initDrops = function() {
   var self = this;
+  console.log("in the controller load drops");
+  console.log("XXXXX",this.mapView);
   return this.mapView.init().then(function () {
+    console.log("in the mapView init")
     self.map.loadDrops().then(function(){
       self.mapView.showDrops(self.map.clickableDrops, self.map.outsideDrops);
     });
   });
 };
+
+SoapStone.Controller.prototype.loadDrops = function(filter) {
+  var self = this;
+  console.log("in the controller load drops");
+  console.log("XXXXX",this.mapView);
+  console.log("in the mapView init")
+  self.map.loadDrops(filter).then(function(){
+    self.mapView.showDrops(self.map.clickableDrops, self.map.outsideDrops);
+  });
+};
+
