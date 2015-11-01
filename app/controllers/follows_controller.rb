@@ -1,12 +1,15 @@
 class FollowsController < ApplicationController
 
   def create
-    current_user.followees << User.find(params[:id])
+    user = User.find(params[:followee_id])
+    current_user.follow(user)
+    redirect_to user
   end
 
   def destroy
-    user = User.find(params[:id])
-    user.followers.delete(current_user) 
+    user = Follow.find(params[:id]).followee
+    current_user.unfollow(user)
+    redirect_to user
   end
   
 end
