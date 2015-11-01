@@ -148,6 +148,7 @@ SoapStone.DropView.prototype.showDrop = function (drop) {
   var self = this;
   $('body').append(this.showTemplate(drop));
   $("[data-view='map']").hide();
+  $("[data-menu='map']").hide();
   $("[data-button='close-drop']").on('click', function (event) {
     self.closeDrop();
   });
@@ -160,5 +161,7 @@ SoapStone.DropView.prototype.showDrop = function (drop) {
 
 SoapStone.DropView.prototype.closeDrop  = function () {
   $("[data-view='drop']").remove();
+  $("[data-menu='drop']").remove();
   $("[data-view='map']").show();
+  $("[data-menu='map']").show();
 };

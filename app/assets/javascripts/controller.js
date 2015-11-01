@@ -18,8 +18,8 @@ SoapStone.Controller.prototype.createDrop = function(form) {
   };
   var drop = new SoapStone.Drop(dropData);
   var formData = new FormData($(form)[0]);
-  dropView.showUploadIndicator();
-  drop.save(form)
+  this.dropView.showUploadIndicator();
+  drop.save(formData)
   .then(self.dropView.showUploadSuccess)
   .fail(self.dropView.showUploadFailed);
 };

@@ -6,22 +6,26 @@ SoapStone.Map = function () {
   });
 };
 
-SoapStone.Map.prototype.addClickableDrop = function (drop) {
-  var newDrop = new SoapStone.Drop(drop);
-  newDrop.marker = new google.maps.Marker({
-    position: new google.maps.LatLng(drop.lat, drop.lon),
-  });
-  newDrop.marker.setMap(SoapStone.app.mapView.map);
-  this.clickableDrops.push(newDrop);
+SoapStone.Map.prototype.addClickableDrop = function (dropData) {
+  var drop = new SoapStone.Drop(dropData);
+  if (drop.lat && drop.lon) {
+    drop.marker = new google.maps.Marker({
+      position: new google.maps.LatLng(drop.lat, drop.lon),
+    });
+    drop.marker.setMap(SoapStone.app.mapView.map);
+    this.clickableDrops.push(drop);
+  }
 };
 
-SoapStone.Map.prototype.addOutsideDrop = function (drop) {
-  var newDrop = new SoapStone.Drop(drop);
-  newDrop.marker = new google.maps.Marker({
+SoapStone.Map.prototype.addOutsideDrop = function (dropData) {
+  var drop = new SoapStone.Drop(dropData);
+  if (drop.lat && drop.lon) {
+  drop.marker = new google.maps.Marker({
     position: new google.maps.LatLng(drop.lat, drop.lon),
   });
-  newDrop.marker.setMap(SoapStone.app.mapView.map);
-  this.outsideDrops.push(newDrop);
+  drop.marker.setMap(SoapStone.app.mapView.map);
+  this.outsideDrops.push(drop);
+  }
 };
 
 SoapStone.Map.prototype.clearMarkers = function(){
@@ -147,7 +151,7 @@ SoapStone.MapView.prototype.centerMap = function(){
 SoapStone.MapView.prototype.watchCurrentPosition = function() {
   var self = this;
   var positionTimer = navigator.geolocation.watchPosition(function (position) {
-    console.log("in the watchCurrentPosition function", self.trackingLocation.lat(), self.trackingLocation.lng());
+    //console.log("in the watchCurrentPosition function", self.trackingLocation.lat(), self.trackingLocation.lng());
       self.trackingLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       setMarkerPosition(self.currentPositionMarker,position);
       setCirclePosition(self.circle, position)
