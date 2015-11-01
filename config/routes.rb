@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get "/drops/followees" => 'drops#followees'
   resources :drops, only: [:new, :index, :show, :create]
   resources :users, only: [:show]
+  resources :follows, only: [:create, :destroy]
 
   get "/login", :to => 'sessions#new', :as => 'login'
   get "/auth/auth0/callback" => "auth0#callback"
