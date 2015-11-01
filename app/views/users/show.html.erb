@@ -23,9 +23,13 @@
   <% end %>
 </div>
 
-<h5><%= pluralize(@user.drops.count, 'drops') %></h5>
+<h5><%= pluralize(@user.drops.count, 'drop') %></h5>
+<% if current_user == @user %>
 <div class="drops">
   <% @user.drops.each do |drop| %>
-    <%= render partial: 'drop', locals: { drop: drop } %>
+  	<%=  link_to image_tag(drop.photo), drop_path(drop) %>
   <% end %>
 </div>
+<% end %>
+
+ <%= @user %>,  <%= current_user.username %>
