@@ -42,7 +42,6 @@ SoapStone.Map.prototype.loadDrops= function (filter) {
     data: { lat: myPosition.lat(), lon : myPosition.lng()}
   })
 	.then(function(response) {
-    console.log("in the then in map.js")
     var clickableArray = response[0];
     var outsideArray = response[1];
     clickableArray.forEach(function(drop) {

@@ -102,12 +102,10 @@ SoapStone.DropView.prototype.setUpEventHandlers = function(){
   });
 
   $("[data-button='firend-filter']").on('click', function(e){
-    console.log("in the filter handle")
     SoapStone.app.loadDrops("/followees")
   });
 
   $("[data-button='public-filter']").on('click', function(e){
-    console.log("in the public handle")
     SoapStone.app.loadDrops()
   });
   
