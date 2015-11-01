@@ -92,7 +92,7 @@ SoapStone.MapView.prototype.init = function () {
             fillOpacity: 0.25,
             map: self.map,
             center: self.trackingLocation,
-            radius: 60
+            radius: 321.869//meters
           });
           resolve(self);
         });
