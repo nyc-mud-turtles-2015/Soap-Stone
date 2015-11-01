@@ -5,8 +5,17 @@ class DropsController < ApplicationController
   end
 
   def index
-    drops = Drop.order("created_at DESC").limit(50).to_json
-    render json: drops
+    # drops = Drop.order("created_at DESC")#.limit(50)#.to_json
+    clickable = Drop.within(0.2, :origin => [40.7048872, -74.0123736])#.to_json
+    outside = Drop.beyond(0.2, :origin => [40.7048872, -74.0123736])
+    total = []
+    total << clickable
+    total << outside
+    total.to_json
+
+    # binding.pry
+    # render json: drops
+    render json: total
   end
 
   def show

@@ -1,12 +1,17 @@
 SoapStone.Map = function () {
-	this.drops = [];
+  this.outsideDrops = [];
+	this.clickableDrops = [];
   $('#set-center').on('click',function(e){
     SoapStone.app.mapView.centerMap();
   });
 };
 
-SoapStone.Map.prototype.addDrop = function (drop) {
-	this.drops.push(new SoapStone.Drop(drop));
+SoapStone.Map.prototype.addClickableDrop = function (drop) {
+  this.clickableDrops.push(new SoapStone.Drop(drop));
+};
+
+SoapStone.Map.prototype.addOutsideDrop = function (drop) {
+	this.outsideDrops.push(new SoapStone.Drop(drop));
 };
 
 SoapStone.Map.prototype.loadDrops= function () {
@@ -14,8 +19,17 @@ SoapStone.Map.prototype.loadDrops= function () {
 	var url = '/drops';
 	return $.get(url)
 	.then(function(response) {
-		response.forEach(function(drop) {
-			self.addDrop(drop);
+    // debugger;
+    var clickableArray = response[0];
+    var outsideArray = response[1];
+    // response.forEach(function(drop) {
+    //   self.addDrop(drop);
+    // });
+    clickableArray.forEach(function(drop) {
+      self.addClickableDrop(drop);
+    });
+    outsideArray.forEach(function(drop) {
+			self.addOutsideDrop(drop);
 		});
 	});
 };
@@ -86,10 +100,25 @@ SoapStone.MapView.prototype.init = function () {
   });
 };
 
-SoapStone.MapView.prototype.showDrops = function (drops) {
+SoapStone.MapView.prototype.showDrops = function (clickable, outside) {
 	var self = this;
   console.log(self);
-	drops.drops.forEach(function(drop){
+  debugger;
+  // drops.drops.forEach(function(drop){
+  //   drop.marker.setMap(self.map);
+  //   drop.marker.addListener('click', function() {
+  //     //drop.infowindow.open(self.map, drop.marker);
+  //     SoapStone.app.showDrop(drop.id);
+  //   });
+  // }); 
+  clickable.forEach(function(drop){
+    drop.marker.setMap(self.map);
+    drop.marker.addListener('click', function() {
+      //drop.infowindow.open(self.map, drop.marker);
+      SoapStone.app.showDrop(drop.id);
+    });
+  });
+  outside.forEach(function(drop){
  		drop.marker.setMap(self.map);
  		drop.marker.addListener('click', function() {
     	//drop.infowindow.open(self.map, drop.marker);
