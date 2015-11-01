@@ -100,6 +100,14 @@ SoapStone.DropView.prototype.setUpEventHandlers = function(){
     $("#form-container").hide();
     SoapStone.app.createDrop();
   });
+
+  $("[data-button='friend-filter']").on('click', function(e){
+    SoapStone.app.loadDrops("/followees")
+  });
+
+  $("[data-button='public-filter']").on('click', function(e){
+    SoapStone.app.loadDrops()
+  });
   
   $("[data-button='new-button']").on('click', function(event){
     $("[data-view='new-form']").show();

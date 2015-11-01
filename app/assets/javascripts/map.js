@@ -7,18 +7,36 @@ SoapStone.Map = function () {
 };
 
 SoapStone.Map.prototype.addClickableDrop = function (drop) {
-  this.clickableDrops.push(new SoapStone.Drop(drop));
+  var newDrop = new SoapStone.Drop(drop)
+  newDrop.marker.setMap(SoapStone.app.mapView.map)
+  this.clickableDrops.push(newDrop);
 };
 
 SoapStone.Map.prototype.addOutsideDrop = function (drop) {
-	this.outsideDrops.push(new SoapStone.Drop(drop));
+  var newDrop = new SoapStone.Drop(drop)
+  newDrop.marker.setMap(SoapStone.app.mapView.map)
+  this.outsideDrops.push(newDrop);
 };
 
-SoapStone.Map.prototype.loadDrops= function () {
+SoapStone.Map.prototype.clearMarkers = function(){
+  this.clickableDrops.forEach(function(drop){
+    drop.marker.setMap(null)
+  }); 
+  this.outsideDrops.forEach(function(drop){
+    drop.marker.setMap(null)
+  });
+  this.clickableDrops = [];
+  this.outsideDrops = [];
+}
+
+SoapStone.Map.prototype.loadDrops= function (filter) {
+  this.clearMarkers();
 	var self = this;
 	var myUrl = '/drops';
+  if (filter){
+    myUrl+=filter
+  }
   var myPosition = SoapStone.app.mapView.trackingLocation// is this ok to do???????
-  // debugger;
 	return $.ajax({
     url: myUrl,
     method : "get",
@@ -104,7 +122,6 @@ SoapStone.MapView.prototype.init = function () {
 
 SoapStone.MapView.prototype.showDrops = function (clickable, outside) {
 	var self = this;
-  console.log(self);
   clickable.forEach(function(drop){
     drop.marker.setMap(self.map);
     drop.marker.addListener('click', function() {

@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'maps#index'
 
   resources :maps, only: [:index]
+  get "/drops/followees" => 'drops#followees'
   resources :drops, only: [:new, :index, :show, :create]
 
   get "/login", :to => 'sessions#new', :as => 'login'
