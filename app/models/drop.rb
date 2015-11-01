@@ -5,7 +5,7 @@ class Drop < ActiveRecord::Base
   validates :user, presence: true
   validate :has_some_content
   has_attached_file :photo, styles: { medium: "640x640>", thumb: "292x292>" }, default_url: "/images/:style/missing.png",
-                    :storage => :s3, 
+                    :storage => :s3,
                     :s3_credentials => Proc.new{|a| a.instance.s3_credentials }
   validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
   acts_as_mappable :default_units => :miles,
@@ -30,13 +30,13 @@ class Drop < ActiveRecord::Base
 
   def show_json
     to_json(methods: :snapped_by?,
-      only: [:photo, :text, :created_at, :lon, :lat, :snaps_count, :comments_count],
-      include: { 
-        user:     { only: [:username, :avatar] }, 
+      only: [:id, :photo, :text, :created_at, :lon, :lat, :snaps_count, :comments_count],
+      include: {
+        user:     { only: [:username, :avatar] },
         comments: { only: [:text, :created_at],
           include: { user: { only: [:username, :avatar] } }
         } }
-        ) 
+        )
   end
 
   def s3_credentials
