@@ -44,3 +44,9 @@ SoapStone.Controller.prototype.loadDrops = function(filter) {
   });
 };
 
+SoapStone.Controller.prototype.addSnap = function(drop){
+  var self = this;
+  drop.addSnap().then(function(){
+    self.dropView.updateSnapButton(drop)
+  });
+}

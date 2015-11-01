@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="comment-list">
-        <h3 class="pure-u-1">{{pluralize comments_count "comment"}}</h3>    
+        <h3 class="pure-u-1">{{pluralize comments_count "comment"}}</h3>
         {{#each comments}}
           <div class="comment-item pure-g pure-u-1">
             <div class="pure-u">
@@ -30,10 +30,18 @@
         {{/each}}
       </div>
       <div class="menu">
-        <button class="pure-button">{{pluralize snaps_count "Snap"}}<button>
+        {{> snap-button}}
         <input type="text">
-        <button class="pure-button">Comment<button>
+        <button class="pure-button">Comment</button>
       </div>
     </article>
   </div>
+</script>
+
+<script data-partial="snap-button-partial" type="text/x-handlebars-template">
+  {{#if snapped_by_you}}
+    <button data-button="snap-button" disabled class="pure-button pure-button-disabled">{{pluralize snaps_count "Snap"}}</button>
+  {{else}}
+    <button data-button="snap-button" class="pure-button">{{pluralize snaps_count "Snap"}}</button>
+  {{/if}}
 </script>

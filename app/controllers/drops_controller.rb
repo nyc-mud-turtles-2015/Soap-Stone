@@ -36,7 +36,7 @@ class DropsController < ApplicationController
     end
   end
 
-  def drop_params 
+  def drop_params
     params.require(:drop).permit(:photo, :text, :lon, :lat)
   end
 end
