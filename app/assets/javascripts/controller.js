@@ -9,10 +9,8 @@ SoapStone.Controller = function() {
   this.loadDrops();
 };
 
-SoapStone.Controller.prototype.createDrop = function(dropParams) {
+SoapStone.Controller.prototype.createDrop = function() {
   var dropData = {
-    text: dropParams.text,
-    photo: dropParams.photo,
     lat: this.mapView.trackingLocation.lat(),
     lon: this.mapView.trackingLocation.lng()
   };

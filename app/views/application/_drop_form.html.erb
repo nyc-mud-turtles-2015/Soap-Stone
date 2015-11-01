@@ -2,12 +2,10 @@
   <button data-button="close-form" class="close button-large pure-button">X</button>
   <div>
     <h2>Add a drop</h2>
-    <%= label_tag :text %>
-    <%= text_field_tag :text, "", :"placeholder" => "Comment" %>
+    <%= text_field_tag :"drop[text]", "", :"placeholder" => "Comment" %>
   </div>
   <div>
-    <%= label_tag :photo %>
-    <%= file_field_tag :photo %>
+    <%= file_field_tag :"drop[photo]" %>
   </div>
   <%= submit_tag %>
 <% end %>
