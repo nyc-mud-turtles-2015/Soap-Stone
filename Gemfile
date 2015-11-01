@@ -38,6 +38,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
   gem 'omniauth-auth0'
   gem 'faker'
   gem "paperclip", "~> 4.3"
+  gem 'rmagick'
   gem 'aws-sdk-v1'
 
 group :test do 
