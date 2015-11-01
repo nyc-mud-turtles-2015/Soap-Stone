@@ -1,0 +1,32 @@
+<div data-view="user">
+  <h4><%= @user.username %></h4>
+
+  <div>
+    <img src="<%= @user.avatar %>">
+  </div>
+  <% if current_user == @user %>
+  <div id="edit">
+    <button data-role="edit-profile" value="<%= @user %>">edit profile</button>
+  </div>
+  <% else %>
+    <%= render 'follow_form' %>
+  <% end %>
+
+  <h5><%= pluralize(@user.followers.count, 'follower') %></h5>
+  <div data-view="user" class="followers">
+  </div>
+  <%= render partial: "handlebars_show_follower" %>
+  
+  <h5><%= @user.followees.count %> following</h5>
+  <div class="followees">
+    <% @user.followees.each do |followee| %>
+      <%= render partial: 'user', locals: { user: followee } %>
+    <% end %>
+  </div>
+
+  <h5><%= pluralize(@user.drops.count, 'drop') %></h5>
+  <% if current_user == @user %>
+  <div class="drops">
+  </div>
+  <% end %>
+</div>

@@ -1,0 +1,21 @@
+<script data-template='show-user' type="text/x-handlebars-template">
+  <div data-view="user" class="view user">
+    <article class="drop pure-g">
+      <div class="followers-list">
+        <h3 class="pure-u-1">{{pluralize followers_count "follower"}}</h3>    
+        {{#each followers}}
+          <div class="follower-item pure-g pure-u-1">
+            <div class="pure-u">
+              <a href="/users/{{follower.id}}">
+                <img class="follower-avatar" src="{{follower.avatar}}">
+              </a>
+            </div>
+            <div class="pure-u-3-4">
+              <h3 class="follower-username">{{follower.username}}</h3>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    </article>
+  </div>
+</script>

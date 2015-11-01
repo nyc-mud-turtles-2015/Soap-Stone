@@ -9,4 +9,16 @@ class User < ActiveRecord::Base
   validates :username, :avatar, :uid, presence: true
   validates :uid, uniqueness: true
 
+  def follow(diff_user)
+    self.followee_follows.create(followee: diff_user)
+  end
+
+  def unfollow(diff_user)
+    self.followee_follows.find_by(followee: diff_user).destroy
+  end
+
+  def following?(diff_user)
+    self.followees.include?(diff_user)
+  end
+
 end
