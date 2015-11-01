@@ -122,7 +122,6 @@ SoapStone.MapView.prototype.init = function () {
 
 SoapStone.MapView.prototype.showDrops = function (clickable, outside) {
 	var self = this;
-  console.log(self);
   clickable.forEach(function(drop){
     drop.marker.setMap(self.map);
     drop.marker.addListener('click', function() {
