@@ -13,7 +13,7 @@ class DropsController < ApplicationController
     total << outside
     total.to_json
 
-    # binding.pry
+    binding.pry
     # render json: drops
     render json: total
   end
