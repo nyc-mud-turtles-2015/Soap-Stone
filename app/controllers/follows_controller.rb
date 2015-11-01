@@ -12,4 +12,11 @@ class FollowsController < ApplicationController
     redirect_to user
   end
   
+  def index
+    user = User.find(params[:user_id])
+    followers = user.followers
+    followees = user.followees
+    render json: {followers: followers, followees: followees}
+  end
+
 end
