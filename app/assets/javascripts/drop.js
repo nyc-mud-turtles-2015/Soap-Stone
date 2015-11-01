@@ -81,11 +81,12 @@ SoapStone.Drop.prototype.find = function(id) {
 
 SoapStone.Drop.prototype.addSnap = function() {
   var self = this;
-  $.ajax({
+  return $.ajax({
     type:"POST",
     url: "/drops/" + self.id + "/snaps"
-  }).done(function(response){
-    console.log(response);
+  }).then(function(){
+    self.snaps_count +=1
+    self.snapped_by_you = true;
   })
 }
 
@@ -104,6 +105,8 @@ SoapStone.Comment = function(args) {
 SoapStone.DropView = function() {
   var showTemplateSource   = $("[data-template='show-drop']").html();
   this.showTemplate = Handlebars.compile(showTemplateSource);
+  Handlebars.registerPartial("snap-button", $("[data-partial='snap-button-partial']").html());
+  this.snapButtonTemplate = Handlebars.compile($("[data-partial='snap-button-partial']").html());
   this.setUpEventHandlers();
 };
 
@@ -131,6 +134,10 @@ SoapStone.DropView.prototype.setUpEventHandlers = function(){
   });
 };
 
+SoapStone.DropView.prototype.updateSnapButton = function(drop){
+  $("[data-button='snap-button']").replaceWith(this.snapButtonTemplate(drop));
+};
+
 SoapStone.DropView.prototype.showDrop = function(drop) {
   var self = this;
   $('body').append(this.showTemplate(drop));
@@ -141,7 +148,7 @@ SoapStone.DropView.prototype.showDrop = function(drop) {
 
   $("[data-button='snap-button']").on('click', function(event){
     event.preventDefault();
-    drop.addSnap();
+    self.controller.addSnap(drop);
   });
 };
 
