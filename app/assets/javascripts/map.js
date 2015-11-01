@@ -55,7 +55,7 @@ SoapStone.MapView.prototype.init = function () {
           self.trackingLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
           self.mapProp = {
             center: self.trackingLocation, //find center of collection
-            zoom:15,
+            zoom:17,
             streetViewControl: false,
             styles: mapStyles,
             mapTypeId:google.maps.MapTypeId.ROADMAP
@@ -67,6 +67,16 @@ SoapStone.MapView.prototype.init = function () {
             position: self.trackingLocation,
             animation: google.maps.Animation.DROP,
             title: "you are here"
+          });
+          self.circle = new google.maps.Circle({
+            strokeColor: '#0000FF',
+            strokeOpacity: 0.25,
+            strokeWeight: 2,
+            fillColor: '#00FFFF',
+            fillOpacity: 0.25,
+            map: self.map,
+            center: self.trackingLocation,
+            radius: 60
           });
           resolve(self);
         });
