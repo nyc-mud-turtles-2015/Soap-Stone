@@ -8,17 +8,28 @@ SoapStone.Map = function () {
 
 SoapStone.Map.prototype.addClickableDrop = function (drop) {
   this.clickableDrops.push(new SoapStone.Drop(drop));
+  this.clickableDrops[this.clickableDrops.length-1].marker.setMap(SoapStone.app.mapView.map)
 };
 
 SoapStone.Map.prototype.addOutsideDrop = function (drop) {
 	this.outsideDrops.push(new SoapStone.Drop(drop));
+  this.outsideDrops[this.outsideDrops.length-1].marker.setMap(SoapStone.app.mapView.map)
+
 };
 
-SoapStone.Map.prototype.loadDrops= function (filter) {
-  debugger;
-  this.outsideDrops = [];
+SoapStone.Map.prototype.clearMarkers = function(){
+  this.clickableDrops.forEach(function(drop){
+    drop.marker.setMap(null)
+  }); 
+  this.outsideDrops.forEach(function(drop){
+    drop.marker.setMap(null)
+  });
   this.clickableDrops = [];
-  debugger;
+  this.outsideDrops = [];
+}
+
+SoapStone.Map.prototype.loadDrops= function (filter) {
+  this.clearMarkers();
 	var self = this;
 	var myUrl = '/drops';
   if (filter){

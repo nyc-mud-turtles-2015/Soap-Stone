@@ -17,7 +17,6 @@ class DropsController < ApplicationController
     clickable = Drop.where(user_id: target_ids).within(0.2, :origin => [params[:lat].to_f, params[:lon].to_f]).order(created_at: :desc).limit(50)
     outside = Drop.where(user_id: target_ids).beyond(0.2, :origin => [params[:lat].to_f, params[:lon].to_f]).order(created_at: :desc)
     total = [clickable,outside]
-    binding.pry
     total.to_json
     render json: total
   end
