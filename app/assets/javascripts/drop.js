@@ -45,15 +45,8 @@ SoapStone.Drop.prototype.setAttributes = function(args) {
 SoapStone.Drop.prototype.save = function() {
   var data = {};
   data.drop = {};
+  // model should not be reaching into view. fix this later
   formData = new FormData($("[data-role='drop-form']")[0]);
-  // for (var key in this) {
-  //   if (this.hasOwnProperty(key)) {
-  //     if (key !== 'marker' && key !== 'photo') {
-  //       formData.append(key, this[key]);
-  //       data.drop[key] = this[key];
-  //     }
-  //   }
-  // }
   formData.append('drop[lat]', this.lat);
   formData.append('drop[lon]', this.lon);
   return $.ajax({
@@ -104,10 +97,8 @@ SoapStone.DropView = function() {
 SoapStone.DropView.prototype.setUpEventHandlers = function(){
   $("[data-role='drop-form']").on('submit', function(event){
     event.preventDefault();
-    // var text = $(this).find("[name='text']").val();
-    // var photo = $(this).find("[name='photo']").val();
     $("#form-container").hide();
-    SoapStone.app.createDrop(this);
+    SoapStone.app.createDrop();
   });
   
   $("[data-button='new-button']").on('click', function(event){
