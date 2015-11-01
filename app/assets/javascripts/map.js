@@ -144,11 +144,19 @@ SoapStone.MapView.prototype.watchCurrentPosition = function() {
     console.log("in the watchCurrentPosition function", self.trackingLocation.lat(), self.trackingLocation.lng() )
       self.trackingLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       setMarkerPosition(self.currentPositionMarker,position);
+      setCirclePosition(self.circle, position)
     });
 };
 
 function setMarkerPosition(marker, position) {
   marker.setPosition(new google.maps.LatLng(
+    position.coords.latitude,
+    position.coords.longitude)
+  );
+}
+
+function setCirclePosition(circle, position) {
+  circle.setCenter(new google.maps.LatLng(
     position.coords.latitude,
     position.coords.longitude)
   );
