@@ -16,15 +16,17 @@ SoapStone.Map.prototype.addOutsideDrop = function (drop) {
 
 SoapStone.Map.prototype.loadDrops= function () {
 	var self = this;
-	var url = '/drops';
-	return $.get(url)
+	var myUrl = '/drops';
+  var myPosition = SoapStone.app.mapView.trackingLocation// is this ok to do???????
+  // debugger;
+	return $.ajax({
+    url: myUrl,
+    method : "get",
+    data: { lat: myPosition.lat(), lon : myPosition.lng()}
+  })
 	.then(function(response) {
-    // debugger;
     var clickableArray = response[0];
     var outsideArray = response[1];
-    // response.forEach(function(drop) {
-    //   self.addDrop(drop);
-    // });
     clickableArray.forEach(function(drop) {
       self.addClickableDrop(drop);
     });
