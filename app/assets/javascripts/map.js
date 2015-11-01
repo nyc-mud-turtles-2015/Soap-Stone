@@ -1,21 +1,37 @@
 SoapStone.Map = function () {
-	this.drops = [];
+  this.outsideDrops = [];
+	this.clickableDrops = [];
   $('#set-center').on('click',function(e){
     SoapStone.app.mapView.centerMap();
   });
 };
 
-SoapStone.Map.prototype.addDrop = function (drop) {
-	this.drops.push(new SoapStone.Drop(drop));
+SoapStone.Map.prototype.addClickableDrop = function (drop) {
+  this.clickableDrops.push(new SoapStone.Drop(drop));
+};
+
+SoapStone.Map.prototype.addOutsideDrop = function (drop) {
+	this.outsideDrops.push(new SoapStone.Drop(drop));
 };
 
 SoapStone.Map.prototype.loadDrops= function () {
 	var self = this;
-	var url = '/drops';
-	return $.get(url)
+	var myUrl = '/drops';
+  var myPosition = SoapStone.app.mapView.trackingLocation// is this ok to do???????
+  // debugger;
+	return $.ajax({
+    url: myUrl,
+    method : "get",
+    data: { lat: myPosition.lat(), lon : myPosition.lng()}
+  })
 	.then(function(response) {
-		response.forEach(function(drop) {
-			self.addDrop(drop);
+    var clickableArray = response[0];
+    var outsideArray = response[1];
+    clickableArray.forEach(function(drop) {
+      self.addClickableDrop(drop);
+    });
+    outsideArray.forEach(function(drop) {
+			self.addOutsideDrop(drop);
 		});
 	});
 };
@@ -76,7 +92,7 @@ SoapStone.MapView.prototype.init = function () {
             fillOpacity: 0.25,
             map: self.map,
             center: self.trackingLocation,
-            radius: 60
+            radius: 321.869//meters
           });
           resolve(self);
         });
@@ -86,15 +102,17 @@ SoapStone.MapView.prototype.init = function () {
   });
 };
 
-SoapStone.MapView.prototype.showDrops = function (drops) {
+SoapStone.MapView.prototype.showDrops = function (clickable, outside) {
 	var self = this;
   console.log(self);
-	drops.drops.forEach(function(drop){
- 		drop.marker.setMap(self.map);
- 		drop.marker.addListener('click', function() {
-    	//drop.infowindow.open(self.map, drop.marker);
+  clickable.forEach(function(drop){
+    drop.marker.setMap(self.map);
+    drop.marker.addListener('click', function() {
       SoapStone.app.showDrop(drop.id);
     });
+  });
+  outside.forEach(function(drop){
+ 		drop.marker.setMap(self.map);
 	});
 };
 
