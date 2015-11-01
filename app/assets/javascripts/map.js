@@ -103,27 +103,14 @@ SoapStone.MapView.prototype.init = function () {
 SoapStone.MapView.prototype.showDrops = function (clickable, outside) {
 	var self = this;
   console.log(self);
-  debugger;
-  // drops.drops.forEach(function(drop){
-  //   drop.marker.setMap(self.map);
-  //   drop.marker.addListener('click', function() {
-  //     //drop.infowindow.open(self.map, drop.marker);
-  //     SoapStone.app.showDrop(drop.id);
-  //   });
-  // }); 
   clickable.forEach(function(drop){
     drop.marker.setMap(self.map);
     drop.marker.addListener('click', function() {
-      //drop.infowindow.open(self.map, drop.marker);
       SoapStone.app.showDrop(drop.id);
     });
   });
   outside.forEach(function(drop){
  		drop.marker.setMap(self.map);
- 		drop.marker.addListener('click', function() {
-    	//drop.infowindow.open(self.map, drop.marker);
-      SoapStone.app.showDrop(drop.id);
-    });
 	});
 };
 
