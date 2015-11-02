@@ -84,6 +84,17 @@ SoapStone.Drop.prototype.addSnap = function () {
   });
 };
 
+SoapStone.Drop.prototype.createComment = function () {
+  var self = this;
+  return $.ajax({
+    type:"POST",
+    url: "/drops/" + self.id + "/comments",
+    data:$(this).serialize
+  }).then(function () {
+    self.comments_count += 1;
+  })
+}
+
 SoapStone.Comment = function (args) {
   this.text = args.text;
   if (args.user) {
@@ -146,6 +157,10 @@ SoapStone.DropView.prototype.updateSnapButton = function (drop) {
   $("[data-button='snap-button']").replaceWith(this.snapButtonTemplate(drop));
 };
 
+// SoapStone.DropView.prototype.updateCommentButton = function (drop) {
+//   $("[data-button='comment']").replaceWith(this.commentButtonTemplate(drop));
+// };
+
 SoapStone.DropView.prototype.showDrop = function (drop) {
   var self = this;
   $('body').append(this.showTemplate(drop));
@@ -159,6 +174,11 @@ SoapStone.DropView.prototype.showDrop = function (drop) {
     event.preventDefault();
     self.controller.addSnap(drop);
   });
+
+  $("[data-button='comment']").on('click', function (event){
+    event.preventDefault();
+    self.controller.createComment(drop)
+  })
 };
 
 SoapStone.DropView.prototype.clearDropList = function (drop) {
