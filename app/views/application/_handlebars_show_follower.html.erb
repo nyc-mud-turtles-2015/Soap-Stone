@@ -1,6 +1,7 @@
 <script data-template='show-user' type="text/x-handlebars-template">
   <div data-view="user" class="view user">
     <article class="follow pure-g">
+          <button data-button="close-follow" class="close button-large pure-button">X</button>
             <div class="pure-u">
               <a href="/users/{{id}}">
                 <img class="follower-avatar" src="{{avatar}}">
@@ -8,9 +9,6 @@
             </div>
             <div class="pure-u-1-2">
               <h3 class="follower-username">{{username}}</h3>
-            </div>
-            <div class="pure-u">
-              <%= render 'follow_form' %>            
             </div>
     </article>
   </div>
