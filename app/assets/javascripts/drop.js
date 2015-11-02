@@ -24,6 +24,7 @@ SoapStone.Drop.prototype.setAttributes = function (args) {
   this.text = args.text;
   this.photo = args.photo;
   this.distance = args.distance;
+  this.has_photo = args["has_photo?"];
   this.created_at = args.created_at;
   this.snaps_count = args.snaps_count;
   this.comments_count = args.comments_count;
