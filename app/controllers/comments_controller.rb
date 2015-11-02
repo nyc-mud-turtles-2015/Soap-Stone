@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   def create
     if request.xhr?
       drop = Drop.find(params[:comment_id])
-      comment = drop.comments.build(user: current_user)
+      comment = drop.comments.new(user: current_user)
       if comment.save
         render plain: {success: true}.to_json
       else
