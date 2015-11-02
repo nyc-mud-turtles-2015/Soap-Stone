@@ -50,7 +50,8 @@ SoapStone.Map.prototype.loadDrops = function (filter) {
 	return $.ajax({
     url: myUrl,
     method : "get",
-    data: { lat: myPosition.lat(), lon : myPosition.lng()}
+    data: { lat: myPosition.lat(), lon: myPosition.lng() },
+    dataType: 'json'
   })
 	.then(function(response) {
     var clickableArray = response[0];
