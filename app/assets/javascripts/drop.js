@@ -168,10 +168,11 @@ SoapStone.DropView.prototype.clearDropList = function (drop) {
 SoapStone.DropView.prototype.showDropList = function (drops) {
   var self = this;
   $("[data-view='map']").append(this.dropListTemplate(drops));
-  $("[data-view='map']").on('click', 'a', function(event){
+  $(".drop-list").on('click', 'a', function(event){
     if (event.target.dataset.drop) {
       event.preventDefault();
-      self.controller.showDrop(event.target.dataset.drop);
+      var dropId = event.target.dataset.drop;
+      self.controller.showDrop(dropId);
     }
   });
 };
