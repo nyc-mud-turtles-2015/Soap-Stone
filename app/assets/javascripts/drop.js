@@ -136,7 +136,6 @@ SoapStone.DropView.prototype.showNewDropForm = function () {
 
 SoapStone.DropView.prototype.hideNewDropForm = function () {
   $("[data-view='new-form']").removeClass('uploading');
-
   $("[data-view='new-form']").hide();
 };
 
@@ -146,7 +145,6 @@ SoapStone.DropView.prototype.showUploadIndicator = function () {
 
 SoapStone.DropView.prototype.showUploadSuccess = function (response) {
   console.log("Drop posted successfuly!");
-  toastr.options = {"positionClass": "toast-top-center"};
   toastr.success("Drop Posted", "Success");
   this.hideNewDropForm();
 };
