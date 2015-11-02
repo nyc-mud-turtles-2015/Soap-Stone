@@ -20,8 +20,8 @@ SoapStone.Controller.prototype.createDrop = function(form) {
   var formData = new FormData($(form)[0]);
   this.dropView.showUploadIndicator();
   drop.save(formData)
-  .then(self.dropView.showUploadSuccess)
-  .fail(self.dropView.showUploadFailed);
+  .then(self.dropView.showUploadSuccess.bind(self.dropView))
+  .fail(self.dropView.showUploadFailure.bind(self.dropView));
 };
 
 SoapStone.Controller.prototype.showDrop = function(id) {
