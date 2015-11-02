@@ -10,7 +10,7 @@ SoapStone.Map.prototype.addClickableDrop = function (dropData) {
   var drop = new SoapStone.Drop(dropData);
   if (drop.lat && drop.lon) {
     drop.marker = new google.maps.Marker({
-      position: new google.maps.LatLng(drop.lat, drop.lon),
+      position: new google.maps.LatLng(drop.lat + (Math.random()+.0001)/100, drop.lon),
     });
     drop.marker.setMap(SoapStone.app.mapView.map);
     SoapStone.app.map.clickableDrops.unshift(drop);//bad???? why was 'this' the window and not a map?
