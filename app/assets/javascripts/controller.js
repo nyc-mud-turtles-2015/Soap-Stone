@@ -45,6 +45,7 @@ SoapStone.Controller.prototype.initDrops = function() {
 
 SoapStone.Controller.prototype.loadDrops = function(filter) {
   var self = this;
+  self.mapView.filter = filter;
   self.map.loadDrops(filter).then(function(){
     self.mapView.showDrops(self.map.clickableDrops, self.map.outsideDrops);
     self.dropView.clearDropList();

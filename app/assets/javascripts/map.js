@@ -85,8 +85,7 @@ return new Promise(function(resolve, reject) {
 
 SoapStone.MapView.prototype.init = function () {
   var self = this;
-    var mapStyles = [
-    {
+  var mapStyles = [{
       featureType: "all",
       elementType: "labels.icon",
       stylers: [
@@ -194,8 +193,8 @@ SoapStone.MapView.prototype.init = function () {
         "gamma": 1
       }
     ]
-  }
-  ];
+  }];//folded text for the style press command option ']' to unfold or '[' to refold
+  self.filter = nil;
   return new Promise(function (resolve, reject) {
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -261,6 +260,7 @@ SoapStone.MapView.prototype.watchCurrentPosition = function() {
       self.trackingLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       setMarkerPosition(self.currentPositionMarker,position);
       setCirclePosition(self.circle, position);
+      self.controller.loadDrops(self.filter);
     });
 };
 
