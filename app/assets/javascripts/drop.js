@@ -34,6 +34,8 @@ SoapStone.Drop.prototype.setAttributes = function (args) {
     this.user.id = args.user.id;
     this.user.username = args.user.username;
     this.user.avatar = args.user.avatar;
+    Math.seedrandom(args.user.id)
+    this.user.hue = Math.floor(Math.random() * 359) + 1
   }
   if (args.comments) {
     this.comments = args.comments.map(function (data) {

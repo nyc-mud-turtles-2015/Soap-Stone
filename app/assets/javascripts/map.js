@@ -1,6 +1,7 @@
 SoapStone.Map = function () {
   this.outsideDrops = [];
 	this.clickableDrops = [];
+  // this.userColors = {};
   $('#set-center').on('click',function(e){
     SoapStone.app.mapView.centerMap();
   });
@@ -9,8 +10,19 @@ SoapStone.Map = function () {
 SoapStone.Map.prototype.addClickableDrop = function (dropData) {
   var drop = new SoapStone.Drop(dropData);
   if (drop.lat && drop.lon) {
+    // if (this.userColors[drop.user.id]) {
+    //   hue = this.userColors[drop.user.id]
+    // } else {
+    //   hue = this.userColors[drop.user.id] = Math.floor(Math.random() * 359) + 1;
+    // }
     drop.marker = new google.maps.Marker({
       position: new google.maps.LatLng(drop.lat, drop.lon),
+      icon: {
+        path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+        scale: 6,
+        strokeColor: "hsl("+drop.user.hue+",80%,50%)",
+        strokeWeight: 1
+      }
     });
     drop.marker.setMap(SoapStone.app.mapView.map);
     SoapStone.app.map.clickableDrops.unshift(drop);//bad???? why was 'this' the window and not a map?
@@ -22,6 +34,12 @@ SoapStone.Map.prototype.addOutsideDrop = function (dropData) {
   if (drop.lat && drop.lon) {
   drop.marker = new google.maps.Marker({
     position: new google.maps.LatLng(drop.lat, drop.lon),
+    icon: {
+      path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW,
+      scale: 4,
+      strokeColor: "hsl("+drop.user.hue+",30%,50%)",
+      strokeWeight: 3
+    }
   });
   drop.marker.setMap(SoapStone.app.mapView.map);
   SoapStone.app.map.outsideDrops.unshift(drop);
