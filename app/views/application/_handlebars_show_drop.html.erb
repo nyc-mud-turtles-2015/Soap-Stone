@@ -1,40 +1,46 @@
 <script data-template='show-drop' type="text/x-handlebars-template">
-  <div data-view="drop" class="view user">
-    <article class="drop pure-g">
+  <article data-view="drop" class="view user pure-g">
+    <div class="image-container pure-u-1 pure-sm-3-4">
       <button data-button="close-drop" class="close button-large pure-button">X</button>
       <img src="{{photo}}" class="drop-img pure-img-responsive">
-      <div class="drop-info pure-g pure-u-1">
-        <div class="pure-u">
-          <a href="/users/{{user.id}}">
-            <img class="drop-avatar" src="{{user.avatar}}">
-          </a>
-        </div>
-        <div class="pure-u-3-4">
-          <h2 class="drop-text">{{text}}</h2>
-        </div>
+    </div>
+    <div class="drop-info pure-g pure-u-1 pure-sm-1-4">
+      <div class="pure-u">
+        <a href="/users/{{user.id}}">
+          <img class="drop-avatar" src="{{user.avatar}}">
+        </a>
       </div>
-      <div class="comment-list">
-        <h3 class="pure-u-1">{{pluralize comments_count "comment"}}</h3>
-        {{#each comments}}
-          <div class="comment-item pure-g pure-u-1">
-            <div class="pure-u">
-              <a href="/users/{{user.id}}">
-                <img class="comment-avatar" src="{{user.avatar}}">
-              </a>
-            </div>
-            <div class="pure-u-3-4">
-              <h3 class="comment-username">{{user.username}}</h3>
-              <p class="comment-text">{{text}}</p>
-            </div>
+      <div class="pure-u-3-4">
+        <h2 class="drop-text">{{text}}</h2>
+      </div>
+    </div>
+    <div class="comment-list">
+      <h3 class="pure-u-1">{{pluralize comments_count "comment"}}</h3>    
+      {{#each comments}}
+        <div class="comment-item pure-g pure-u-1">
+          <div class="pure-u">
+            <a href="/users/{{user.id}}">
+              <img class="comment-avatar" src="{{user.avatar}}">
+            </a>
           </div>
-        {{/each}}
-      </div>
-      <div class="menu">
-        {{> snap-button}}
-        <input type="text">
-        <button class="pure-button">Comment</button>
-      </div>
-    </article>
+          <div class="pure-u-3-4">
+            <h3 class="comment-username">{{user.username}}</h3>
+            <p class="comment-text">{{text}}</p>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </article>
+  <div data-menu="drop" class="menu pure-g">
+    <div class="pure-u-1-5">
+      {{> snap-button}}
+    </div><div class="pure-u-3-5">
+    <div class="fancy-input">
+      <input type="text">
+    </div>
+    </div><div class="pure-u-1-5">
+    <button class="pure-button">Comment</button>
+    </div>
   </div>
 </script>
 
@@ -45,3 +51,4 @@
     <button data-button="snap-button" class="pure-button">{{pluralize snaps_count "Snap"}}</button>
   {{/if}}
 </script>
+

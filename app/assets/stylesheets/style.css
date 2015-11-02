@@ -1,5 +1,61 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 .hide {
   display: none;
+}
+
+.drop-list {
+    overflow: scroll;
+    height: calc(50vh - 5em);
+
+}
+
+.drop-item {
+    padding: 0.9em 1em;
+    border-bottom: 1px solid #ddd;
+    border-left: 6px solid transparent;
+    width: 100%;
+}
+
+.drop-item:nth-child(1) {
+    border-top: 1px solid #ddd;
+}
+
+    .drop-avatar {
+        width: 40px;
+        height: 40px;
+    }
+
+    .drop-name {
+        margin: 0;
+    }
+
+    .drop-time {
+        font-size: 80%;
+        margin: 0.4em 0;
+    }
+
+
+#google-map-container {
+    position: relative;
+    padding-bottom: 50vh;
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+}
+ 
+#google-map-container #googleMap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 #form-container {
@@ -20,7 +76,6 @@
     background: rgba(230, 230, 230, 1);
     border-radius: 3px;
 }
-
 
 button.close {
     position: absolute;
@@ -56,3 +111,62 @@ button.close {
         font-size: 80%;
         margin: 0.4em 0;
     }
+
+.page {
+    width: 100%;
+    height: 100%;
+}
+
+.drop-img {
+    width: ;
+}
+
+.menu {
+    position: absolute;
+    height: 5em;
+    bottom: 0;
+    width: 100%;
+}
+
+.menu button {
+    width: 100%;
+    height: 5em;
+    background-color: rgba(230, 126, 34, 0.9);
+    color: #ececec;
+    width: 99%;
+}
+
+.menu button i {
+    display: block;
+    width: 100%;
+}
+
+.menu .fancy-input {
+    border-radius: 2px;
+    width: 100%;
+    height: 5em;
+    background-color: rgba(230, 126, 34, 0.9);
+    color: #ececec;
+    width: 99%;
+    text-align:center;
+}
+
+.menu .fancy-input input {
+    text-align: left;   
+    width: 80%;
+    margin: 1.5em 0;
+    height: 2em;
+    color: #222222;
+    border-width: 0;
+    border-radius: 2px;
+
+}
+
+@media screen and (min-width: 35.5em) {
+    #google-map-container {
+        padding-bottom: 100vh;
+    }
+    .drop-list {
+        height: calc(100vh - 5em);
+    }
+}

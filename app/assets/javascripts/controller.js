@@ -9,15 +9,19 @@ SoapStone.Controller = function() {
   this.initDrops();
 };
 
-SoapStone.Controller.prototype.createDrop = function() {
+
+SoapStone.Controller.prototype.createDrop = function(form) {
+  var self = this;
   var dropData = {
     lat: this.mapView.trackingLocation.lat(),
     lon: this.mapView.trackingLocation.lng()
   };
   var drop = new SoapStone.Drop(dropData);
-  drop.save()
-  .then(function(response) {console.log(response);})
-  .fail(function(response) {console.log(response);});
+  var formData = new FormData($(form)[0]);
+  this.dropView.showUploadIndicator();
+  drop.save(formData)
+  .then(self.dropView.showUploadSuccess)
+  .fail(self.dropView.showUploadFailed);
 };
 
 SoapStone.Controller.prototype.showDrop = function(id) {

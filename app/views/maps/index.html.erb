@@ -1,16 +1,60 @@
-<div data-view="map" class="pure-g">
-  <div class="pure-u-1">
-    <div id="googleMap" style="width:400px;height:400px;"></div>
-    <div data-role="menu">
-      <button data-button="new-button" class="pure-button">yo</button>
-      <button id="set-center">center</button>
-      <button data-button="friend-filter">just followed posts</button>
-      <button data-button="public-filter">public</button>
-      <%= link_to "login", login_path %>
+<div data-view="map" class="view pure-g">
+  <div class="pure-u-1 pure-u-sm-2-3">
+    <div id="google-map-container">
+      <div id="googleMap"></div>
     </div>
-    <div data-view="new-form" id="form-container" class="hide">
-      <%= render partial: "drop_form" %>
+  </div>
+  <div class="drop-list pure-u-1 pure-u-sm-1-3">
+    <div class="drop-item pure-g" >
+      <div class="drop-avatar pure-u-1-6"><img src=""></div>
+      <div class="drop-name pure-u-2-3">Matt</div>
+      <div class="drop-time pure-u-1-6">2s ago</div>
+    </div>
+    <div class="drop-item pure-g" >
+      <div class="drop-avatar pure-u"><img src=""></div>
+      <div class="drop-name pure-u-2-3">Matt</div>
+      <div class="drop-time pure-u">2s ago</div>
+    </div>
+    <div class="drop-item pure-g" >
+      <div class="drop-avatar pure-u"><img src=""></div>
+      <div class="drop-name pure-u-2-3">Matt</div>
+      <div class="drop-time pure-u">2s ago</div>
+    </div>
+    <div class="drop-item pure-g" >
+      <div class="drop-avatar pure-u"><img src=""></div>
+      <div class="drop-name pure-u-2-3">Matt</div>
+      <div class="drop-time pure-u">2s ago</div>
+    </div>
+    <div class="drop-item pure-g" >
+      <div class="drop-avatar pure-u"><img src=""></div>
+      <div class="drop-name pure-u-2-3">Matt</div>
+      <div class="drop-time pure-u">2s ago</div>
+    </div>
+    <div class="drop-item pure-g" >
+      <div class="drop-avatar pure-u"><img src=""></div>
+      <div class="drop-name pure-u-2-3">Matt</div>
+      <div class="drop-time pure-u">2s ago</div>
+    </div>
+    <div class="drop-item pure-g" >
+      <div class="drop-avatar pure-u"><img src=""></div>
+      <div class="drop-name pure-u-2-3">Matt</div>
+      <div class="drop-time pure-u">2s ago</div>
     </div>
   </div>
 </div>
+
+<div data-menu="map" class="menu map" class="pure-g">
+  <div class="pure-u-1-3">
+    <button class="pure-button"><i class="icon-profile"></i><%= current_user.username %></button>
+  </div><div class="pure-u-1-3">
+    <button id="set-center" class="pure-button"><i class="icon-center"></i>center</button>
+  </div><div class="pure-u-1-3">
+    <button data-button="new-button" class="pure-button"><i class="icon-drop"></i>drop</button>
+  </div>
+</div>
+
+<div data-view="new-form" id="form-container" class="hide">
+  <%= render partial: "drop_form" %>
+</div>
+
 <%= render partial: "handlebars_show_drop" %>
