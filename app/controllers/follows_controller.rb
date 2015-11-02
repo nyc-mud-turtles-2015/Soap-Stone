@@ -18,5 +18,4 @@ class FollowsController < ApplicationController
     followees = user.followees
     render json: {followers: followers, followees: followees}
   end
-
 end
