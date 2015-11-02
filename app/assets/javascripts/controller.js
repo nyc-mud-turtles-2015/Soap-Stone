@@ -9,7 +9,6 @@ SoapStone.Controller = function() {
   this.initDrops();
 };
 
-
 SoapStone.Controller.prototype.createDrop = function(form) {
   var self = this;
   var dropData = {
@@ -20,13 +19,19 @@ SoapStone.Controller.prototype.createDrop = function(form) {
   var formData = new FormData($(form)[0]);
   this.dropView.showUploadIndicator();
   drop.save(formData)
-  .then(function () { 
+  .then(function (response) { 
     self.dropView.showUploadSuccess.bind(self.dropView)() 
     var drop = this;
     drop.marker = new google.maps.Marker({
       map: self.mapView.map,
       position: new google.maps.LatLng(drop.lat, drop.lon),
-      animation: google.maps.Animation.DROP
+      animation: google.maps.Animation.DROP,
+      icon: {
+        path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+        scale: 6,
+        strokeColor: "hsl("+drop.calculateUserColor(response.user_id)+",80%,50%)",
+        strokeWeight: 1
+      }
     });
   }.bind(drop))
   .fail(self.dropView.showUploadFailure.bind(self.dropView));
