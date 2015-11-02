@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  def created
+  def create
     if request.xhr?
       drop = Drop.find(params[:comment_id])
       comment = drop.comments.build(user: current_user)
