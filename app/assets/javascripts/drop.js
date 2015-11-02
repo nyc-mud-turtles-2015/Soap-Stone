@@ -118,55 +118,42 @@ SoapStone.DropView = function () {
 };
 
 SoapStone.DropView.prototype.setUpEventHandlers = function () {
-  var self = this;
-
   $("[data-role='drop-form']").on('submit', function (event) {
     event.preventDefault();
-    self.controller.createDrop($("[data-role='drop-form']"));
+    SoapStone.app.createDrop($("[data-role='drop-form']"));
   });
 
   $("[data-button='friend-filter']").on('click', function (e) {
-    self.controller.loadDrops("/followees");
+    SoapStone.app.loadDrops("/followees");
   });
 
   $("[data-button='public-filter']").on('click', function (e) {
-    self.controller.loadDrops();
+    SoapStone.app.loadDrops();
   });
 
   $("[data-button='new-button']").on('click', function (event) {
     event.preventDefault();
-    self.showNewDropForm();
+    $("[data-view='new-form']").show();
   });
 
   $("[data-button='close-form']").on('click', function (event) {
     event.preventDefault();
-    self.hideNewDropForm();
+    $("[data-view='new-form']").hide();
   });
 };
 
-SoapStone.DropView.prototype.showNewDropForm = function () {
-  $("[data-view='new-form']").show();
-};
-
-SoapStone.DropView.prototype.hideNewDropForm = function () {
-  $("[data-view='new-form']").removeClass('uploading');
-  $("[data-view='new-form']").hide();
-};
-
 SoapStone.DropView.prototype.showUploadIndicator = function () {
-  $("[data-view='new-form']").addClass('uploading');
+  console.log("Posting the drop.");
 };
 
 SoapStone.DropView.prototype.showUploadSuccess = function (response) {
   console.log("Drop posted successfuly!");
-  toastr.success("Drop Posted", "Success");
-  this.hideNewDropForm();
+  $("[data-view='new-form']").hide();
 };
 
 SoapStone.DropView.prototype.showUploadFailure = function (response) {
   console.log("Drop failed to post.");
-  toastr.error("Drop failed to post.", "Error");
-  this.hideNewDropForm();
+  $("[data-view='new-form']").hide();
 };
 
 SoapStone.DropView.prototype.updateSnapButton = function (drop) {

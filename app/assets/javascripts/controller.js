@@ -39,7 +39,26 @@ SoapStone.Controller.prototype.initDrops = function() {
       self.mapView.showDrops(self.map.clickableDrops, self.map.outsideDrops);
       self.dropView.clearDropList();
       self.dropView.showDropList(self.map.clickableDrops);
+      self.pollDrops()
     });
+  });
+};
+
+SoapStone.Controller.prototype.pollDrops = function (){
+    var self = this;
+    console.log("in the poll drops function")
+    window.recentPollInterval = setInterval(function(){
+      self.refreshDrops(self.mapView.filter);
+    }, 5000);
+};
+
+SoapStone.Controller.prototype.refreshDrops = function(filter) {
+  var self = this;
+  self.mapView.filter = filter;
+  self.map.refreshDrops(filter).then(function(){
+    self.mapView.showDrops(self.map.clickableDrops, self.map.outsideDrops);
+    self.dropView.clearDropList();
+    self.dropView.showDropList(self.map.clickableDrops);
   });
 };
 

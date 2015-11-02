@@ -13,7 +13,7 @@ SoapStone.Map.prototype.addClickableDrop = function (dropData) {
       position: new google.maps.LatLng(drop.lat, drop.lon),
     });
     drop.marker.setMap(SoapStone.app.mapView.map);
-    this.clickableDrops.push(drop);
+    SoapStone.app.map.clickableDrops.unshift(drop);//bad???? why was 'this' the window and not a map?
   }
 };
 
@@ -24,7 +24,7 @@ SoapStone.Map.prototype.addOutsideDrop = function (dropData) {
     position: new google.maps.LatLng(drop.lat, drop.lon),
   });
   drop.marker.setMap(SoapStone.app.mapView.map);
-  this.outsideDrops.push(drop);
+  SoapStone.app.map.outsideDrops.unshift(drop);
   }
 };
 
@@ -37,6 +37,27 @@ SoapStone.Map.prototype.clearMarkers = function(){
   });
   this.clickableDrops = [];
   this.outsideDrops = [];
+};
+
+SoapStone.Map.prototype.refreshDrops = function (filter) {
+  var self = this;
+  var myUrl = '/drops';
+  if (filter){
+    myUrl+=filter;
+  }
+  var myPosition = SoapStone.app.mapView.trackingLocation;
+  return $.ajax({
+    url: myUrl,
+    method : "get",
+    data: { lat: myPosition.lat(), lon: myPosition.lng() },
+    dataType: 'json'
+  })
+  .then(function(response) {
+    var clickableArray = response[0];
+    var outsideArray = response[1];
+    clickableArray.updateDropsArray(self.addClickableDrop, self.clickableDrops, self.outsideDrops, 50)
+    outsideArray.updateDropsArray(self.addOutsideDrop, self.outsideDrops, self.clickableDrops, 100)
+  });
 };
 
 SoapStone.Map.prototype.loadDrops = function (filter) {
@@ -65,7 +86,9 @@ SoapStone.Map.prototype.loadDrops = function (filter) {
 	});
 };
 
-SoapStone.MapView = function () {};
+SoapStone.MapView = function () {
+  this.filter = null;
+};
 
 SoapStone.MapView.prototype.getLocation = function() {
 return new Promise(function(resolve, reject) {
@@ -85,8 +108,7 @@ return new Promise(function(resolve, reject) {
 
 SoapStone.MapView.prototype.init = function () {
   var self = this;
-  var mapStyles = [{
-      featureType: "all",
+  var mapStyles = [{featureType: "all",
       elementType: "labels.icon",
       stylers: [
         { visibility: "off" }
@@ -192,9 +214,7 @@ SoapStone.MapView.prototype.init = function () {
       {
         "gamma": 1
       }
-    ]
-  }];//folded text for the style press command option ']' to unfold or '[' to refold
-  self.filter = nil;
+    ]}];//folded text for the style press command option ']' to unfold or '[' to refold
   return new Promise(function (resolve, reject) {
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -238,14 +258,27 @@ SoapStone.MapView.prototype.init = function () {
 SoapStone.MapView.prototype.showDrops = function (clickable, outside) {
 	var self = this;
   clickable.forEach(function(drop){
-    drop.marker.setMap(self.map);
-    drop.marker.addListener('click', function() {
-      SoapStone.app.showDrop(drop.id);
-    });
+    if (drop.hasEventListener == null){
+      drop.marker.addListener('click', function() {
+        SoapStone.app.showDrop(drop.id);
+      });
+      drop.hasEventListener = true;
+    }
+    if(drop.marker.map == null){
+      drop.marker.setMap(self.map);
+    };
   });
   outside.forEach(function(drop){
- 		drop.marker.setMap(self.map);
-	});
+    if (drop.hasEventListener){
+      drop.marker.removeListener('click', function() {//remove??
+        SoapStone.app.showDrop(drop.id);
+      });
+      drop.hasEventListener = null;
+    }
+    if(drop.marker.map == null){
+      drop.marker.setMap(self.map);
+    };
+  });
 };
 
 SoapStone.MapView.prototype.centerMap = function(){
@@ -256,12 +289,14 @@ SoapStone.MapView.prototype.centerMap = function(){
 SoapStone.MapView.prototype.watchCurrentPosition = function() {
   var self = this;
   var positionTimer = navigator.geolocation.watchPosition(function (position) {
-    //console.log("in the watchCurrentPosition function", self.trackingLocation.lat(), self.trackingLocation.lng());
-      self.trackingLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      setMarkerPosition(self.currentPositionMarker,position);
-      setCirclePosition(self.circle, position);
-      self.controller.loadDrops(self.filter);
-    });
+    console.log("in the watchCurrentPosition function");
+    console.log("lat: ",self.trackingLocation.lat());
+    console.log("lng: ",self.trackingLocation.lng());
+    self.trackingLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    setMarkerPosition(self.currentPositionMarker,position);
+    setCirclePosition(self.circle, position);
+    self.controller.refreshDrops(self.filter);
+  });
 };
 
 function setMarkerPosition(marker, position) {
