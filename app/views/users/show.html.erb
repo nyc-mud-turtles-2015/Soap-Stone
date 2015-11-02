@@ -1,34 +1,45 @@
-<div data-role="user">
-  <h4><%= @user.username %></h4>
-
-  <div>
-    <img src="<%= @user.avatar %>">
+<div class="user">
+  <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+    <h4 class="pure-menu-heading pure-u-1"><%= @user.username %></h4>
   </div>
-  <% if current_user == @user %>
-  <div id="edit">
-    <button data-role="edit-profile" value="<%= @user %>">edit profile</button>
+
+  <div class="splash-container">
+    <div class="splash">
+      <img src="<%= @user.avatar %>">
+      <% if current_user == @user %>
+        <div id="edit">
+          <button data-role="edit-profile" value="<%= @user %>">edit profile</button>
+        </div>
+      <% else %>
+        <%= render 'follow_form' %>
+      <% end %>
+
+
+      <section id="follow-container">
+        <div id="followers">
+          <h4><%= pluralize(@user.followers.count, 'follower') %></h4>    
+          <ul data-role="follower-list">
+          </ul>
+        </div>
+
+        <div id="followees">
+          <h4><%= @user.followees.count %> following</h4>
+            <ul data-role="followee-list">
+            </ul>
+        </div>
+      </section>
+    </div>
   </div>
-  <% else %>
-    <%= render 'follow_form' %>
-  <% end %>
-
-  <section id="follow-container">
-    <h4><%= pluralize(@user.followers.count, 'follower') %></h4>    
-    <ul data-role="follower-list">
-      <li>Loading followers...</li>
-    </ul>
-
-  <h4><%= @user.followees.count %> following</h4>
-    <ul data-role="followee-list">
-      <li>Loading followings...</li>
-    </ul>
-  </section>
-
-  <h4><%= pluralize(@user.drops.count, 'drop') %></h4>
-  <% if current_user == @user %>
-  <div class="drops">
+  <div class="content-wrapper">
+    <div class="content" id="drops">
+      <h4><%= pluralize(@user.drops.count, 'drop') %></h4>
+      <% if current_user == @user %>
+        <% @user.drops.each do |drop| %>
+          <%=  link_to image_tag(drop.photo), drop_path(drop) %>
+        <% end %>
+      <% end %>
+    </div>
   </div>
-  <% end %>
 </div>
 
-  <%= render partial: "handlebars_show_follower" %>
+<%= render partial: "handlebars_show_follower" %>
