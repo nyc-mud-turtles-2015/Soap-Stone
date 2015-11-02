@@ -37,6 +37,8 @@ SoapStone.Controller.prototype.initDrops = function() {
   return this.mapView.init().then(function () {
     self.map.loadDrops().then(function(){
       self.mapView.showDrops(self.map.clickableDrops, self.map.outsideDrops);
+      self.dropView.clearDropList();
+      self.dropView.showDropList(self.map.clickableDrops);
     });
   });
 };
@@ -45,12 +47,14 @@ SoapStone.Controller.prototype.loadDrops = function(filter) {
   var self = this;
   self.map.loadDrops(filter).then(function(){
     self.mapView.showDrops(self.map.clickableDrops, self.map.outsideDrops);
+    self.dropView.clearDropList();
+    self.dropView.showDropList(self.map.clickableDrops);
   });
 };
 
 SoapStone.Controller.prototype.addSnap = function(drop){
   var self = this;
   drop.addSnap().then(function(){
-    self.dropView.updateSnapButton(drop)
+    self.dropView.updateSnapButton(drop);
   });
-}
+};

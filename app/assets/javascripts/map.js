@@ -50,7 +50,8 @@ SoapStone.Map.prototype.loadDrops = function (filter) {
 	return $.ajax({
     url: myUrl,
     method : "get",
-    data: { lat: myPosition.lat(), lon : myPosition.lng()}
+    data: { lat: myPosition.lat(), lon: myPosition.lng() },
+    dataType: 'json'
   })
 	.then(function(response) {
     var clickableArray = response[0];
@@ -91,7 +92,109 @@ SoapStone.MapView.prototype.init = function () {
       stylers: [
         { visibility: "off" }
       ]
-    }
+    },
+    {
+    "featureType": "landscape",
+    "stylers": [
+      {
+        "hue": "#FF0300"
+      },
+      {
+        "saturation": -100
+      },
+      {
+        "lightness": 156
+      },
+      {
+        "gamma": 1
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "stylers": [
+      {
+        "hue": "#FF2500"
+      },
+      {
+        "saturation": -100
+      },
+      {
+        "lightness": 138.60000000000002
+      },
+      {
+        "gamma": 1
+      }
+    ]
+  },
+  {
+    "featureType": "road.arterial",
+    "stylers": [
+      {
+        "hue": "#7F00FF"
+      },
+      {
+        "saturation": -71.42857142857149
+      },
+      {
+        "lightness": 45.709803921568636
+      },
+      {
+        "gamma": 1
+      }
+    ]
+  },
+  {
+    "featureType": "road.local",
+    "stylers": [
+      {
+        "hue": "#7F00FF"
+      },
+      {
+        "saturation": -71.42857142857149
+      },
+      {
+        "lightness": 46.50980392156862
+      },
+      {
+        "gamma": 1
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "stylers": [
+      {
+        "hue": "#0078FF"
+      },
+      {
+        "saturation": 0
+      },
+      {
+        "lightness": 47
+      },
+      {
+        "gamma": 1
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "stylers": [
+      {
+        "hue": "#FF1B00"
+      },
+      {
+        "saturation": -95.8
+      },
+      {
+        "lightness": 143.8
+      },
+      {
+        "gamma": 1
+      }
+    ]
+  }
   ];
   return new Promise(function (resolve, reject) {
       if ("geolocation" in navigator) {
@@ -100,6 +203,9 @@ SoapStone.MapView.prototype.init = function () {
           self.mapProp = {
             center: self.trackingLocation, //find center of collection
             zoom:17,
+            zoomControlOptions: {
+              position: google.maps.ControlPosition.TOP_RIGHT
+            },
             streetViewControl: false,
             styles: mapStyles,
             mapTypeId:google.maps.MapTypeId.ROADMAP
