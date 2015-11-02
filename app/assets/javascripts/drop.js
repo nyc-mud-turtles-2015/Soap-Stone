@@ -1,12 +1,11 @@
 //Drop Model
-
-SoapStone.Drop = function(args) {
+SoapStone.Drop = function (args) {
   if (args) {
     this.setAttributes(args);
   }
 };
 
-SoapStone.Drop.prototype.setAttributes = function(args) {
+SoapStone.Drop.prototype.setAttributes = function (args) {
   this.id = args.id;
   if (args.coords) {
     this.coords = {};
@@ -35,20 +34,13 @@ SoapStone.Drop.prototype.setAttributes = function(args) {
     this.user.avatar = args.user.avatar;
   }
   if (args.comments) {
-    this.comments = args.comments.map(function(data) {
+    this.comments = args.comments.map(function (data) {
       return new SoapStone.Comment(data);
     });
   }
-  this.marker = new google.maps.Marker({
-    position: new google.maps.LatLng(this.coords.latitude, this.coords.longitude),
-  });
 };
 
-SoapStone.Drop.prototype.save = function() {
-  var data = {};
-  data.drop = {};
-  // model should not be reaching into view. fix this later
-  formData = new FormData($("[data-role='drop-form']")[0]);
+SoapStone.Drop.prototype.save = function (formData) {
   formData.append('drop[lat]', this.lat);
   formData.append('drop[lon]', this.lon);
   return $.ajax({
@@ -61,9 +53,9 @@ SoapStone.Drop.prototype.save = function() {
   });
 };
 
-SoapStone.Drop.prototype.find = function(id) {
+SoapStone.Drop.prototype.find = function (id) {
   var self = this;
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     $.ajax({
       type: "GET",
       url: "/drops/" + id,
@@ -79,18 +71,18 @@ SoapStone.Drop.prototype.find = function(id) {
   });
 };
 
-SoapStone.Drop.prototype.addSnap = function() {
+SoapStone.Drop.prototype.addSnap = function () {
   var self = this;
   return $.ajax({
     type:"POST",
     url: "/drops/" + self.id + "/snaps"
-  }).then(function(){
-    self.snaps_count +=1
+  }).then(function () {
+    self.snaps_count +=1;
     self.snapped_by_you = true;
-  })
-}
+  });
+};
 
-SoapStone.Comment = function(args) {
+SoapStone.Comment = function (args) {
   this.text = args.text;
   if (args.user) {
     this.user = {};
@@ -101,8 +93,7 @@ SoapStone.Comment = function(args) {
 };
 
 // View
-
-SoapStone.DropView = function() {
+SoapStone.DropView = function () {
   var showTemplateSource   = $("[data-template='show-drop']").html();
   this.showTemplate = Handlebars.compile(showTemplateSource);
   Handlebars.registerPartial("snap-button", $("[data-partial='snap-button-partial']").html());
@@ -110,49 +101,67 @@ SoapStone.DropView = function() {
   this.setUpEventHandlers();
 };
 
-SoapStone.DropView.prototype.setUpEventHandlers = function(){
-  $("[data-role='drop-form']").on('submit', function(event){
+SoapStone.DropView.prototype.setUpEventHandlers = function () {
+  $("[data-role='drop-form']").on('submit', function (event) {
     event.preventDefault();
-    $("#form-container").hide();
-    SoapStone.app.createDrop();
+    SoapStone.app.createDrop($("[data-role='drop-form']"));
   });
 
-  $("[data-button='friend-filter']").on('click', function(e){
-    SoapStone.app.loadDrops("/followees")
+  $("[data-button='friend-filter']").on('click', function (e) {
+    SoapStone.app.loadDrops("/followees");
   });
 
-  $("[data-button='public-filter']").on('click', function(e){
-    SoapStone.app.loadDrops()
+  $("[data-button='public-filter']").on('click', function (e) {
+    SoapStone.app.loadDrops();
   });
 
-  $("[data-button='new-button']").on('click', function(event){
+  $("[data-button='new-button']").on('click', function (event) {
+    event.preventDefault();
     $("[data-view='new-form']").show();
-    $("[data-button='close-form']").on('click', function(event){
-      event.preventDefault();
-      $("[data-view='new-form']").hide();
-    });
+  });
+
+  $("[data-button='close-form']").on('click', function (event) {
+    event.preventDefault();
+    $("[data-view='new-form']").hide();
   });
 };
 
-SoapStone.DropView.prototype.updateSnapButton = function(drop){
+SoapStone.DropView.prototype.showUploadIndicator = function () {
+  console.log("Posting the drop.");
+};
+
+SoapStone.DropView.prototype.showUploadSuccess = function (response) {
+  console.log("Drop posted successfuly!");
+  $("[data-view='new-form']").hide();
+};
+
+SoapStone.DropView.prototype.showUploadFailure = function (response) {
+  console.log("Drop failed to post.");
+  $("[data-view='new-form']").hide();
+};
+
+SoapStone.DropView.prototype.updateSnapButton = function (drop) {
   $("[data-button='snap-button']").replaceWith(this.snapButtonTemplate(drop));
 };
 
-SoapStone.DropView.prototype.showDrop = function(drop) {
+SoapStone.DropView.prototype.showDrop = function (drop) {
   var self = this;
   $('body').append(this.showTemplate(drop));
   $("[data-view='map']").hide();
+  $("[data-menu='map']").hide();
   $("[data-button='close-drop']").on('click', function (event) {
     self.closeDrop();
   });
 
-  $("[data-button='snap-button']").on('click', function(event){
+  $("[data-button='snap-button']").on('click', function (event) {
     event.preventDefault();
     self.controller.addSnap(drop);
   });
 };
 
-SoapStone.DropView.prototype.closeDrop  = function() {
+SoapStone.DropView.prototype.closeDrop  = function () {
   $("[data-view='drop']").remove();
+  $("[data-menu='drop']").remove();
   $("[data-view='map']").show();
+  $("[data-menu='map']").show();
 };

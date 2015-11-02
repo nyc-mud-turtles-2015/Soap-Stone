@@ -6,37 +6,47 @@ SoapStone.Map = function () {
   });
 };
 
-SoapStone.Map.prototype.addClickableDrop = function (drop) {
-  var newDrop = new SoapStone.Drop(drop)
-  newDrop.marker.setMap(SoapStone.app.mapView.map)
-  this.clickableDrops.push(newDrop);
+SoapStone.Map.prototype.addClickableDrop = function (dropData) {
+  var drop = new SoapStone.Drop(dropData);
+  if (drop.lat && drop.lon) {
+    drop.marker = new google.maps.Marker({
+      position: new google.maps.LatLng(drop.lat, drop.lon),
+    });
+    drop.marker.setMap(SoapStone.app.mapView.map);
+    this.clickableDrops.push(drop);
+  }
 };
 
-SoapStone.Map.prototype.addOutsideDrop = function (drop) {
-  var newDrop = new SoapStone.Drop(drop)
-  newDrop.marker.setMap(SoapStone.app.mapView.map)
-  this.outsideDrops.push(newDrop);
+SoapStone.Map.prototype.addOutsideDrop = function (dropData) {
+  var drop = new SoapStone.Drop(dropData);
+  if (drop.lat && drop.lon) {
+  drop.marker = new google.maps.Marker({
+    position: new google.maps.LatLng(drop.lat, drop.lon),
+  });
+  drop.marker.setMap(SoapStone.app.mapView.map);
+  this.outsideDrops.push(drop);
+  }
 };
 
 SoapStone.Map.prototype.clearMarkers = function(){
   this.clickableDrops.forEach(function(drop){
-    drop.marker.setMap(null)
+    drop.marker.setMap(null);
   }); 
   this.outsideDrops.forEach(function(drop){
-    drop.marker.setMap(null)
+    drop.marker.setMap(null);
   });
   this.clickableDrops = [];
   this.outsideDrops = [];
-}
+};
 
-SoapStone.Map.prototype.loadDrops= function (filter) {
+SoapStone.Map.prototype.loadDrops = function (filter) {
   this.clearMarkers();
 	var self = this;
 	var myUrl = '/drops';
   if (filter){
-    myUrl+=filter
+    myUrl+=filter;
   }
-  var myPosition = SoapStone.app.mapView.trackingLocation// is this ok to do???????
+  var myPosition = SoapStone.app.mapView.trackingLocation;
 	return $.ajax({
     url: myUrl,
     method : "get",
@@ -212,7 +222,7 @@ SoapStone.MapView.prototype.init = function () {
             fillOpacity: 0.25,
             map: self.map,
             center: self.trackingLocation,
-            radius: 321.869//meters
+            radius: 330 * 0.3048 //feet to meters
           });
           resolve(self);
         });
@@ -243,14 +253,22 @@ SoapStone.MapView.prototype.centerMap = function(){
 SoapStone.MapView.prototype.watchCurrentPosition = function() {
   var self = this;
   var positionTimer = navigator.geolocation.watchPosition(function (position) {
-    console.log("in the watchCurrentPosition function", self.trackingLocation.lat(), self.trackingLocation.lng() )
+    //console.log("in the watchCurrentPosition function", self.trackingLocation.lat(), self.trackingLocation.lng());
       self.trackingLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       setMarkerPosition(self.currentPositionMarker,position);
+      setCirclePosition(self.circle, position);
     });
 };
 
 function setMarkerPosition(marker, position) {
   marker.setPosition(new google.maps.LatLng(
+    position.coords.latitude,
+    position.coords.longitude)
+  );
+}
+
+function setCirclePosition(circle, position) {
+  circle.setCenter(new google.maps.LatLng(
     position.coords.latitude,
     position.coords.longitude)
   );
