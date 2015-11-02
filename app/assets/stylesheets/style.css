@@ -49,6 +49,12 @@ html {
     width: 100%;
 }
 
+.list-avatar {
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
 .drop-item:nth-child(1) {
     border-top: 1px solid #ddd;
 }
@@ -69,7 +75,13 @@ html {
     }
 
     .drop-link {
+      text-decoration: none;
+      padding-top: 1.7em;
+      color: black;
+    }
 
+    .drop-link:hover {
+      color: grey;
     }
 
     .drop-list-empty {
