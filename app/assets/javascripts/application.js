@@ -13,8 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require handlebars.js
+//= require toastr.js
 //= require helpers
-//= require app
+//= require init
 //= require drop
 //= require map
 //= require controller
