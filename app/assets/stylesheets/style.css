@@ -64,7 +64,8 @@ html {
 
     .drop-time, .drop-distance {
         font-size: 70%;
-        margin: 0.3em 0;
+        margin: 2.5em 0;
+        padding-left: 1.5em;
     }
 
     .drop-link {
@@ -85,7 +86,7 @@ html {
     overflow: hidden;
     margin: 0;
 }
- 
+
 #google-map-container #googleMap {
     position: absolute;
     top: 0;
@@ -134,7 +135,7 @@ html {
     outline: none;
 }
 
-.new-drop-form .photo-label, 
+.new-drop-form .photo-label,
 .new-drop-form input[type='text'] {
     width: 80%;
     margin: 0.5em auto;
@@ -223,7 +224,7 @@ button.close {
 }
 
 .menu .fancy-input input {
-    text-align: left;   
+    text-align: left;
     width: 80%;
     margin: 1.5em 0;
     height: 2em;
@@ -250,7 +251,7 @@ button.close {
 .uploading .new-drop-form input[type='file'],
 .uploading .new-drop-form input[type='submit'],
 .uploading .new-drop-form label {
-    display: none;  
+    display: none;
 }
 .uploading .loader:before,
 .uploading .loader:after,
