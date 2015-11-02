@@ -20,7 +20,15 @@ SoapStone.Controller.prototype.createDrop = function(form) {
   var formData = new FormData($(form)[0]);
   this.dropView.showUploadIndicator();
   drop.save(formData)
-  .then(self.dropView.showUploadSuccess.bind(self.dropView))
+  .then(function () { 
+    self.dropView.showUploadSuccess.bind(self.dropView)() 
+    var drop = this;
+    drop.marker = new google.maps.Marker({
+      map: self.mapView.map,
+      position: new google.maps.LatLng(drop.lat, drop.lon),
+      animation: google.maps.Animation.DROP
+    });
+  }.bind(drop))
   .fail(self.dropView.showUploadFailure.bind(self.dropView));
 };
 
@@ -39,12 +47,32 @@ SoapStone.Controller.prototype.initDrops = function() {
       self.mapView.showDrops(self.map.clickableDrops, self.map.outsideDrops);
       self.dropView.clearDropList();
       self.dropView.showDropList(self.map.clickableDrops);
+      self.pollDrops()
     });
+  });
+};
+
+SoapStone.Controller.prototype.pollDrops = function (){
+    var self = this;
+    console.log("in the poll drops function")
+    window.recentPollInterval = setInterval(function(){
+      self.refreshDrops(self.mapView.filter);
+    }, 5000);
+};
+
+SoapStone.Controller.prototype.refreshDrops = function(filter) {
+  var self = this;
+  self.mapView.filter = filter;
+  self.map.refreshDrops(filter).then(function(){
+    self.mapView.showDrops(self.map.clickableDrops, self.map.outsideDrops);
+    self.dropView.clearDropList();
+    self.dropView.showDropList(self.map.clickableDrops);
   });
 };
 
 SoapStone.Controller.prototype.loadDrops = function(filter) {
   var self = this;
+  self.mapView.filter = filter;
   self.map.loadDrops(filter).then(function(){
     self.mapView.showDrops(self.map.clickableDrops, self.map.outsideDrops);
     self.dropView.clearDropList();
