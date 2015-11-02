@@ -84,6 +84,18 @@ SoapStone.Drop.prototype.addSnap = function () {
   });
 };
 
+SoapStone.Drop.prototype.createComment = function (comment) {
+  var self = this;
+  return $.ajax({
+    type:"POST",
+    url: "/drops/" + self.id + "/comments",
+    data:{comment: $("[data-form='comment-form']").val()}
+  }).then(function (response) {
+    self.comments.push(new SoapStone.Comment(response));
+    self.comments_count += 1;
+  });
+}
+
 SoapStone.Comment = function (args) {
   this.text = args.text;
   if (args.user) {
@@ -100,6 +112,8 @@ SoapStone.DropView = function () {
   this.dropListTemplate = Handlebars.compile($("[data-template='drop-list']").html());
   Handlebars.registerPartial("snap-button", $("[data-partial='snap-button-partial']").html());
   this.snapButtonTemplate = Handlebars.compile($("[data-partial='snap-button-partial']").html());
+  Handlebars.registerPartial("comment", $("[data-partial='comment-partial']").html());
+  this.commentsTemplate = Handlebars.compile($("[data-partial='comment-partial']").html());
   this.setUpEventHandlers();
 };
 
@@ -159,6 +173,10 @@ SoapStone.DropView.prototype.updateSnapButton = function (drop) {
   $("[data-button='snap-button']").replaceWith(this.snapButtonTemplate(drop));
 };
 
+SoapStone.DropView.prototype.updateComments = function (drop) {
+  $(".comment-list").replaceWith(this.commentsTemplate(drop));
+}
+
 SoapStone.DropView.prototype.showDrop = function (drop) {
   var self = this;
   $('body').append(this.showTemplate(drop));
@@ -171,6 +189,12 @@ SoapStone.DropView.prototype.showDrop = function (drop) {
   $("[data-button='snap-button']").on('click', function (event) {
     event.preventDefault();
     self.controller.addSnap(drop);
+  });
+
+  $("[data-button='comment-button']").on('click', function (event){
+    event.preventDefault();
+    self.controller.createComment(drop)
+    $("[data-form='comment-form']").val('')
   });
 };
 

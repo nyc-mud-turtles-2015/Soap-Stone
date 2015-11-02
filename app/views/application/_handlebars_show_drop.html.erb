@@ -32,32 +32,17 @@
       </div>
     </div>
     {{/if}}
-    <div class="comment-list">
-      <h3 class="pure-u-1">{{pluralize comments_count "comment"}}</h3>    
-      {{#each comments}}
-        <div class="comment-item pure-g pure-u-1">
-          <div class="pure-u">
-            <a href="/users/{{user.id}}">
-              <img class="comment-avatar" src="{{user.avatar}}">
-            </a>
-          </div>
-          <div class="pure-u-3-4">
-            <h3 class="comment-username">{{user.username}}</h3>
-            <p class="comment-text">{{text}}</p>
-          </div>
-        </div>
-      {{/each}}
-    </div>
+    {{> comment}}
   </article>
   <div data-menu="drop" class="menu pure-g">
     <div class="pure-u-1-5">
       {{> snap-button}}
     </div><div class="pure-u-3-5">
     <div class="fancy-input">
-      <input type="text">
+      <input data-form="comment-form" name="comment" type="text">
     </div>
     </div><div class="pure-u-1-5">
-    <button class="pure-button">Comment</button>
+    <button data-button="comment-button" class="pure-button">Comment</button>
     </div>
   </div>
 </script>
@@ -70,3 +55,21 @@
   {{/if}}
 </script>
 
+<script data-partial="comment-partial" type="text/x-handlebars-template">
+  <div class="comment-list">
+    <h3 class="pure-u-1">{{pluralize comments_count "comment"}}</h3>
+    {{#each comments}}
+      <div class="comment-item pure-g pure-u-1">
+        <div class="pure-u">
+          <a href="/users/{{user.id}}">
+            <img class="comment-avatar" src="{{user.avatar}}">
+          </a>
+        </div>
+        <div class="pure-u-3-4">
+          <h3 class="comment-username">{{user.username}}</h3>
+          <p class="comment-text">{{text}}</p>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</script>

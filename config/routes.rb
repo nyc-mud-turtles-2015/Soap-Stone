@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   resources :follows, only: [:create, :destroy]
   resources :drops, only: [:new, :index, :show, :create] do
+    resources :comments, only: [:create]
     resources :snaps, only: [:create]
   end
 
