@@ -1,12 +1,13 @@
 class DropsController < ApplicationController
+  CLICKABLE_DISTANCE = 330 * 0.000189394 #feet to miles
 
   def new
     @drop = Drop.new
   end
 
   def index
-    clickable = Drop.within(0.2, :origin => [params[:lat].to_f, params[:lon].to_f]).order(created_at: :desc).limit(50)
-    outside = Drop.beyond(0.2, :origin => [params[:lat].to_f, params[:lon].to_f]).order(created_at: :desc).limit(100)
+    clickable = Drop.within(CLICKABLE_DISTANCE, :origin => [params[:lat].to_f, params[:lon].to_f]).order(created_at: :desc).limit(50)
+    outside = Drop.beyond(CLICKABLE_DISTANCE, :origin => [params[:lat].to_f, params[:lon].to_f]).order(created_at: :desc).limit(100)
     total = [clickable,outside]
     total.to_json
     render json: total
@@ -14,8 +15,8 @@ class DropsController < ApplicationController
 
   def followees
     target_ids = current_user.followees.map{|followee| followee.id}
-    clickable = Drop.where(user_id: target_ids).within(0.2, :origin => [params[:lat].to_f, params[:lon].to_f]).order(created_at: :desc).limit(50)
-    outside = Drop.where(user_id: target_ids).beyond(0.2, :origin => [params[:lat].to_f, params[:lon].to_f]).order(created_at: :desc)
+    clickable = Drop.where(user_id: target_ids).within(CLICKABLE_DISTANCE, :origin => [params[:lat].to_f, params[:lon].to_f]).order(created_at: :desc).limit(50)
+    outside = Drop.where(user_id: target_ids).beyond(CLICKABLE_DISTANCE, :origin => [params[:lat].to_f, params[:lon].to_f]).order(created_at: :desc)
     total = [clickable,outside]
     total.to_json
     render json: total

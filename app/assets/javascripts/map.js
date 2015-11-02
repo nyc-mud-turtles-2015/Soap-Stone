@@ -120,7 +120,7 @@ SoapStone.MapView.prototype.init = function () {
             fillOpacity: 0.25,
             map: self.map,
             center: self.trackingLocation,
-            radius: 321.869 //meters
+            radius: 330 * 0.3048 //feet to meters
           });
           resolve(self);
         });
@@ -154,7 +154,7 @@ SoapStone.MapView.prototype.watchCurrentPosition = function() {
     //console.log("in the watchCurrentPosition function", self.trackingLocation.lat(), self.trackingLocation.lng());
       self.trackingLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       setMarkerPosition(self.currentPositionMarker,position);
-      setCirclePosition(self.circle, position)
+      setCirclePosition(self.circle, position);
     });
 };
 
