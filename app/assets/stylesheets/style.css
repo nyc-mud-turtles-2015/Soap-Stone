@@ -36,9 +36,19 @@ html {
         margin: 0;
     }
 
-    .drop-time {
-        font-size: 80%;
-        margin: 0.4em 0;
+    .drop-time, .drop-distance {
+        font-size: 70%;
+        margin: 0.3em 0;
+    }
+
+    .drop-link {
+
+    }
+
+    .drop-list-empty {
+        margin: 1em 0;
+        color: #888;
+        text-align: center;
     }
 
 
