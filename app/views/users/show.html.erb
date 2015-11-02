@@ -1,4 +1,4 @@
-<div data-view="user">
+<div data-role="user">
   <h4><%= @user.username %></h4>
 
   <div>
@@ -12,21 +12,23 @@
     <%= render 'follow_form' %>
   <% end %>
 
-  <h5><%= pluralize(@user.followers.count, 'follower') %></h5>
-  <div data-view="user" class="followers">
-  </div>
-  <%= render partial: "handlebars_show_follower" %>
-  
-  <h5><%= @user.followees.count %> following</h5>
-  <div class="followees">
-    <% @user.followees.each do |followee| %>
-      <%= render partial: 'user', locals: { user: followee } %>
-    <% end %>
-  </div>
+  <section id="follow-container">
+    <h4><%= pluralize(@user.followers.count, 'follower') %></h4>    
+    <ul data-role="follower-list">
+      <li>Loading followers...</li>
+    </ul>
 
-  <h5><%= pluralize(@user.drops.count, 'drop') %></h5>
+  <h4><%= @user.followees.count %> following</h4>
+    <ul data-role="followee-list">
+      <li>Loading followings...</li>
+    </ul>
+  </section>
+
+  <h4><%= pluralize(@user.drops.count, 'drop') %></h4>
   <% if current_user == @user %>
   <div class="drops">
   </div>
   <% end %>
 </div>
+
+  <%= render partial: "handlebars_show_follower" %>

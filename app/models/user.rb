@@ -21,4 +21,15 @@ class User < ActiveRecord::Base
     self.followees.include?(diff_user)
   end
 
+  def show_json
+    to_json(methods: :following?,
+      only: [:photo, :text, :created_at, :lon, :lat, :snaps_count, :comments_count],
+      include: { 
+        user:     { only: [:username, :avatar] }, 
+        comments: { only: [:text, :created_at],
+          include: { user: { only: [:username, :avatar] } }
+        } }
+        ) 
+  end
+
 end
