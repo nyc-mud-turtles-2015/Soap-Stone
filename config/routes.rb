@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get "/drops/followees" => 'drops#followees'
   resources :users, only: [:show] do
     resources :follows, only: [:index]
+    resources :drops, only: [:index]
   end
 
   resources :follows, only: [:create, :destroy]
