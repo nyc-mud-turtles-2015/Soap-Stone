@@ -20,7 +20,15 @@ SoapStone.Controller.prototype.createDrop = function(form) {
   var formData = new FormData($(form)[0]);
   this.dropView.showUploadIndicator();
   drop.save(formData)
-  .then(self.dropView.showUploadSuccess.bind(self.dropView))
+  .then(function () { 
+    self.dropView.showUploadSuccess.bind(self.dropView)() 
+    var drop = this;
+    drop.marker = new google.maps.Marker({
+      map: self.mapView.map,
+      position: new google.maps.LatLng(drop.lat, drop.lon),
+      animation: google.maps.Animation.DROP
+    });
+  }.bind(drop))
   .fail(self.dropView.showUploadFailure.bind(self.dropView));
 };
 
