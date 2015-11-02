@@ -58,3 +58,10 @@ SoapStone.Controller.prototype.addSnap = function(drop){
     self.dropView.updateSnapButton(drop);
   });
 };
+
+SoapStone.Controller.prototype.createComment = function(drop){
+  var self = this;
+  drop.createComment().then(function () {
+    self.dropView.updateComments(drop);
+  });
+}
