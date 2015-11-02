@@ -10,6 +10,33 @@ html {
   display: none;
 }
 
+.drop-img {
+    max-height: 50vh;
+}
+
+.drop-text-wrapper {
+    margin: 0;
+    display: table;
+    width:100%;
+    max-height: 50vh;
+}
+
+.drop-text-container {
+    display: table-cell;
+    vertical-align:middle;
+}
+
+.drop-text-container .drop-text {
+    margin: 0;
+    padding: 2em;
+    text-align:center;
+    font-style: italic;
+    font-size: 2em;
+    min-height: 3em;
+    background-color: rgba(230, 126, 34, 0.9);
+    color: #ececec;
+}
+
 .drop-list {
     overflow: scroll;
     height: calc(50vh - 5em);
@@ -169,7 +196,6 @@ button.close {
     color: #222222;
     border-width: 0;
     border-radius: 2px;
-
 }
 
 @media screen and (min-width: 35.5em) {

@@ -101,6 +101,9 @@ SoapStone.MapView.prototype.init = function () {
           self.mapProp = {
             center: self.trackingLocation, //find center of collection
             zoom:17,
+            zoomControlOptions: {
+              position: google.maps.ControlPosition.TOP_RIGHT
+            },
             streetViewControl: false,
             styles: mapStyles,
             mapTypeId:google.maps.MapTypeId.ROADMAP
