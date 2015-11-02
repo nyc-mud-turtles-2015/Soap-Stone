@@ -23,6 +23,7 @@ SoapStone.Drop.prototype.setAttributes = function (args) {
   }
   this.text = args.text;
   this.photo = args.photo;
+  this.distance = args.distance;
   this.created_at = args.created_at;
   this.snaps_count = args.snaps_count;
   this.comments_count = args.comments_count;
@@ -94,8 +95,8 @@ SoapStone.Comment = function (args) {
 
 // View
 SoapStone.DropView = function () {
-  var showTemplateSource   = $("[data-template='show-drop']").html();
-  this.showTemplate = Handlebars.compile(showTemplateSource);
+  this.showTemplate = Handlebars.compile($("[data-template='show-drop']").html());
+  this.dropListTemplate = Handlebars.compile($("[data-template='drop-list']").html());
   Handlebars.registerPartial("snap-button", $("[data-partial='snap-button-partial']").html());
   this.snapButtonTemplate = Handlebars.compile($("[data-partial='snap-button-partial']").html());
   this.setUpEventHandlers();
@@ -158,6 +159,22 @@ SoapStone.DropView.prototype.showDrop = function (drop) {
     self.controller.addSnap(drop);
   });
 };
+
+SoapStone.DropView.prototype.clearDropList = function (drop) {
+  $(".drop-list").remove();
+};
+
+SoapStone.DropView.prototype.showDropList = function (drops) {
+  var self = this;
+  $("[data-view='map']").append(this.dropListTemplate(drops));
+  $("[data-view='map']").on('click', 'a', function(event){
+    if (event.target.dataset.drop) {
+      event.preventDefault();
+      self.controller.showDrop(event.target.dataset.drop);
+    }
+  });
+};
+
 
 SoapStone.DropView.prototype.closeDrop  = function () {
   $("[data-view='drop']").remove();
