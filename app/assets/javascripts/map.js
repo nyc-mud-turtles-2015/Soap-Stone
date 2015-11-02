@@ -1,7 +1,6 @@
 SoapStone.Map = function () {
   this.outsideDrops = [];
 	this.clickableDrops = [];
-  // this.userColors = {};
   $('#set-center').on('click',function(e){
     SoapStone.app.mapView.centerMap();
   });
@@ -10,11 +9,6 @@ SoapStone.Map = function () {
 SoapStone.Map.prototype.addClickableDrop = function (dropData) {
   var drop = new SoapStone.Drop(dropData);
   if (drop.lat && drop.lon) {
-    // if (this.userColors[drop.user.id]) {
-    //   hue = this.userColors[drop.user.id]
-    // } else {
-    //   hue = this.userColors[drop.user.id] = Math.floor(Math.random() * 359) + 1;
-    // }
     drop.marker = new google.maps.Marker({
       position: new google.maps.LatLng(drop.lat, drop.lon),
       icon: {
@@ -25,8 +19,7 @@ SoapStone.Map.prototype.addClickableDrop = function (dropData) {
       }
     });
     drop.marker.setMap(SoapStone.app.mapView.map);
-    SoapStone.app.map.clickableDrops.unshift(drop);//bad???? why was 'this' the window and not a map?
-  }
+    SoapStone.app.map.clickableDrops.unshift(drop);
 };
 
 SoapStone.Map.prototype.addOutsideDrop = function (dropData) {
@@ -286,7 +279,7 @@ SoapStone.MapView.prototype.showDrops = function (clickable, outside) {
       drop.marker.setMap(self.map);
     };
   });
-  outside.forEach(function(drop){
+  outside.forEach(function(drop){//cant test this really untill its deployed on heroku cause i need to turn inside to outside...
     if (drop.hasEventListener){
       drop.marker.removeListener('click', function() {//remove??
         SoapStone.app.showDrop(drop.id);
