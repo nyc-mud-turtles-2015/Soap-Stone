@@ -1,12 +1,23 @@
 SoapStone.Controller = function() {
-  this.dropView = new SoapStone.DropView();
-  this.dropView.controller = this;
-  this.mapView = new SoapStone.MapView();
-  this.mapView.controller = this;
+  if ($("[data-view='map']").exists()) {
+    this.dropView = new SoapStone.DropView();
+    this.dropView.controller = this;
 
-  this.mapView.watchCurrentPosition();
-  this.map = new SoapStone.Map();
-  this.initDrops();
+    this.mapView = new SoapStone.MapView();
+    this.mapView.controller = this;
+    this.mapView.watchCurrentPosition();
+    this.map = new SoapStone.Map();
+    this.initDrops();
+  }
+
+  if ($("[data-view='user']").exists()) {
+    this.user = new SoapStone.User();
+    this.userView = new SoapStone.UserView();
+    Promise.all([this.loadFollows(), this.loadDrops()]).then(function() {
+      //viewstuff
+    });
+  }
+
 };
 
 SoapStone.Controller.prototype.createDrop = function(form) {
@@ -20,7 +31,7 @@ SoapStone.Controller.prototype.createDrop = function(form) {
   this.dropView.showUploadIndicator();
   drop.save(formData)
   .then(function (response) { 
-    self.dropView.showUploadSuccess.bind(self.dropView)() 
+    self.dropView.showUploadSuccess.bind(self.dropView)();
     var drop = this;
     drop.marker = new google.maps.Marker({
       map: self.mapView.map,
@@ -52,14 +63,14 @@ SoapStone.Controller.prototype.initDrops = function() {
       self.mapView.showDrops(self.map.clickableDrops, self.map.outsideDrops);
       self.dropView.clearDropList();
       self.dropView.showDropList(self.map.clickableDrops);
-      self.pollDrops()
+      self.pollDrops();
     });
   });
 };
 
 SoapStone.Controller.prototype.pollDrops = function (){
     var self = this;
-    console.log("in the poll drops function")
+    console.log("in the poll drops function");
     window.recentPollInterval = setInterval(function(){
       self.refreshDrops(self.mapView.filter);
     }, 5000);
@@ -97,4 +108,18 @@ SoapStone.Controller.prototype.createComment = function(drop){
   drop.createComment().then(function () {
     self.dropView.updateComments(drop);
   });
-}
+};
+
+
+SoapStone.Controller.prototype.loadDrops = function () {
+  var self = this;
+  id = location.href.split('/').slice(-1);
+  return this.user.loadDrops(id);
+};
+
+SoapStone.Controller.prototype.loadFollows = function() {
+  var self = this;
+  id = location.href.split('/').slice(-1);
+  return this.user.loadFollows(id);  
+};
+

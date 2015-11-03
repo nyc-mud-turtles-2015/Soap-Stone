@@ -5,11 +5,6 @@ SoapStone.Drop = function (args) {
   }
 };
 
-SoapStone.Drop.prototype.calculateUserColor = function (userId) {
-  Math.seedrandom(userId);
-  return Math.floor(Math.random() * 359) + 1;
-};
-
 SoapStone.Drop.prototype.setAttributes = function (args) {
   this.id = args.id;
   if (args.coords) {
@@ -35,11 +30,7 @@ SoapStone.Drop.prototype.setAttributes = function (args) {
   this.comments_count = args.comments_count;
   this.snapped_by_you = args["snapped_by?"];
   if (args.user) {
-    this.user = {};
-    this.user.id = args.user.id;
-    this.user.username = args.user.username;
-    this.user.avatar = args.user.avatar;
-    this.user.hue = this.calculateUserColor(this.user.id)
+    this.user = new SoapStone.User(args.user);
   }
   if (args.comments) {
     this.comments = args.comments.map(function (data) {
@@ -100,7 +91,7 @@ SoapStone.Drop.prototype.createComment = function (comment) {
     self.comments.push(new SoapStone.Comment(response));
     self.comments_count += 1;
   });
-}
+};
 
 SoapStone.Comment = function (args) {
   this.text = args.text;
@@ -181,7 +172,7 @@ SoapStone.DropView.prototype.updateSnapButton = function (drop) {
 
 SoapStone.DropView.prototype.updateComments = function (drop) {
   $(".comment-list").replaceWith(this.commentsTemplate(drop));
-}
+};
 
 SoapStone.DropView.prototype.showDrop = function (drop) {
   var self = this;
@@ -199,8 +190,8 @@ SoapStone.DropView.prototype.showDrop = function (drop) {
 
   $("[data-button='comment-button']").on('click', function (event){
     event.preventDefault();
-    self.controller.createComment(drop)
-    $("[data-form='comment-form']").val('')
+    self.controller.createComment(drop);
+    $("[data-form='comment-form']").val('');
   });
 };
 
