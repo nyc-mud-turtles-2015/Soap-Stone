@@ -199,6 +199,15 @@ SoapStone.DropView.prototype.clearDropList = function (drop) {
   $(".drop-list").remove();
 };
 
+SoapStone.DropView.prototype.getMarker = function (drops, id) {
+  for (var i = 0; i < drops.length; i++) {
+    var drop = drops[i];
+    if (drop.id === id) {
+      return drop.marker;
+    }
+  }
+};
+
 SoapStone.DropView.prototype.showDropList = function (drops) {
   var self = this;
   $("[data-view='map']").append(this.dropListTemplate(drops));
@@ -209,8 +218,17 @@ SoapStone.DropView.prototype.showDropList = function (drops) {
       self.controller.showDrop(dropId);
     }
   });
+  $(".drop-list").on('mouseenter', '.drop-item', function(event) {
+    $(this).addClass("selected");
+    var marker = self.getMarker(drops, Number(this.dataset.drop));
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+  });
+  $(".drop-list").on('mouseleave', '.drop-item', function(event) {
+    $(this).removeClass("selected");
+    var marker = self.getMarker(drops, Number(this.dataset.drop));
+    marker.setAnimation(null);
+  });
 };
-
 
 SoapStone.DropView.prototype.closeDrop  = function () {
   $("[data-view='drop']").remove();
