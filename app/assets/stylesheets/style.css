@@ -368,6 +368,10 @@ button.close {
   animation: wiggle 2.5s linear infinite;
 }
 
+.a0-icon-badge {
+  display:none;
+}
+
 @keyframes wiggle {
   0%, 7% {
     transform: rotateZ(0);
