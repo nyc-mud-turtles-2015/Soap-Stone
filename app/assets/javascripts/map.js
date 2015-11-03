@@ -11,6 +11,7 @@ SoapStone.Map.prototype.addClickableDrop = function (dropData) {
   if (drop.lat && drop.lon) {
     drop.marker = new google.maps.Marker({
       position: new google.maps.LatLng(drop.lat, drop.lon),
+      cursor: 'crosshair',
       icon: {
         path: 'M -2,0 0,-2 2,0 0,2 z',//google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
         scale: 4,
@@ -28,11 +29,12 @@ SoapStone.Map.prototype.addOutsideDrop = function (dropData) {
   if (drop.lat && drop.lon) {
   drop.marker = new google.maps.Marker({
     position: new google.maps.LatLng(drop.lat, drop.lon),
+    clickable: false,
     icon: {
       path: 'M -2,0 0,-2 2,0 0,2 z',//google.maps.SymbolPath.BACKWARD_OPEN_ARROW,
       scale: 4,
-      strokeColor: "hsla("+drop.user.hue+",100%,50%,0.4)",
-      strokeWeight: 2
+      strokeColor: "hsl("+drop.user.hue+",30%,50%)",
+      strokeWeight: 3,
     }
   });
   drop.marker.setMap(SoapStone.app.mapView.map);
