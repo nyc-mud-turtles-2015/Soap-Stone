@@ -364,8 +364,8 @@ button.close {
 }
 
 /****** AUTH0 ******/
-img {
-  animation: wiggle 2s linear infinite;
+.a0-image {
+  animation: wiggle 2.5s linear infinite;
 }
 
 @keyframes wiggle {
@@ -376,10 +376,10 @@ img {
     transform: rotateZ(-15deg);
   }
   20% {
-    transform: rotateZ(20deg);
+    transform: rotateZ(30deg);
   }
   25% {
-    transform: rotateZ(-20deg);
+    transform: rotateZ(-30deg);
   }
   30% {
     transform: rotateZ(6deg);
@@ -392,6 +392,9 @@ img {
   }
 }
 
+#root {
+
+}
 
 /* fancy loader http://projects.lukehaas.me/css-loaders/ */
 
