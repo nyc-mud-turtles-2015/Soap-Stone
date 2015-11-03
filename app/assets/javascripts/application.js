@@ -19,5 +19,6 @@
 //= require init
 //= require drop
 //= require map
+//= require users
 //= require controller
 //= require_tree .

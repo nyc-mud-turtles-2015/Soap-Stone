@@ -5,10 +5,21 @@ SoapStone.User = function(args) {
 };
 
 SoapStone.User.prototype.setAttributes = function(args) {
+  this.id = this.id || args.id;
+  this.username = this.username || args.username;
+  this.avatar = this.avatar || args.avatar;
+  if (this.id) {
+    this.hue = this.calculateUserColor(this.id);
+  }
   this.followers = this.followers || args.followers;
-  this.followees = this.followers || args.followees ;
+  this.followees = this.followers || args.followees;
   this.drops = this.drops || args.drops;
-},
+};
+
+SoapStone.User.prototype.calculateUserColor = function (userId) {
+  Math.seedrandom(userId);
+  return Math.floor(Math.random() * 359) + 1;
+};
 
 SoapStone.User.prototype.loadDrops = function(id) {
   var self = this;
@@ -53,26 +64,6 @@ SoapStone.UserView = function() {
   this.setUpEventHandlers();
 };
 
-SoapStone.Controller = function() {
-  this.user = new SoapStone.User();
-  this.userView = new SoapStone.UserView();
-  Promise.all([this.loadFollows(), this.loadDrops()]).then(function() {
-    //viewstuff
-  })
-};
-
-SoapStone.Controller.prototype.loadDrops = function () {
-  var self = this;
-  id = location.href.split('/').slice(-1);
-  return this.user.loadDrops(id);
-}
-
-SoapStone.Controller.prototype.loadFollows = function() {
-  var self = this;
-  id = location.href.split('/').slice(-1);
-  return this.user.loadFollows(id);  
-};
-
 SoapStone.UserView.prototype.showFollows = function (user) {
   var followerItems = $(document.createDocumentFragment());
   var followeeItems = $(document.createDocumentFragment());
@@ -105,14 +96,6 @@ SoapStone.UserView.prototype.setUpEventHandlers = function(){
   });
 };
 
-// SoapStone.Controller.prototype.createfollow = function(followParams) {
-//   var follow = new SoapStone.Follow({followee_id: followParams.value});
-//   debugger;
-//   follow.save()
-//   .then(function(response) {console.log(response);})
-//   .fail(function(response) {console.log(response);});
-// };
-
 SoapStone.UserView.prototype.showFollowers = function(user) {
   var self = this;
   var followerItems = $(document.createDocumentFragment());
@@ -139,6 +122,11 @@ SoapStone.UserView.prototype.showFollowees = function(user) {
   });
 };
 
+SoapStone.UserView.prototype.closeFollows = function () {
+  $("[data-view='user']").remove();
+  $(".user").show();
+};
+
 SoapStone.UserView.prototype.showMap = function(user) {
   var self = this;
   $(".user").hide();
@@ -150,7 +138,3 @@ SoapStone.UserView.prototype.showMap = function(user) {
 }
 
 
-SoapStone.UserView.prototype.closeFollows = function () {
-  $("[data-view='user']").remove();
-  $(".user").show();
-}
