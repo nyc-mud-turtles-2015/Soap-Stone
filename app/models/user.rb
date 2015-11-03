@@ -20,5 +20,4 @@ class User < ActiveRecord::Base
   def following?(diff_user)
     self.followees.include?(diff_user)
   end
-
 end
