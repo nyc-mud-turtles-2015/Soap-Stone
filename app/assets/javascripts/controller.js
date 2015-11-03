@@ -2,14 +2,13 @@ SoapStone.Controller = function() {
   if ($("[data-view='map']").exists()) {
     this.dropView = new SoapStone.DropView();
     this.dropView.controller = this;
-
     this.mapView = new SoapStone.MapView();
     this.mapView.controller = this;
     this.mapView.watchCurrentPosition();
     this.map = new SoapStone.Map();
-    this.initDrops();
+    var userId = this.getUserId();
+    this.initDrops(userId);
   }
-
   if ($("[data-view='user']").exists()) {
     this.user = new SoapStone.User();
     this.userView = new SoapStone.UserView();
@@ -17,13 +16,9 @@ SoapStone.Controller = function() {
       //viewstuff
     });
   }
-  this.mapView.watchCurrentPosition();
-  this.map = new SoapStone.Map();
-  var userId = this.getUserId();
-  this.initDrops(userId);
 };
 
-SoapStone.Controller.prototype.getQueryParams = function(){
+SoapStone.Controller.prototype.getUserId = function(){
   var match = /user_id=(\d*)/.exec( location.href);
   if (match){
     return match[1]-0;//the -0 is to turn it into a number
