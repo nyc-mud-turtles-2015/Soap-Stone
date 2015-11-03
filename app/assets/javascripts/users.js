@@ -90,9 +90,10 @@ SoapStone.UserView.prototype.setUpEventHandlers = function(){
   });
 
   $("#drops").on('click', function(event){
+    debugger;
     event.preventDefault();
-    SoapStone.app.userView.showMap(SoapStone.app.user);
-    // So($(event.target).serializeArray()[2]);
+    var id = location.href.split('/').slice(-1); //WET code same line as 66
+    window.location.href = "/?user_id="+id;
   });
 };
 
@@ -126,15 +127,3 @@ SoapStone.UserView.prototype.closeFollows = function () {
   $("[data-view='user']").remove();
   $(".user").show();
 };
-
-SoapStone.UserView.prototype.showMap = function(user) {
-  var self = this;
-  $(".user").hide();
-  debugger
-  $('body').append("<p>yes?</p>");
-  $("[data-button='close-follow']").on('click', function (event) {
-    self.closeFollows();
-  });
-}
-
-
