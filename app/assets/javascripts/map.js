@@ -264,8 +264,8 @@ SoapStone.MapView.prototype.init = function () {
             streetViewControl: false,
             styles: mapStyles,
             mapTypeId:google.maps.MapTypeId.ROADMAP
-         };
-         self.map = new google.maps.Map(document.getElementById("googleMap"),self.mapProp);
+          };
+          self.map = new google.maps.Map(document.getElementById("googleMap"),self.mapProp);
           self.circle = new google.maps.Circle({
             strokeColor: '#0000FF',
             strokeOpacity: 0.25,
@@ -273,7 +273,7 @@ SoapStone.MapView.prototype.init = function () {
             fillColor: '#00FFFF',
             fillOpacity: 0.25,
             map: self.map,
-            center: new google.maps.LatLng(TRACKING_TESTING_LAT, TRACKING_TESTING_LON),//self.trackingLocation,
+            center: self.trackingLocation,//new google.maps.LatLng(TRACKING_TESTING_LAT, TRACKING_TESTING_LON),//self.trackingLocation,
             radius: 330 * 0.3048 //feet to meters
           });
           resolve(self);
