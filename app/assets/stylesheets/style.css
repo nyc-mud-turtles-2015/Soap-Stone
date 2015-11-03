@@ -55,6 +55,12 @@ html {
   border-radius: 50%;
 }
 
+.icons {
+  float:right;
+  width:110%;
+  padding-left: 8.5em;
+}
+
 .drop-item:nth-child(1) {
     border-top: 1px solid #ddd;
 }
@@ -70,8 +76,8 @@ html {
 
     .drop-time, .drop-distance, .drop-snap {
         font-size: 70%;
-        margin: 2.2em 0;
-        padding-left: 1.5em;
+        margin: 1.5em 0 -3em;
+        padding-left: 2em;
     }
 
     .drop-link {
