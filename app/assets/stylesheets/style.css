@@ -57,13 +57,13 @@ li {
 
 .splash-container {
   float: left;
-  margin-left: 10%; 
+  margin-left: 10%;
   margin-right: 10%;
   padding-top: 2em;
 }
 
 .following {
-  margin: 0 auto;  
+  margin: 0 auto;
   width: 20em;
   border: 0 none;
   font-weight: 600;
@@ -92,7 +92,7 @@ li {
 }
 
 .follow {
-  margin: 0 auto;  
+  margin: 0 auto;
   width: 20em;
   font-weight: 600;
   letter-spacing: 1.5px;
@@ -362,6 +362,36 @@ button.close {
         height: calc(100vh - 5em);
     }
 }
+
+/****** AUTH0 ******/
+img {
+  animation: wiggle 2s linear infinite;
+}
+
+@keyframes wiggle {
+  0%, 7% {
+    transform: rotateZ(0);
+  }
+  15% {
+    transform: rotateZ(-15deg);
+  }
+  20% {
+    transform: rotateZ(20deg);
+  }
+  25% {
+    transform: rotateZ(-20deg);
+  }
+  30% {
+    transform: rotateZ(6deg);
+  }
+  35% {
+    transform: rotateZ(-4deg);
+  }
+  40%, 100% {
+    transform: rotateZ(0);
+  }
+}
+
 
 /* fancy loader http://projects.lukehaas.me/css-loaders/ */
 
