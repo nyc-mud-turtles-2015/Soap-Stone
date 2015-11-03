@@ -55,8 +55,11 @@ Array.prototype.updateDropsArray = function (func, oldArray, otherArray, limit){
       }
     var outIndex =  $.inArray(dropData.id, otherArray.map(function(obj){return obj.id}));
     if (outIndex != -1){//it was outside but now inside so remove that from the old outside
+      var kill = oldArray[outIndex];
+      kill.marker.setMap(null);//not needed but take it off the map before destorying incase of ZOMBIE points
+      delete kill; 
       oldArray.splice(outIndex,1);
+
     }
   })
 }
-
