@@ -208,6 +208,13 @@ SoapStone.DropView.prototype.getMarker = function (drops, id) {
   }
 };
 
+SoapStone.DropView.prototype.clearMarkerAnimations = function (drops) {
+  for (var i = 0; i < drops.length; i++) {
+    var drop = drops[i];
+    drop.marker.setAnimation(null);
+  }
+};
+
 SoapStone.DropView.prototype.showDropList = function (drops) {
   var self = this;
   $("[data-view='map']").append(this.dropListTemplate(drops));
@@ -227,6 +234,13 @@ SoapStone.DropView.prototype.showDropList = function (drops) {
     $(this).removeClass("selected");
     var marker = self.getMarker(drops, Number(this.dataset.drop));
     marker.setAnimation(null);
+  });
+  $(".drop-list").on('click', '.drop-item', function(event) {
+    $('.drop-item').removeClass("selected");
+    $(this).addClass("selected");
+    self.clearMarkerAnimations(drops);
+    var marker = self.getMarker(drops, Number(this.dataset.drop));
+    marker.setAnimation(google.maps.Animation.BOUNCE);
   });
 };
 
