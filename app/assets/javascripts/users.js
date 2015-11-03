@@ -90,7 +90,6 @@ SoapStone.UserView.prototype.setUpEventHandlers = function(){
   });
 
   $("#drops").on('click', function(event){
-    debugger;
     event.preventDefault();
     var id = location.href.split('/').slice(-1); //WET code same line as 66
     window.location.href = "/?user_id="+id;
