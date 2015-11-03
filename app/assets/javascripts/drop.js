@@ -227,20 +227,26 @@ SoapStone.DropView.prototype.showDropList = function (drops) {
   });
   $(".drop-list").on('mouseenter', '.drop-item', function(event) {
     $(this).addClass("selected");
-    var marker = self.getMarker(drops, Number(this.dataset.drop));
-    marker.setAnimation(google.maps.Animation.BOUNCE);
+    var marker = self.getMarker(drops, Number(this.dataset.dropId));
+    if (marker) {
+      marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
   });
   $(".drop-list").on('mouseleave', '.drop-item', function(event) {
     $(this).removeClass("selected");
-    var marker = self.getMarker(drops, Number(this.dataset.drop));
-    marker.setAnimation(null);
+    var marker = self.getMarker(drops, Number(this.dataset.dropId));
+    if (marker) {
+      marker.setAnimation(null);
+    }
   });
   $(".drop-list").on('click', '.drop-item', function(event) {
     $('.drop-item').removeClass("selected");
     $(this).addClass("selected");
     self.clearMarkerAnimations(drops);
-    var marker = self.getMarker(drops, Number(this.dataset.drop));
-    marker.setAnimation(google.maps.Animation.BOUNCE);
+    var marker = self.getMarker(drops, Number(this.dataset.dropId));
+    if (marker) {
+      marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
   });
 };
 
