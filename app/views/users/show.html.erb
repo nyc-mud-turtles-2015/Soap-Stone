@@ -20,7 +20,7 @@
       <%= @user.followees.count %> following
     </div>       
     <div class="pure-u-1-3" id="drops">
-      <%= pluralize(@user.drops.count, 'drop') %>
+      <%= link_to pluralize(@user.drops.count, 'drop'), user_drops_path(@user) %>
     </div>
   </div>
 
