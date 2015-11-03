@@ -1,3 +1,11 @@
+var TRACKING_TESTING_ON = true;
+var TRACKING_TESTING_LAT = 40.704887199999995, TRACKING_TESTING_LON = -74.0123736;
+moveMe = function (i) {
+  console.log("moving you");
+  SoapStone.app.mapView.trackingLocation =  new google.maps.LatLng(TRACKING_TESTING_LAT += i/10000, TRACKING_TESTING_LON += i/10000);
+};
+
+
 SoapStone.Map = function () {
   this.outsideDrops = [];
 	this.clickableDrops = [];
@@ -242,7 +250,11 @@ SoapStone.MapView.prototype.init = function () {
   return new Promise(function (resolve, reject) {
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(function(position) {
-          self.trackingLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          if (TRACKING_TESTING_ON) {
+            self.trackingLocation = new google.maps.LatLng(TRACKING_TESTING_LAT, TRACKING_TESTING_LON);
+          } else {
+            self.trackingLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);  
+          }
           self.mapProp = {
             center: self.trackingLocation, //find center of collection
             zoom:17,
@@ -254,13 +266,6 @@ SoapStone.MapView.prototype.init = function () {
             mapTypeId:google.maps.MapTypeId.ROADMAP
          };
          self.map = new google.maps.Map(document.getElementById("googleMap"),self.mapProp);
-         // self.currentPositionMarker = new google.maps.Marker({
-         //    map: self.map,
-         //    icon: "https://robohash.org/jake.bmp?size=40x40",
-         //    position: self.trackingLocation,
-         //    animation: google.maps.Animation.DROP,
-         //    title: "you are here"
-         //  });
           self.circle = new google.maps.Circle({
             strokeColor: '#0000FF',
             strokeOpacity: 0.25,
@@ -268,7 +273,7 @@ SoapStone.MapView.prototype.init = function () {
             fillColor: '#00FFFF',
             fillOpacity: 0.25,
             map: self.map,
-            center: self.trackingLocation,
+            center: new google.maps.LatLng(TRACKING_TESTING_LAT, TRACKING_TESTING_LON),//self.trackingLocation,
             radius: 330 * 0.3048 //feet to meters
           });
           resolve(self);
@@ -316,7 +321,14 @@ SoapStone.MapView.prototype.watchCurrentPosition = function() {
     console.log("in the watchCurrentPosition function");
     console.log("lat: ",self.trackingLocation.lat());
     console.log("lng: ",self.trackingLocation.lng());
-    self.trackingLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+    // TKTKTK
+    if (TRACKING_TESTING_ON) {
+      self.trackingLocation = new google.maps.LatLng(TRACKING_TESTING_LAT, TRACKING_TESTING_LON);
+    } else {
+      self.trackingLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);  
+    }
+    
     setCirclePosition(self.circle, position);
     self.controller.refreshDrops(self.filter);
   });

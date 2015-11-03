@@ -80,7 +80,6 @@ SoapStone.Controller.prototype.initDrops = function(filter) {
 
 SoapStone.Controller.prototype.pollDrops = function (){
     var self = this;
-    console.log("in the poll drops function");
     window.recentPollInterval = setInterval(function(){
       self.refreshDrops(self.mapView.filter);
     }, 5000);
