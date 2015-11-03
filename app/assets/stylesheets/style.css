@@ -10,14 +10,25 @@ html {
   padding: .5em;
 }
 
+.material-icons {
+  font-size: 4em;
+  position: fixed;
+  text-decoration: none;
+  color: white;
+}
+
 #avatar {
   float: left;
   margin-right: 1em;
-  position: relative;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
   border: 1px solid #7f8c8d;
+}
+
+.home {
+  float: left;
+  position: absolute;
 }
 
 li {
@@ -52,7 +63,7 @@ li {
   letter-spacing: 2px;
   text-transform: uppercase;
   font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
-
+  color: white;
 }
 
 .splash-container {
@@ -75,11 +86,22 @@ li {
   font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
 }
 
-#followers, #followees, #drops {
+#followers, #followees {
   text-align: center;
   padding: .3em;
   border: #ccc solid 1px;
   height: 2em;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+
+}
+
+#drops {
+  text-align: center;
+  padding: .3em;
+  border: #ccc solid 1px;
   font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
