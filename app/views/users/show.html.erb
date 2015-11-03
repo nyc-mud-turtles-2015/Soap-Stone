@@ -1,6 +1,11 @@
 <div data-view="user" class="user">
   <div class="head">
-    <div class="username"><%= @user.username %></div>
+    <div class="home">
+      <a href="/" ><i class="material-icons">satellite</i></a>
+    </div>
+    <div class="username">
+      <%= @user.username %>
+    </div>
   </div>
   <div class="pure-g profile">
     <div class="pure-u-1-4 avatar">
@@ -24,17 +29,21 @@
     </div>
   </div>
 
-  <div><i class="material-icons">satellite<%= link_to 's', root_path %></i></div>
-
-  <div class="content" id="drops">
+  
+  <div class="pure-g content" id="drops">
     <% if current_user == @user %>
       <% @user.drops.each do |drop| %>
-        <%=  link_to image_tag(drop.photo(:thumb)), drop_path(drop), { :class => "pure-img" }%>
+
+        <% if drop.photo_file_name.nil? %>
+          <div class="pure-u-1-4 pure-u-lg-1-8"><%= drop.text %></div>
+        <% else %>
+          <div class="pure-u-1-4 pure-u-lg-1-8"><%=  link_to image_tag(drop.photo(:thumb), { :class => "pure-img" }), drop_path(drop) %> 
+        </div>
+        <% end %>
       <% end %>
     <% end %>
   </div>
 </div>
 <%= render partial: "handlebars_show_follower" %>
-
 
     
