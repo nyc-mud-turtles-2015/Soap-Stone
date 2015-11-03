@@ -25,7 +25,7 @@ SoapStone.Controller.prototype.createDrop = function(form) {
     drop.marker = new google.maps.Marker({
       map: self.mapView.map,
       position: new google.maps.LatLng(drop.lat, drop.lon),
-      animation: google.maps.Animation.DROP,
+      // animation: google.maps.Animation.DROP,
       icon: {
         path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
         scale: 6,
