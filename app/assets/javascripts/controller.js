@@ -119,14 +119,6 @@ SoapStone.Controller.prototype.createComment = function(drop){
   });
 };
 
-
-// SoapStone.Controller.prototype.loadDrops = function () {
-//   var self = this;
-//   debugger;
-//   id = location.href.split('/').slice(-1);
-//   return this.user.loadDrops(id);
-// };
-
 SoapStone.Controller.prototype.loadFollows = function() {
   var self = this;
   id = location.href.split('/').slice(-1);
