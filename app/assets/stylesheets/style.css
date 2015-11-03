@@ -68,9 +68,9 @@ html {
         margin: 0;
     }
 
-    .drop-time, .drop-distance {
+    .drop-time, .drop-distance, .drop-snap {
         font-size: 70%;
-        margin: 2.5em 0;
+        margin: 2.2em 0;
         padding-left: 1.5em;
     }
 
