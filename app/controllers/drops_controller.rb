@@ -7,11 +7,14 @@ class DropsController < ApplicationController
   end
 
   def index
+    current_location = [params[:lat].to_f, params[:lon].to_f]
     if params[:user_id]
-      user = User.find(params[:user_id])
-      render json: { drops: user.drops }
+      i = params[:user_id].to_i
+      clickable = Drop.clickable(current_location,[i])
+      outside = Drop.outside(current_location, [i])
+      render plain: [clickable, outside]
+      .to_json(methods: [:distance], include: {user: { only: [:username, :avatar, :id] } })
     else
-      current_location = [params[:lat].to_f, params[:lon].to_f]
       clickable = Drop.clickable(current_location)
       outside = Drop.outside(current_location)
       render plain: [clickable, outside]

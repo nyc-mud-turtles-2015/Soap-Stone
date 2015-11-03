@@ -2,14 +2,13 @@ SoapStone.Controller = function() {
   if ($("[data-view='map']").exists()) {
     this.dropView = new SoapStone.DropView();
     this.dropView.controller = this;
-
     this.mapView = new SoapStone.MapView();
     this.mapView.controller = this;
     this.mapView.watchCurrentPosition();
     this.map = new SoapStone.Map();
-    this.initDrops();
+    var userId = this.getUserId();
+    this.initDrops(userId);
   }
-
   if ($("[data-view='user']").exists()) {
     this.user = new SoapStone.User();
     this.userView = new SoapStone.UserView();
@@ -17,7 +16,16 @@ SoapStone.Controller = function() {
       //viewstuff
     });
   }
+};
 
+SoapStone.Controller.prototype.getUserId = function(){
+  var match = /user_id=(\d*)/.exec( location.href);
+  if (match){
+    return match[1]-0;//the -0 is to turn it into a number
+  }
+  else{
+    return false;
+  }
 };
 
 SoapStone.Controller.prototype.createDrop = function(form) {
@@ -56,10 +64,11 @@ SoapStone.Controller.prototype.showDrop = function(id) {
   });
 };
 
-SoapStone.Controller.prototype.initDrops = function() {
+SoapStone.Controller.prototype.initDrops = function(filter) {
   var self = this;
-  return this.mapView.init().then(function () {
-    self.map.loadDrops().then(function(){
+  self.mapView.filter = filter;
+  return self.mapView.init().then(function () {
+    self.map.loadDrops(self.mapView.filter).then(function(){
       self.mapView.showDrops(self.map.clickableDrops, self.map.outsideDrops);
       self.dropView.clearDropList();
       self.dropView.showDropList(self.map.clickableDrops);

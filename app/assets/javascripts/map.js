@@ -54,14 +54,19 @@ SoapStone.Map.prototype.clearMarkers = function(){
 SoapStone.Map.prototype.refreshDrops = function (filter) {
   var self = this;
   var myUrl = '/drops';
-  if (filter){
-    myUrl+=filter;
-  }
   var myPosition = SoapStone.app.mapView.trackingLocation;
+  var myData = { lat: myPosition.lat(), lon: myPosition.lng() }
+  if (filter){
+    if (typeof filter !== "number"){
+      myUrl+=filter;
+    }else{
+      myData.user_id = filter;
+    }
+  }
   return $.ajax({
     url: myUrl,
     method : "get",
-    data: { lat: myPosition.lat(), lon: myPosition.lng() },
+    data: myData,
     dataType: 'json'
   })
   .then(function(response) {
@@ -75,15 +80,20 @@ SoapStone.Map.prototype.refreshDrops = function (filter) {
 SoapStone.Map.prototype.loadDrops = function (filter) {
   this.clearMarkers();
 	var self = this;
-	var myUrl = '/drops';
-  if (filter){
-    myUrl+=filter;
-  }
   var myPosition = SoapStone.app.mapView.trackingLocation;
+  var myData = { lat: myPosition.lat(), lon: myPosition.lng() }
+  var myUrl = '/drops';//drops/filter
+  if (filter){
+    if (typeof filter !== "number"){
+      myUrl+=filter;
+    }else{
+      myData.user_id = filter;
+    }
+  }
 	return $.ajax({
     url: myUrl,
     method : "get",
-    data: { lat: myPosition.lat(), lon: myPosition.lng() },
+    data: myData,
     dataType: 'json'
   })
 	.then(function(response) {
