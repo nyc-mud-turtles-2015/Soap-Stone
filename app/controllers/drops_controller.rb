@@ -9,8 +9,6 @@ class DropsController < ApplicationController
   def index
     current_location = [params[:lat].to_f, params[:lon].to_f]
     if params[:user_id]
-      # user = User.find(params[:user_id])
-      # binding.pry
       i = params[:user_id].to_i
       clickable = Drop.clickable(current_location,[i])
       outside = Drop.outside(current_location, [i])

@@ -97,7 +97,6 @@ SoapStone.Map.prototype.loadDrops = function (filter) {
     dataType: 'json'
   })
 	.then(function(response) {
-    
     var clickableArray = response[0];
     var outsideArray = response[1];
     clickableArray.forEach(function(drop) {
