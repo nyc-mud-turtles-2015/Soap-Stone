@@ -48,17 +48,19 @@ Handlebars.registerHelper('timeAgo', function(time) {
 Array.prototype.updateDropsArray = function (func, oldArray, otherArray, limit){
   var newArray = this;
   newArray.forEach(function(dropData){
+    // console.log(dropData)
     if ($.inArray(dropData.id, oldArray.map(function(obj){return obj.id;})) == -1 ){//its not in the clickable drops so add it
-        if (oldArray.length>=50){
+        if (oldArray.length>=limit){
           oldArray.pop();
         }//check the threshold and see the length of clickable
         func(dropData);
       }
     var outIndex =  $.inArray(dropData.id, otherArray.map(function(obj){return obj.id;}));
     if (outIndex != -1){//it was outside but now inside so remove that from the old outside
+      debugger;
       var kill = oldArray[outIndex];
       kill.marker.setMap(null);//not needed but take it off the map before destorying incase of ZOMBIE points
-      delete kill; 
+      // delete kill; 
       oldArray.splice(outIndex,1);
     }
   });
