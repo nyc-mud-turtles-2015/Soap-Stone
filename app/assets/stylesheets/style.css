@@ -194,6 +194,11 @@ li {
         text-align: center;
     }
 
+.drop-item.selected {
+    background-color: #f9f8f7;
+}
+
+
 
 #google-map-container {
     position: relative;
