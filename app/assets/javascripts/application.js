@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require handlebars.js
 //= require toastr.js
+//= require seedrandom.js
 //= require helpers
 //= require init
 //= require drop

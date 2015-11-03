@@ -11,6 +11,12 @@ SoapStone.Map.prototype.addClickableDrop = function (dropData) {
   if (drop.lat && drop.lon) {
     drop.marker = new google.maps.Marker({
       position: new google.maps.LatLng(drop.lat, drop.lon),
+      icon: {
+        path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,//'M -2,0 0,-2 2,0 0,2 z',//
+        scale: 6,
+        strokeColor: "hsl("+drop.user.hue+",80%,50%)",
+        strokeWeight: 1
+      }
     });
     drop.marker.setMap(SoapStone.app.mapView.map);
     SoapStone.app.map.clickableDrops.unshift(drop);//bad???? why was 'this' the window and not a map?
@@ -22,6 +28,12 @@ SoapStone.Map.prototype.addOutsideDrop = function (dropData) {
   if (drop.lat && drop.lon) {
   drop.marker = new google.maps.Marker({
     position: new google.maps.LatLng(drop.lat, drop.lon),
+    icon: {
+      path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW,
+      scale: 4,
+      strokeColor: "hsl("+drop.user.hue+",30%,50%)",
+      strokeWeight: 3
+    }
   });
   drop.marker.setMap(SoapStone.app.mapView.map);
   SoapStone.app.map.outsideDrops.unshift(drop);

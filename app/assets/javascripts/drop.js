@@ -5,6 +5,11 @@ SoapStone.Drop = function (args) {
   }
 };
 
+SoapStone.Drop.prototype.calculateUserColor = function (userId) {
+  Math.seedrandom(userId);
+  return Math.floor(Math.random() * 359) + 1;
+};
+
 SoapStone.Drop.prototype.setAttributes = function (args) {
   this.id = args.id;
   if (args.coords) {
@@ -34,6 +39,7 @@ SoapStone.Drop.prototype.setAttributes = function (args) {
     this.user.id = args.user.id;
     this.user.username = args.user.username;
     this.user.avatar = args.user.avatar;
+    this.user.hue = this.calculateUserColor(this.user.id)
   }
   if (args.comments) {
     this.comments = args.comments.map(function (data) {
