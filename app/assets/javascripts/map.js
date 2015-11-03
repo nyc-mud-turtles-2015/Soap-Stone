@@ -1,7 +1,6 @@
 SoapStone.Map = function () {
   this.outsideDrops = [];
 	this.clickableDrops = [];
-  // this.userColors = {};
   $('#set-center').on('click',function(e){
     SoapStone.app.mapView.centerMap();
   });
@@ -10,11 +9,6 @@ SoapStone.Map = function () {
 SoapStone.Map.prototype.addClickableDrop = function (dropData) {
   var drop = new SoapStone.Drop(dropData);
   if (drop.lat && drop.lon) {
-    // if (this.userColors[drop.user.id]) {
-    //   hue = this.userColors[drop.user.id]
-    // } else {
-    //   hue = this.userColors[drop.user.id] = Math.floor(Math.random() * 359) + 1;
-    // }
     drop.marker = new google.maps.Marker({
       position: new google.maps.LatLng(drop.lat, drop.lon),
       icon: {
