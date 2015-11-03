@@ -33,11 +33,10 @@
   <div class="pure-g content" id="drops">
     <% if current_user == @user %>
       <% @user.drops.each do |drop| %>
-
         <% if drop.photo_file_name.nil? %>
-          <div class="pure-u-1-4 pure-u-lg-1-8"><%= drop.text %></div>
+          <div class="pure-u-1-4 pure-u-lg-1-8 open-drop"><%= link_to drop.text, drop_path(drop) %></div>
         <% else %>
-          <div class="pure-u-1-4 pure-u-lg-1-8"><%=  link_to image_tag(drop.photo(:thumb), { :class => "pure-img" }), drop_path(drop) %> 
+          <div class="pure-u-1-4 pure-u-lg-1-8 open-drop"><%=  link_to image_tag(drop.photo(:thumb), { :class => "pure-img" }), drop_path(drop) %> 
         </div>
         <% end %>
       <% end %>
@@ -45,5 +44,6 @@
   </div>
 </div>
 <%= render partial: "handlebars_show_follower" %>
+<%= render partial: "handlebars_show_drop" %>
 
     
