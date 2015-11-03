@@ -6,6 +6,109 @@ html {
   box-sizing: inherit;
 }
 
+.avatar {
+  padding: .5em;
+}
+
+#avatar {
+  float: left;
+  margin-right: 1em;
+  position: relative;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: 1px solid #7f8c8d;
+}
+
+li {
+  list-style-type: none;
+  display: inline;
+}
+
+.menu {
+  padding-top: 26px;
+  padding-bottom: 26px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.profile {
+  padding-top: 4em;
+}
+
+.head {
+  position: fixed;
+  border: #ccc solid 1px;
+  background-color: orange;
+  height: 4em;
+  width: 100%;
+}
+
+.username {
+  padding: 1.5em;
+  text-align: center;
+  margin: 0 auto;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+
+}
+
+.splash-container {
+  float: left;
+  margin-left: 10%; 
+  margin-right: 10%;
+  padding-top: 2em;
+}
+
+.following {
+  margin: 0 auto;  
+  width: 20em;
+  border: 0 none;
+  font-weight: 600;
+  letter-spacing: 2px;
+  background-color: #2ecc71;
+  color: white;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+}
+
+#followers, #followees, #drops {
+  text-align: center;
+  padding: .3em;
+  border: #ccc solid 1px;
+  height: 2em;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+
+}
+
+.follow-form {
+  padding: 1em;
+}
+
+.follow {
+  margin: 0 auto;  
+  width: 20em;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  background-color: white;
+  color: blue;
+  border-radius: 5px;
+  border: #ccc solid 1px;
+  text-transform: uppercase;
+  font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+}
+
+
+.user {
+  background-color: #ecf0f1;
+}
+
 .hide {
   display: none;
 }
