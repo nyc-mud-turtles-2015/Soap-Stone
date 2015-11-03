@@ -75,15 +75,20 @@ SoapStone.Map.prototype.refreshDrops = function (filter) {
 SoapStone.Map.prototype.loadDrops = function (filter) {
   this.clearMarkers();
 	var self = this;
-	var myUrl = '/drops';
+  var myData = { lat: myPosition.lat(), lon: myPosition.lng() }
+	var myUrl = '/drops';//drops/filter
   if (filter){
-    myUrl+=filter;
+    if (typeof filter !== "number"){
+      myUrl+=filter;
+    }else{
+      myData.user_id = filter;
+    }
   }
   var myPosition = SoapStone.app.mapView.trackingLocation;
 	return $.ajax({
     url: myUrl,
     method : "get",
-    data: { lat: myPosition.lat(), lon: myPosition.lng() },
+    data: myData,
     dataType: 'json'
   })
 	.then(function(response) {
