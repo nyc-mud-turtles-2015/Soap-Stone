@@ -4,13 +4,14 @@
     <div class="drop-item pure-g" >
       <div class="drop-avatar pure-u-1-8">
         <a href="/users/{{user.id}}" title="{{user.username}}">
-          <img src="{{user.avatar}}">
+          <img class="list-avatar" src="{{user.avatar}}">
         </a>
       </div>
-      <div class="drop-distance pure-u-3-8">{{dist distance}} away</div>
-      <div class="drop-time pure-u-3-8">{{timeAgo created_at}} ago</div>
+      <div class="drop-distance pure-u-1-4">{{dist distance}} away</div>
+      <div class="drop-time pure-u-1-4">{{timeAgo created_at}} ago</div>
+      <div class="drop-snap pure-u-1-4">{{pluralize snaps_count "snap"}}</div>
       <div class="drop-link pure-u-1-8">
-        <a class="drop-link" data-drop="{{id}}" href="#">View</a>
+        <i class="material-icons"><a class="drop-link" data-drop="{{id}}" href="#">expand_more</a></i>
       </div>
     </div>
     {{else}}
