@@ -12,10 +12,10 @@ SoapStone.Map.prototype.addClickableDrop = function (dropData) {
     drop.marker = new google.maps.Marker({
       position: new google.maps.LatLng(drop.lat, drop.lon),
       icon: {
-        path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,//'M -2,0 0,-2 2,0 0,2 z',//
-        scale: 6,
-        strokeColor: "hsl("+drop.user.hue+",80%,50%)",
-        strokeWeight: 1
+        path: 'M -2,0 0,-2 2,0 0,2 z',//google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+        scale: 4,
+        strokeColor: "hsla("+drop.user.hue+",100%,50%,0.9)",
+        strokeWeight: 3
       }
     });
     drop.marker.setMap(SoapStone.app.mapView.map);
@@ -29,10 +29,10 @@ SoapStone.Map.prototype.addOutsideDrop = function (dropData) {
   drop.marker = new google.maps.Marker({
     position: new google.maps.LatLng(drop.lat, drop.lon),
     icon: {
-      path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW,
+      path: 'M -2,0 0,-2 2,0 0,2 z',//google.maps.SymbolPath.BACKWARD_OPEN_ARROW,
       scale: 4,
-      strokeColor: "hsl("+drop.user.hue+",30%,50%)",
-      strokeWeight: 3
+      strokeColor: "hsla("+drop.user.hue+",100%,50%,0.4)",
+      strokeWeight: 2
     }
   });
   drop.marker.setMap(SoapStone.app.mapView.map);
@@ -252,13 +252,13 @@ SoapStone.MapView.prototype.init = function () {
             mapTypeId:google.maps.MapTypeId.ROADMAP
          };
          self.map = new google.maps.Map(document.getElementById("googleMap"),self.mapProp);
-         self.currentPositionMarker = new google.maps.Marker({
-            map: self.map,
-            icon: "https://robohash.org/jake.bmp?size=40x40",
-            position: self.trackingLocation,
-            animation: google.maps.Animation.DROP,
-            title: "you are here"
-          });
+         // self.currentPositionMarker = new google.maps.Marker({
+         //    map: self.map,
+         //    icon: "https://robohash.org/jake.bmp?size=40x40",
+         //    position: self.trackingLocation,
+         //    animation: google.maps.Animation.DROP,
+         //    title: "you are here"
+         //  });
           self.circle = new google.maps.Circle({
             strokeColor: '#0000FF',
             strokeOpacity: 0.25,
@@ -315,7 +315,6 @@ SoapStone.MapView.prototype.watchCurrentPosition = function() {
     console.log("lat: ",self.trackingLocation.lat());
     console.log("lng: ",self.trackingLocation.lng());
     self.trackingLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    setMarkerPosition(self.currentPositionMarker,position);
     setCirclePosition(self.circle, position);
     self.controller.refreshDrops(self.filter);
   });
