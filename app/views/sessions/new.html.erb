@@ -1,17 +1,25 @@
-<div id="root" style="width: 280px; margin: 40px auto; padding: 10px; border-style: dashed; border-width: 1px;">
-  embeded area
-</div>
-<script src="https://cdn.auth0.com/js/lock-7.9.min.js"></script>
-<script>
- var lock = new Auth0Lock('qWcpgWl7NeB2YH9rWX9Hl1BJgY9M97Ui', 'soapstone.auth0.com');
- var url = (document.location.origin + "/auth/auth0/callback")
+<body id="login-background">
+  <header>
+    <h1 class="title pure-u-24-24">SoapStone</h1>
+  </header>
 
-  lock.show({
-    container: 'root'
-  , callbackURL: url
-  , responseType: 'code'
-  , authParams: {
-    scope: 'openid profile'
-  }
- });
-</script>
+  <div id="root" style="width: 280px; margin: 40px auto; padding: 10px; border-width: 1px;">
+  <script src="https://cdn.auth0.com/js/lock-7.9.min.js"></script>
+  <script>
+   var lock = new Auth0Lock('qWcpgWl7NeB2YH9rWX9Hl1BJgY9M97Ui', 'soapstone.auth0.com');
+   var url = (document.location.origin + "/auth/auth0/callback")
+
+    lock.show({
+      container: 'root'
+    , callbackURL: url
+    , responseType: 'code'
+    , authParams: {
+      scope: 'openid profile'
+    }
+    , icon: 'https://lh5.ggpht.com/duM9zy1KJp4YSR33tq30XDqhz6rwqQpGKcZiGMoph-oq2OLAVL2yCuZBq6xx42dlHhI=w300'
+   });
+  </script>
+  </div>
+  <p class="slogan pure-u-24-24">Social should be social.</p>
+  <p class="about pure-u-24-24">No more sitting down. Drop your mark on the world.</p>
+</body>
