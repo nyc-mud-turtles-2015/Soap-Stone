@@ -105,9 +105,53 @@ SoapStone.UserView.prototype.setUpEventHandlers = function(){
     event.preventDefault();
     url = this.children[0].href
     SoapStone.app.userView.showDrop(url);
+  });
 
-  })
+  $("[data-button='profile-button']").on('click', function (event) {
+    event.preventDefault();
+    SoapStone.app.userView.showEditUserForm();
+  });
 
+  $(".edit_user").on('submit', function (event) {
+    event.preventDefault();
+    SoapStone.app.userView.updateUser($(".edit_user"));
+  });
+
+};
+
+SoapStone.UserView.prototype.updateUser = function (form) {
+  var self = this;
+  var url = form.attr("action")
+  debugger
+
+  var data = form.serializeArray()[3];
+  return $.ajax({
+    type: "PATCH",
+    url:  url,
+    data: data
+  }).then(function (response) {
+    console.log(response);
+  }).fail(
+    console.log(response)
+  );
+};
+
+// SoapStone.Controller.prototype.createDrop = function(form) {
+//   var drop = new SoapStone.Drop(dropData);
+//   var formData = new FormData($(form)[0]);
+//   this.dropView.showUploadIndicator();
+//   drop.save(formData)
+//   .then(function (response) { 
+//     self.dropView.showUploadSuccess.bind(self.dropView)();
+//     var drop = this;
+//   }.bind(drop))
+//   .fail(self.dropView.showUploadFailure.bind(self.dropView));
+// };
+
+
+SoapStone.UserView.prototype.showEditUserForm = function () {
+  $(".user").hide();
+  $("[data-view='user-form']").show();
 };
 
 SoapStone.UserView.prototype.showFollowers = function(user) {
