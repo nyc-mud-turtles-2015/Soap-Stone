@@ -23,17 +23,15 @@ class Drop < ActiveRecord::Base
                    :lat_column_name => :lat,
                    :lng_column_name => :lon
 
-  def self.collect_drops(origin, allowed_users_filter = nil)
-    if (allowed_users_filter)
-      all_drops = Drop.within(DATA_REACH_DISTANCE, :origin => origin)
-      .where(user: allowed_users_filter)
-      .order(:created_at)
-      .includes(:user)
+  def self.collect_drops(origin, allowed_users_filter = nil, distance = DATA_REACH_DISTANCE)
+    all_drops = if distance
+      Drop.within(distance, :origin => origin)
     else
-      all_drops = Drop.within(DATA_REACH_DISTANCE, :origin => origin)
-      .order(:created_at)
-      .includes(:user)
+      Drop.all
     end
+    all_drops = all_drops.where(user: allowed_users_filter) if allowed_users_filter
+    all_drops.order(:created_at)
+    .includes(:user)
   end
 
   def has_some_content

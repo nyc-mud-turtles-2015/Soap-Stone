@@ -10,7 +10,7 @@ class DropsController < ApplicationController
     current_location = [params[:lat].to_f, params[:lon].to_f]
     if params[:user_id]
       i = params[:user_id].to_i
-      available_drops = Drop.collect_drops(current_location,[i])
+      available_drops = Drop.collect_drops(current_location,[i], false)#see everything a user has done
       render json: available_drops
       .to_json(include: {user: { only: [:username, :avatar, :id] } })
     else
@@ -24,7 +24,7 @@ class DropsController < ApplicationController
     current_location = [params[:lat].to_f, params[:lon].to_f]
 
     target_ids = current_user.followees.pluck(:id)
-    available_drops = Drop.collect_drops(current_location, target_ids)
+    available_drops = Drop.collect_drops(current_location, target_ids, 20)#see all following drops within 20 miles
     render json: available_drops
     .to_json(include: {user: { only: [:username, :avatar, :id] } })
   end
@@ -38,7 +38,7 @@ class DropsController < ApplicationController
   def create
     drop = current_user.drops.new(drop_params)
     if drop.save
-      render json: {user_id: current_user.id}.to_json
+      render json: {drop_info: drop, user_info: current_user}.to_json
     else
       render plain: {failure: drop.errors.full_messages.join(",")}.to_json, status: 500
     end

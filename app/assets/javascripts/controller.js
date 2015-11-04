@@ -39,21 +39,23 @@ SoapStone.Controller.prototype.createDrop = function(form) {
   var formData = new FormData($(form)[0]);
   this.dropView.showUploadIndicator();
   drop.save(formData)
-  .then(function (response) { 
+  .then(function (response) {
     self.dropView.showUploadSuccess.bind(self.dropView)();
-    var drop = this;
-    drop.marker = new google.maps.Marker({
-      map: self.mapView.map,
-      cursor: 'crosshair',
-      position: new google.maps.LatLng(drop.lat, drop.lon),
-      // animation: google.maps.Animation.DROP,
+    var args = response.drop_info;
+    args.user = response.user_info;
+    var newDrop = new SoapStone.Drop(args);
+    newDrop.marker = new google.maps.Marker({
       icon: {
         path: 'M -2,0 0,-2 2,0 0,2 z',//google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-        scale: 4,
-        strokeColor: "hsla("+drop.user.hue+",100%,50%,0.9)",
-        strokeWeight: 3
-      }
+        scale: 1,//4,
+        strokeColor: "hsla("+newDrop.user.hue+",100%,50%,0.9)",
+        strokeWeight: 5//3
+      },
+      position: new google.maps.LatLng(newDrop.lat, newDrop.lon)
     });
+    newDrop.marker.setMap(self.mapView.map);
+    self.map.allDrops.push(newDrop);
+    self.map.refreshDrops(self.mapView.filter);
   }.bind(drop))
   .fail(self.dropView.showUploadFailure.bind(self.dropView));
 };

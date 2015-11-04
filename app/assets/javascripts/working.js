@@ -7,9 +7,8 @@ SoapStone.Map.prototype.addSurroundingDrops = function (allDropsData) {//allDrop
   allDropsData.forEach(function (dropData) {
     self.allDrops.push(self.addDrop(dropData));
   });
-  this.controller.mapView.showDrops(self.allDrops);
+  this.refreshDrops();
 };
-
 
 SoapStone.Map.prototype.addDrop = function (dropData) {
   var self = this;
@@ -44,12 +43,9 @@ SoapStone.Map.prototype.addDrop = function (dropData) {
 
 SoapStone.Map.prototype.refreshDrops = function () {
   var self = this;
+  var closeDrops = [];
   self.allDrops.forEach(function(drop){
     var distance = drop.distanceFromTarget(self.controller.mapView.trackingLocation);//fuck demeter
-    console.log("      ID: ", drop.id)
-    console.log("      ME: ", self.controller.mapView.trackingLocation.lat(), self.controller.mapView.trackingLocation.lng())
-    console.log("   Other: ", drop.googleLatLng.lat(), drop.googleLatLng.lng())
-    console.log("DISTANCE: ", drop.distance)
     if (distance > 330){//refactor the 330 to be an attribute on the map instead of just being here
       drop.withinRange = false;
       drop.marker.setIcon({
@@ -60,6 +56,7 @@ SoapStone.Map.prototype.refreshDrops = function () {
       )
     }else{
       drop.withinRange = true;
+      closeDrops.push(drop);
       drop.marker.setIcon({
         path: 'M -2,0 0,-2 2,0 0,2 z',//google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
         scale: 1,//4,
@@ -68,10 +65,23 @@ SoapStone.Map.prototype.refreshDrops = function () {
       )
     }
   });//forEach
+  self.pinClutterHelper(closeDrops);
   self.controller.mapView.showDrops(self.allDrops);
   self.controller.dropView.clearDropList();
     var turnedOnDrops = self.allDrops.filter(function(drop){//check for drop.withinRange == true
       return drop.withinRange;
     });
   self.controller.dropView.showDropList(turnedOnDrops);
+};
+
+SoapStone.Map.prototype.pinClutterHelper = function (closeDrops) {
+  var pinClutterLimit = 30;
+  var newestCloseDrops = closeDrops.sort(function (drop) {return drop.created_at}).reverse();
+  filteredOutDrops = [];
+  if (newestCloseDrops.length > pinClutterLimit) {
+    filteredOutDrops = newestCloseDrops.splice(pinClutterLimit);
+  }
+  filteredOutDrops.forEach(function (drop) {
+    drop.marker.setMap(null);
+  })
 };
