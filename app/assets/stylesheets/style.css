@@ -276,37 +276,37 @@ a {
   border-radius: 50%;
 }
 
-    .drop-avatar {
-        width: 40px;
-        height: 40px;
-    }
+.drop-avatar {
+    width: 40px;
+    height: 40px;
+}
 
-    .drop-name {
-        margin: 0;
-    }
+.drop-name {
+    margin: 0;
+}
 
-    .drop-time, .drop-distance, .drop-snap {
-        font-size: 70%;
-        margin: 3em 0;
-        padding-left: 1.5em;
-    }
+.drop-time, .drop-distance, .drop-snap {
+    font-size: 70%;
+    margin: 3em 0;
+    padding-left: 1.5em;
+}
 
-    .drop-link {
-      text-decoration: none;
-      float:right;
-      padding-top:0.7em;
-      color: black;
-    }
+.drop-link {
+  text-decoration: none;
+  float:right;
+  padding-top:0.7em;
+  color: black;
+}
 
-    .drop-link:hover {
-      color: grey;
-    }
+.drop-link:hover {
+  color: grey;
+}
 
-    .drop-list-empty {
-        margin: 1em 0;
-        color: #888;
-        text-align: center;
-    }
+.drop-list-empty {
+    margin: 1em 0;
+    color: #888;
+    text-align: center;
+}
 
 .drop-item.selected {
     background-color: #f9f8f7;
