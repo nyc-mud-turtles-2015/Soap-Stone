@@ -70,3 +70,14 @@ Array.prototype.updateDropsArray = function (func, oldArray, otherArray, limit){
 $.fn.exists = function () {
     return this.length !== 0;
 };
+
+function debounce(func, delay){
+  var timeoutID = null;
+  return function(){
+      var context = this, args = arguments;
+      clearTimeout(timeoutID);
+      timeoutID = setTimeout(function(){
+        func.apply(context, args);
+      }, delay);
+    };
+};
