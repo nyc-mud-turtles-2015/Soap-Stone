@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :maps, only: [:index]
   get "/drops/followees" => 'drops#followees'
   # get "/drops/users/:id" => 'drops#higlight'
-  resources :users, only: [:show] do
+  resources :users, only: [:show, :edit, :update] do
     resources :follows, only: [:index]
     resources :drops, only: [:index]
   end
@@ -18,5 +18,6 @@ Rails.application.routes.draw do
   get "/login", :to => 'sessions#new', :as => 'login'
   get "/auth/auth0/callback" => "auth0#callback"
   get "/auth/failure" => "auth0#failure"
+  delete 'logout', to: 'sessions#destroy'
 
 end
