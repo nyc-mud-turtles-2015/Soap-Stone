@@ -462,6 +462,11 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
   }
 }
 
+.slogan {
+  color:#fff;
+  text-align: center;
+  font-size: 1.5em;
+}
 
 .a0-icon-badge {
   display:none;
@@ -509,6 +514,10 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
   #login-background{
     background-image: url("image4.JPG");
     max-width:100%;
+  }
+
+  .slogan {
+    font-size: 1em;
   }
 }
 
