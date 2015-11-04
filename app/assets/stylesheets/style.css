@@ -31,6 +31,12 @@ html {
   position: absolute;
 }
 
+.logout {
+  position: absolute;
+  right: 4.5em;
+  top: .02em;
+}
+
 .menu {
   padding-top: 26px;
   padding-bottom: 26px;
@@ -84,7 +90,6 @@ html {
 #followers, #followees {
   text-align: center;
   padding: .3em;
-  border: #ccc solid 1px;
   height: 2em;
   font-weight: 600;
   letter-spacing: 1px;
@@ -95,7 +100,6 @@ html {
 #drops {
   text-align: center;
   padding: .3em;
-  border: #ccc solid 1px;
   font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -120,18 +124,12 @@ a {
 }
 
 .follow {
-<<<<<<< HEAD
-  margin: 0 auto;
-  width: 20em;
-=======
   margin: 0 auto;  
   width: 100%;
->>>>>>> Correct follow button style
   font-weight: 600;
   letter-spacing: 1.5px;
   background-color: white;
   color: blue;
-  border-radius: 5px;
   border: #ccc solid 1px;
   text-transform: uppercase;
   font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
