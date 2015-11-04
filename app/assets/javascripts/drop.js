@@ -157,7 +157,7 @@ SoapStone.DropView.prototype.setUpEventHandlers = function () {
 };
 
 SoapStone.DropView.prototype.showNewDropForm = function () {
-    $("[data-view='map']").addClass("drop-form-open");
+  $("[data-view='map']").addClass("drop-form-open");
 };
 
 SoapStone.DropView.prototype.hideNewDropForm = function () {
@@ -182,11 +182,24 @@ SoapStone.DropView.prototype.showUploadFailure = function (response) {
 };
 
 SoapStone.DropView.prototype.updateSnapButton = function (drop) {
-  $("[data-button='snap-button']").replaceWith(this.snapButtonTemplate(drop));
+  $("[data-role='snaps']").replaceWith(this.snapButtonTemplate(drop));
 };
 
 SoapStone.DropView.prototype.updateComments = function (drop) {
+  var self = this;
+  
   $(".comment-list").replaceWith(this.commentsTemplate(drop));
+  
+  $("[data-button='comment-button']").on('click', function (event){
+    event.preventDefault();
+    self.controller.createComment(drop);
+    $("[data-form='comment-form']").val('');
+  });
+  
+  $("[data-button='snap-button']").on('click', function (event) {
+    event.preventDefault();
+    self.controller.addSnap(drop);
+  });
 };
 
 SoapStone.DropView.prototype.showDrop = function (drop) {

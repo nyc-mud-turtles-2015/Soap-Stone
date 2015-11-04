@@ -1,18 +1,28 @@
 <script data-template='show-drop' type="text/x-handlebars-template">
   <article data-view="drop" class="view drop pure-g bottom-sheet">
+    <div class="drop-wrapper">
     {{#if has_photo}}
-    <div class="drop-content">
-      <img src="{{photo}}" class="drop-img pure-img-responsive">
+    <div class="drop-content with-image">
+      <img src="{{photo}}" class="drop-img">
+      {{#if text}}
       <p class="drop-text">{{text}}</p>
+      {{/if}}
+      <a href="/users/{{user.id}}">
+        <img class="drop-avatar" src="{{user.avatar}}">
+      </a>
     </div>
     {{else}}
     <div class="drop-content text-only">
       <p class="drop-text">{{text}}</p>
-    </div>    
+      <a href="/users/{{user.id}}">
+        <img class="drop-avatar" src="{{user.avatar}}">
+      </a>
+    </div>
     {{/if}}
+    </div>
     <div class="drop-info">
       <button data-button="close-drop" class="close"><i class="material-icons md-light md-24">clear</i></button>
-      <h2>Dropped by {{user.username}}</h2>
+      <h2>By {{user.username}}</h2>
       {{> comment}}
   </article>
 </script>
@@ -31,28 +41,40 @@
  -->
 
 <script data-partial="snap-button-partial" type="text/x-handlebars-template">
+  <div data-role="snaps" class="snap-widget">
+  {{pluralize snaps_count "snap"}}
   {{#if snapped_by_you}}
-    <button data-button="snap-button" disabled class="pure-button pure-button-disabled">{{pluralize snaps_count "Snap"}}</button>
+    <button data-button="snap-button" disabled class="snap icon-toggle"><i class="material-icons md-24">flare</i></button>
   {{else}}
-    <button data-button="snap-button" class="pure-button">{{pluralize snaps_count "Snap"}}</button>
+    <button data-button="snap-button" class="snap icon-toggle inactive"><i class="material-icons md-24">flare</i></button>
   {{/if}}
+  </div>
 </script>
 
 <script data-partial="comment-partial" type="text/x-handlebars-template">
-  <div class="comment-list">
-    <h3 class="pure-u-1">{{pluralize comments_count "comment"}}</h3>
+  <div class="comment-list list">
+  <div class="drop-metadata">
+  <p class="drop-time">{{timeAgo created_at}} ago</p>
+    {{> snap-button}}
+  </div>
     {{#each comments}}
-      <div class="comment-item pure-g pure-u-1">
-        <div class="pure-u">
+      <div class="comment-item list-item">
+        <div class="list-avatar">
           <a href="/users/{{user.id}}">
-            <img class="avatar" src="{{user.avatar}}">
+            <img src="{{user.avatar}}">
           </a>
         </div>
-        <div class="pure-u-3-4">
+        <div class="comment-content list-content">
           <h3 class="comment-username">{{user.username}}</h3>
-          <p class="comment-text">{{text}}</p>
+          <p class="comment-text list-text">{{text}}</p>
         </div>
       </div>
+    {{else}}
+    <div class="no-content">Be the first to coment on this drop!</div>
     {{/each}}
+    <div class="comment-form">
+      <textarea data-form="comment-form" name="comment" class="comment-entry" type="text"></textarea>
+      <button data-button="comment-button" class="raised orange comment">COMMENT</button>
+    </script>
   </div>
 </script>
