@@ -67,6 +67,7 @@ SoapStone.UserView = function() {
   this.snapButtonTemplate = Handlebars.compile($("[data-partial='snap-button-partial']").html());
   Handlebars.registerPartial("comment", $("[data-partial='comment-partial']").html());
   this.commentsTemplate = Handlebars.compile($("[data-partial='comment-partial']").html());
+  this.suggestionTemplate = Handlebars.compile($("[data-template='user-suggestions']").html());
   this.setUpEventHandlers();
 };
 
@@ -85,6 +86,8 @@ SoapStone.UserView.prototype.showFollows = function (user) {
 };
 
 SoapStone.UserView.prototype.setUpEventHandlers = function(){
+  var self = this;
+
   $("#followers").on('click', function(event){
     event.preventDefault();
     SoapStone.app.userView.showFollowers(SoapStone.app.user);
@@ -135,19 +138,25 @@ SoapStone.UserView.prototype.setUpEventHandlers = function(){
   });
 
   $('#search-form #search').keyup(debounce(function(e){
+    var myData =$(this).serialize(); 
     $.ajax({
-      data: $(this).serialize(),
-      url:'/users/filter'
+      data: myData,
+      url:'/users/filter',
+      type: "POST"
     }).then(function(response){
-      suggestionShow(response);
+      self.suggestionShow(response);//response is an obj {users: [users collection]}
     })
-  }, 1000));
-  
+  }, 250));
 };
 
 
-SoapStone.UserView.prototype.suggestionShow = function () {
-
+SoapStone.UserView.prototype.suggestionShow = function (response) {
+  var self = this;
+  if (response){
+    // $().val( input.val() + "more text" );
+    $("[data-role='suggestions']").html(self.suggestionTemplate(response))
+    $("[data-role='suggestions']").show()
+  }
 };
 
 SoapStone.UserView.prototype.showEditUserForm = function () {

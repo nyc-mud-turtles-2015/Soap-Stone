@@ -33,4 +33,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def filter
+    users = []
+    if params[:query] && params[:query].length > 0
+      users = User.where('UPPER(username) LIKE UPPER(?)', params[:query]+"%")
+      .limit(6) 
+    end
+    render json: {users: users}
+  end
+
 end
