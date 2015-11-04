@@ -42,7 +42,6 @@ SoapStone.Drop.prototype.setAttributes = function (args) {
 };
 
 SoapStone.Drop.prototype.distanceFromTarget = function (target) {//we will use target as me for now but this can be used generally
-  debugger;
   var meterDistance = google.maps.geometry.spherical.computeDistanceBetween(target, this.googleLatLng);
   this.distance = meterDistance;
   return meterDistance*3.28084;//convert the meters which we get from the google function to feet to use in our if statements

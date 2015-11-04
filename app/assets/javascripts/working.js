@@ -46,28 +46,32 @@ SoapStone.Map.prototype.refreshDrops = function () {
   var self = this;
   self.allDrops.forEach(function(drop){
     var distance = drop.distanceFromTarget(self.controller.mapView.trackingLocation);//fuck demeter
-    
+    console.log("      ID: ", drop.id)
     console.log("      ME: ", self.controller.mapView.trackingLocation.lat(), self.controller.mapView.trackingLocation.lng())
     console.log("   Other: ", drop.googleLatLng.lat(), drop.googleLatLng.lng())
-    console.log("DISTANCE: ", distance)
+    console.log("DISTANCE: ", drop.distance)
     if (distance > 330){//refactor the 330 to be an attribute on the map instead of just being here
       drop.withinRange = false;
-      drop.marker.icon = {
+      drop.marker.setIcon({
         path: 'M -2,0 0,-2 2,0 0,2 z',//google.maps.SymbolPath.BACKWARD_OPEN_ARROW,
         scale: 4,
         strokeColor: "hsla("+drop.user.hue+",100%,50%,0.4)",
-        strokeWeight: 2
-      }
+        strokeWeight: 2}
+      )
     }else{
       drop.withinRange = true;
-      drop.marker.icon = {
+      drop.marker.setIcon({
         path: 'M -2,0 0,-2 2,0 0,2 z',//google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
         scale: 1,//4,
         strokeColor: "hsla("+drop.user.hue+",100%,50%,0.9)",
-        strokeWeight: 5//3
-      }
+        strokeWeight: 5}//3
+      )
     }
   });//forEach
-  debugger;
   self.controller.mapView.showDrops(self.allDrops);
+  self.controller.dropView.clearDropList();
+    var turnedOnDrops = self.allDrops.filter(function(drop){//check for drop.withinRange == true
+      return drop.withinRange;
+    });
+  self.controller.dropView.showDropList(turnedOnDrops);
 };

@@ -3,8 +3,10 @@ var TRACKING_TESTING_LAT = 40.704887199999995, TRACKING_TESTING_LON = -74.012373
 moveMe = function (i) {
   console.log("moving you");
   var self = SoapStone.app.mapView;
-  self.trackingLocation =  new google.maps.LatLng(TRACKING_TESTING_LAT += i/10000, TRACKING_TESTING_LON += i/10000);
-  self.setCirclePosition(self.circle, {coords: {latitude: TRACKING_TESTING_LAT += i/10000, longitude: TRACKING_TESTING_LON += i/10000}});
+  TRACKING_TESTING_LAT += i/10000
+  TRACKING_TESTING_LON += i/10000
+  self.trackingLocation =  new google.maps.LatLng(TRACKING_TESTING_LAT, TRACKING_TESTING_LON);
+  self.setCirclePosition(self.circle, {coords: {latitude: TRACKING_TESTING_LAT, longitude: TRACKING_TESTING_LON}});
   self.controller.map.refreshDrops();
 };
 
@@ -281,7 +283,6 @@ SoapStone.MapView.prototype.init = function () {
 
 SoapStone.MapView.prototype.showDrops = function (allDrops) {
 	var self = this;
-  
   allDrops.forEach(function(drop){
     if(drop.withinRange){
       if (drop.hasEventListener == null){
