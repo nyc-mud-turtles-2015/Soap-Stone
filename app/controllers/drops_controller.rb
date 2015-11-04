@@ -10,25 +10,23 @@ class DropsController < ApplicationController
     current_location = [params[:lat].to_f, params[:lon].to_f]
     if params[:user_id]
       i = params[:user_id].to_i
-      clickable = Drop.clickable(current_location,[i])
-      outside = Drop.outside(current_location, [i])
-      render plain: [clickable, outside]
-      .to_json(methods: [:distance], include: {user: { only: [:username, :avatar, :id] } })
+      available_drops = Drop.collect_drops(current_location,[i])
+      render json: available_drops
+      .to_json(include: {user: { only: [:username, :avatar, :id] } })
     else
-      clickable = Drop.clickable(current_location)
-      outside = Drop.outside(current_location)
-      render plain: [clickable, outside]
-      .to_json(methods: [:distance], include: {user: { only: [:username, :avatar, :id] } })
+      available_drops = Drop.collect_drops(current_location)
+      render json: available_drops
+      .to_json(include: {user: { only: [:username, :avatar, :id] } })
     end
   end
 
   def followees
     current_location = [params[:lat].to_f, params[:lon].to_f]
-    target_ids = current_user.followees.map{|followee| followee.id}
-    clickable = Drop.clickable(current_location, target_ids)
-    outside = Drop.outside(current_location, target_ids)
-    render plain: [clickable, outside]
-    .to_json(methods: [:distance], include: {user: { only: [:username, :avatar, :id] } })
+
+    target_ids = current_user.followees.pluck(:id)
+    available_drops = Drop.collect_drops(current_location, target_ids)
+    render json: available_drops
+    .to_json(include: {user: { only: [:username, :avatar, :id] } })
   end
 
   def show
