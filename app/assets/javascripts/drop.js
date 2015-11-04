@@ -140,24 +140,29 @@ SoapStone.DropView.prototype.setUpEventHandlers = function () {
     self.controller.loadDrops();
   });
 
-  $("[data-button='new-button']").on('click', function (event) {
+  $("[data-button='new']").on('click', function (event) {
     event.preventDefault();
     self.showNewDropForm();
   });
 
-  $("[data-button='close-form']").on('click', function (event) {
+  $("[data-button='list']").on('click', function (event) {
+    event.preventDefault();
+    self.popupDropList();
+  });
+
+  $("[data-button='close-form']").add('.new-form-lightbox').on('click', function (event) {
     event.preventDefault();
     self.hideNewDropForm();
   });
 };
 
 SoapStone.DropView.prototype.showNewDropForm = function () {
-  $("[data-view='new-form']").show();
+    $("[data-view='map']").addClass("drop-form-open");
 };
 
 SoapStone.DropView.prototype.hideNewDropForm = function () {
   $("[data-view='new-form']").removeClass('uploading');
-  $("[data-view='new-form']").hide();
+  $("[data-view='map']").removeClass("drop-form-open");
 };
 
 SoapStone.DropView.prototype.showUploadIndicator = function () {
@@ -186,12 +191,13 @@ SoapStone.DropView.prototype.updateComments = function (drop) {
 
 SoapStone.DropView.prototype.showDrop = function (drop) {
   var self = this;
-  $('body').append(this.showTemplate(drop));
-  $("[data-view='map']").hide();
-  $("[data-menu='map']").hide();
-  $("[data-button='close-drop']").on('click', function (event) {
-    self.closeDrop();
-  });
+  $("[data-view='map']").append(this.showTemplate(drop));
+  window.setTimeout(function() {
+    $("[data-view='map']").addClass('drop-open');
+    $("[data-button='close-drop']").on('click', function (event) {
+      self.closeDrop();
+    });
+  }, 50);
 
   $("[data-button='snap-button']").on('click', function (event) {
     event.preventDefault();
@@ -224,6 +230,18 @@ SoapStone.DropView.prototype.clearMarkerAnimations = function (drops) {
     drop.marker.setAnimation(null);
   }
 };
+
+SoapStone.DropView.prototype.popupDropList = function() {
+  $("[data-view='map']").addClass("drop-list-open");
+  this.controller.mapView.panVertically($(window).height() * 0.25);
+};
+
+SoapStone.DropView.prototype.hideDropList = function() {
+  $("[data-view='map']").removeClass("drop-list-open");
+  this.controller.mapView.panVertically(-$(window).height() * 0.25);
+};
+
+
 
 SoapStone.DropView.prototype.showDropList = function (drops) {
   var self = this;
@@ -258,11 +276,15 @@ SoapStone.DropView.prototype.showDropList = function (drops) {
       marker.setAnimation(google.maps.Animation.BOUNCE);
     }
   });
+  $("[data-button='close-list']").add('.new-form-lightbox').on('click', function (event) {
+    event.preventDefault();
+    self.hideDropList();
+  });
 };
 
 SoapStone.DropView.prototype.closeDrop  = function () {
-  $("[data-view='drop']").remove();
-  $("[data-menu='drop']").remove();
-  $("[data-view='map']").show();
-  $("[data-menu='map']").show();
+  $("[data-view='map']").removeClass('drop-open');
+  window.setTimeout(function() {
+      $("[data-view='drop']").remove();
+  }, 500);
 };

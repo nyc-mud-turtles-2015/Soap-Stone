@@ -144,10 +144,6 @@ a {
   display: none;
 }
 
-.drop-img {
-    max-height: 50vh;
-}
-
 .drop-text-wrapper {
     margin: 0;
     display: table;
@@ -163,17 +159,12 @@ a {
 .drop-text-container .drop-text {
     margin: 0;
     padding: 2em;
-    text-align:center;
+    text-align: center;
     font-style: italic;
     font-size: 2em;
     min-height: 3em;
     background-color: rgba(230, 126, 34, 0.9);
     color: #ececec;
-}
-
-.drop-list {
-    overflow: scroll;
-    height: calc(50vh - 5em);
 }
 
 .drop-item {
@@ -187,10 +178,6 @@ a {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-}
-
-.drop-item:nth-child(1) {
-    border-top: 1px solid #ddd;
 }
 
     .drop-avatar {
@@ -233,7 +220,7 @@ a {
 
 #google-map-container {
     position: relative;
-    padding-bottom: 50vh;
+    padding-bottom: 100vh;
     height: 0;
     overflow: hidden;
     margin: 0;
@@ -247,35 +234,15 @@ a {
     height: 100%;
 }
 
-.form-container {
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    bottom: 0px;
-    right: 0px;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    z-index: 1000;
-    overflow: scroll;
-    background: rgba(0,0,0,0.9);
-}
-
-
-.form-container form {
-    position: relative;
-    margin: 30px;
-    padding: 20px;
-    background-color: rgba(230, 126, 34, 1);
-    border-radius: 3px;
-
-    margin: 100px auto;
-    max-width: 600px;
-    text-align: center;
+.drop-form {
+    overflow: hidden;
+    background-color: white;
+    z-index: 1005;
 }
 
 .new-drop-form {
-    color: #ececec;
+    position: relative;
+    text-align: center;
 }
 
 .new-drop-form .photo-button {
@@ -288,23 +255,14 @@ a {
 }
 
 .new-drop-form .photo-label,
-.new-drop-form input[type='text'] {
+.new-drop-form textarea {
     width: 80%;
     margin: 0.5em auto;
 }
 
-.new-drop-form input[type='text'] {
-    height: 2em;
-    color: #111111;
-}
-
-
-
-button.close {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    background: rgba(180,180,180,0.7);
+.new-drop-form textarea { 
+    height: 4em;
+    margin-top: 16px;
 }
 
 .comment-list {
@@ -339,10 +297,6 @@ button.close {
 .page {
     width: 100%;
     height: 100%;
-}
-
-.drop-img {
-  max-height: 50vh;
 }
 
 .menu {
@@ -394,6 +348,7 @@ button.close {
     }
 }
 
+<<<<<<< HEAD
 /****** AUTH0 ******/
 #login-background {
   background-image: url("mobile-street.png");
@@ -634,6 +589,300 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
   animation: wiggle 2s infinite;
 }
 
+=======
+.drop-content {
+    text-align: center;
+}
+
+.drop-text {
+    width: 100%;
+    background: rgba(50, 50, 50, 0.5);
+    color: white;
+}
+
+.drop-content.text-only {
+    text-align: center;
+}
+
+.drop-content.text-only .drop-text {
+    text-align: center;
+}
+
+.drop-img {
+    margin: auto;
+    max-height: 50vh;
+}
+
+
+/* slide map with views */
+#google-map-container { 
+    padding-bottom: 100vh;
+    transition: padding-bottom 0.5s ease-in;
+}
+
+.drop-list-open #google-map-container {
+    padding-bottom: 50vh;
+    transition: padding-bottom 0.5s ease-out;
+}
+
+.drop-form-open #google-map-container {
+    padding-bottom: 50vh;
+    transition: padding-bottom 0.5s ease-out;  
+}
+
+.drop-open #google-map-container {
+    padding-bottom: 50vh;
+    transition: padding-bottom 0.5s ease-out;
+}
+
+/* slide drop show page */
+.view.drop {
+    height: 0;
+    z-index: 1006;    
+    transition: height 0.5s ease-in;
+}
+
+.drop-content {
+    height: 0;
+    z-index: 1007;
+    background-color: black;
+    width: 100%;
+    transition: height 0.5s ease-in;
+}
+
+.drop-info {
+    position: relative;
+    height: 0;
+    width: 100%;
+    z-index: 1007;
+    background-color: white;
+    transition: height 0.5s ease-in;
+}
+
+.drop-open .view.drop {
+    height: 100vh;
+    max-height: 100vh; 
+    transition: height 0.45s ease-out;
+}
+.drop-open .drop-content {
+    height: 50vh; 
+    transition: height 0.45s ease-out;
+}
+.drop-open .drop-info {
+    height: 50vh; 
+    max-height: 50vh; 
+    transition: height 0.45s ease-out;
+}
+
+/* slide droplist */
+.drop-list { 
+    height: 0;
+    z-index: 1002;
+    background-color: white;
+    transition: height 0.5s ease-in;
+}
+
+.drop-list-open .drop-list {
+    height: 50vh;
+    transition: height 0.5s ease-out;
+}
+
+/* slide buttons with droplist */
+button.floating-action {
+    outline: none;
+    bottom: 24px;
+    transition: bottom 0.45s ease-in, box-shadow 0.5s;
+}
+
+button.floating-action:hover {
+    background: #FB8C00;
+}
+
+button.floating-action:active {
+    background: #F57C00;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.drop-list-open button.new {
+    bottom: calc(50vh - 28px);
+    transition: bottom 0.45s ease-out 0.05s, box-shadow 0.5s, background-color 0.5s;
+}
+
+.drop-list-open button.center {
+    bottom: calc(50vh + 52px);
+    transition: bottom 0.45s ease-out 0.05s, box-shadow 0.5s, background-color 0.5s;
+}
+
+
+
+/* dim map when form is up */
+.new-form-lightbox {
+   transition: background-color 0.6s ease-in;
+   background-color: rgba(0, 0, 0, 0.0);
+   cursor: pointer;
+}
+
+.drop-form-open .new-form-lightbox {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    background-color: rgba(0,0,0,0.6);
+}
+
+/* show/hide form */
+.drop-form { 
+    height: 0;
+    transition: height 0.5s ease-in;
+}
+
+.drop-form-open .drop-form {
+    height: 50vh;
+    transition: height 0.5s ease-out;
+}
+
+/* buttons */
+button.floating-round {
+    outline: none;
+    border-radius: 50%;
+    border-width: 0;
+    line-height: 66px;
+    width: 56px;
+    height: 56px;
+    position: fixed;
+    right: 24px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    transition: bottom 0.45s ease-in, box-shadow 0.5s;
+}
+
+button.floating-round:active {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+button.orange {
+    background: #FF9800;
+    color: white;
+}
+    button.orange:hover {
+        background: #FB8C00;
+    }
+
+    button.orange:active {
+        background: #F57C00;
+    }
+
+button.white {
+    background: white;
+    color: #FF9800;
+}
+    button.white:hover {
+        color: #FB8C00;
+    }
+    
+    button.white:active {
+        color: #F57C00;
+    }
+
+button.new {
+    z-index: 1003;
+    right: 24px;   
+    bottom: 24px;
+}
+
+button.center {
+    right: 24px;   
+    bottom: 104px;
+}
+
+button.list {
+    left: 24px;   
+    bottom: 24px;
+}
+
+button.menu-button {
+    left: 24px;   
+    bottom: 104px;
+}
+
+button.raised, .button.raised, input.raised {
+    letter-spacing: 0.1em;
+    border-width: 0;
+    padding: 0 16px;
+    height: 36px;
+    font-size: 14px;
+    line-height: 36px;
+    border-radius: 3px;
+    background: #FF9800;
+    color: white;
+    min-width: 88px;
+    margin-top: 16px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    transition: box-shadow 0.5s, background-color  0.5s;
+}
+
+button:hover.raised, .button:hover.raised, input:hover.raised  {
+    background: #FB8C00;
+}
+
+button:active.raised, .button:active.raised, input:active.raised  {
+    background: #F57C00;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+button.close {
+    position: absolute;
+    left: 12px;
+    top: 10px;
+    border: 0;
+    background: transparent;
+    color: rgba(255, 255, 255, 1);
+}
+
+.bottom-sheet {
+    background: white;
+    position: fixed;
+    overflow: scroll;
+    bottom: 0;
+    width: 100%;
+    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.24);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.24);
+}
+
+.drop-info .comment-list {
+    height: calc(50vh - 48px);
+    max-height: calc(50vh - 48px);
+    overflow: scroll;
+}
+
+.bottom-sheet h2 {
+    letter-spacing: 0.1em;
+    width: 100%;
+    background: #FF9800;
+    color: white;
+    font-weight: normal;
+    font-size: 20px;
+    text-align: left;
+    margin: 0;
+    padding: 0 0 0 56px;
+    line-height: 48px;
+    height: 48px;
+}
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
 /* fancy loader http://projects.lukehaas.me/css-loaders/ */
 
 .loader {
@@ -686,19 +935,19 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
   0%,
   80%,
   100% {
-    box-shadow: 0 2.5em 0 -1.3em #ffffff;
+    box-shadow: 0 2.5em 0 -1.3em #FF9800;
   }
   40% {
-    box-shadow: 0 2.5em 0 0 #ffffff;
+    box-shadow: 0 2.5em 0 0 #FF9800;
   }
 }
 @keyframes load7 {
   0%,
   80%,
   100% {
-    box-shadow: 0 2.5em 0 -1.3em #ffffff;
+    box-shadow: 0 2.5em 0 -1.3em #FF9800;
   }
   40% {
-    box-shadow: 0 2.5em 0 0 #ffffff;
+    box-shadow: 0 2.5em 0 0 #FF9800;
   }
 }

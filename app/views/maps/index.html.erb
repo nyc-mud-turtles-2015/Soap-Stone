@@ -1,12 +1,26 @@
-<div data-view="map" class="view pure-g">
-  <div class="pure-u-1 pure-u-sm-2-3">
-    <div id="google-map-container">
-      <div id="googleMap"></div>
+<div data-view="map" class="view">
+  <div data-role="main-container" class="pure-g">
+    <div class="pure-u-1 pure-u-sm-2-3">
+      <div id="google-map-container">
+        <div id="googleMap"></div>
+      </div>
     </div>
+  </div>
+
+  <button data-button="new" class="floating-round orange new"><i class="material-icons md-24">create</i></button>
+  <button  data-button="center" class="floating-round white center"><i class="material-icons md-24">gps_fixed</i></button>
+  <button data-button="list" class="floating-round white list"><i class="material-icons md-24">list</i></button>
+  <button  data-button="menu" class="floating-round white menu-button"><i class="material-icons md-24">view_module</i></button>
+
+  <div class="new-form-lightbox"></div>
+  <div data-view="new-form" class="drop-form bottom-sheet">
+  <%= render partial: "drop_form" %>
   </div>
 </div>
 
-<div data-menu="map" class="menu map" class="pure-g">
+
+
+<!-- <div data-menu="map" class="menu map" class="pure-g" class="hide">
   <div class="pure-u-1-5">
     <%= button_to user_path(current_user), method: :get, class: "pure-button" do %>
       <%= current_user.username %>
@@ -20,11 +34,9 @@
   </div><div class="pure-u-1-5">
     <button data-button="new-button" class="pure-button">Drop</button>
   </div>
-</div>
+</div> -->
 
-<div data-view="new-form" class="form-container hide">
-  <%= render partial: "drop_form" %>
-</div>
+
 
 <%= render partial: "handlebars_show_drop" %>
 <%= render partial: "handlebars_drop_list" %>

@@ -1,13 +1,13 @@
 <%= form_tag "", :"data-role" => "drop-form", :"class" => "new-drop-form pure-form-stacked" do %>
-  <button data-button="close-form" class="close button-large pure-button">X</button>
+  <button data-button="close-form" class="close"><i class="material-icons md-light md-24">clear</i></button>
   <div>
-    <h2>Add a drop</h2>
-    <%= text_field_tag :"drop[text]", "", :"placeholder" => "Comment" %>
+    <h2>New Drop</h2>
+    <%= text_area_tag :"drop[text]", "" %>
   </div>
   <div>
-    <%= label_tag "drop[photo]", "Add a photo", class: "photo-label pure-button" %>
+    <%= label_tag "drop[photo]", "ADD A PHOTO", class: "photo-label button raised" %>
     <%= file_field_tag :"drop[photo]", accept: "image/*", class: "photo-button" %>
   </div>
-  <%= submit_tag "Drop it!", class: "pure-button" %>
+  <%= submit_tag "DROP", class: "submit-button raised" %>
   <div class="loader">
 <% end %>

@@ -299,6 +299,10 @@ SoapStone.MapView.prototype.watchCurrentPosition = function() {
   });
 };
 
+SoapStone.MapView.prototype.panVertically = function (pixels) {
+  this.map.panBy(0, pixels);
+};
+
 SoapStone.MapView.prototype.setCirclePosition = function (circle, position) {
   circle.setCenter( new google.maps.LatLng(
     position.coords.latitude,
