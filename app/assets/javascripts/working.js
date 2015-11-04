@@ -46,10 +46,6 @@ SoapStone.Map.prototype.refreshDrops = function () {
   var self = this;
   self.allDrops.forEach(function(drop){
     var distance = drop.distanceFromTarget(self.controller.mapView.trackingLocation);//fuck demeter
-    console.log("      ID: ", drop.id)
-    console.log("      ME: ", self.controller.mapView.trackingLocation.lat(), self.controller.mapView.trackingLocation.lng())
-    console.log("   Other: ", drop.googleLatLng.lat(), drop.googleLatLng.lng())
-    console.log("DISTANCE: ", drop.distance)
     if (distance > 330){//refactor the 330 to be an attribute on the map instead of just being here
       drop.withinRange = false;
       drop.marker.setIcon({
