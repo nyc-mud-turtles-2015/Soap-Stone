@@ -487,18 +487,22 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
   }
 }
 
+#root {
+  margin-top: -0.5em;
+}
+
 .slogan {
   color:#fff;
   text-align: center;
   font-size: 1.6em;
-  text-shadow: .05em .05em .05em #636363;
+  text-shadow: .03em .03em .03em #333333;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: -0.2em;
-  margin-top: 0.1em;
-  z-index: 110;
+  margin-bottom: -0.5em;
+  margin-top: -0.5em;
+  z-index: 140;
+  font-family: 'Montserrat', sans-serif;
   animation-delay: 3s;
-
 }
 
 .a0-icon-badge {
@@ -513,19 +517,21 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
   margin-top: 0.4em;
   margin-bottom: 0.4em;
   z-index: 120;
-  text-shadow: .03em .03em .03em #636363;
+  text-shadow: .1em .1em .1em #333333;
   animation-delay: 1s;
 }
 
 .about {
-  color:#fff;
-  font-size: 2.5em;
+  color:#EEEEEE;
+  font-size: 1.2em;
   text-align: center;
+  margin-top: -0.5em;
   margin-left: auto;
   margin-right: auto;
-  z-index: 100;
-  text-shadow: .06em .06em .06em #636363;
+  z-index: 140;
+  text-shadow: .1em .1em .1em #333333;
   font-family: 'Montserrat', sans-serif;
+  /*-webkit-text-stroke: 0.01px #141414;*/
 }
 
 @media screen and (min-width: 35.5em){
@@ -557,12 +563,23 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
   }
 
   .about {
+    color:#EEEEEE;
     font-size: 2em;
+    text-align: center;
+    margin-top: -0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 140;
+    text-shadow: .1em .1em .1em #333333;
+    font-family: 'Montserrat', sans-serif;
+    -webkit-text-stroke: 0.01px #141414;
+
   }
 
   .fa-github {
-    color:white;
+    color:#EEEEEE;
     font-size: 1em;
+    text-shadow: .05em .05em .05em #333333;
   }
 
   .fa-github:hover {
@@ -576,12 +593,13 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
 }
 
 .fa-github {
-  color:white;
-  font-size: 4em;
+  color:#EEEEEE;
+  font-size: 3em;
+  text-shadow: .05em .05em .05em #333333;
 }
 
 .fa-github:hover {
-  color: #BDC3C7;
+  color: #F9BF3B;
   animation: wiggle 2s infinite;
 }
 
