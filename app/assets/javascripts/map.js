@@ -55,17 +55,14 @@ SoapStone.Map.prototype.addOutsideDrop = function (dropData) {
 };
 
 SoapStone.Map.prototype.clearMarkers = function(){
-  this.clickableDrops.forEach(function(drop){
+  this.allDrops.forEach(function(drop){
     drop.marker.setMap(null);
   }); 
-  this.outsideDrops.forEach(function(drop){
-    drop.marker.setMap(null);
-  });
-  this.clickableDrops = [];
-  this.outsideDrops = [];
+  this.allDrops = [];
 };
 
 SoapStone.Map.prototype.hitTheDataBaseForDrops = function (filter) {
+  debugger;
   var self = this;
   var myUrl = '/drops';
   var myPosition = SoapStone.app.mapView.trackingLocation;
@@ -94,6 +91,7 @@ SoapStone.Map.prototype.hitTheDataBaseForDrops = function (filter) {
 
 SoapStone.Map.prototype.loadDrops = function (filter) {
   this.clearMarkers();
+  debugger;
 	var self = this;
   var myPosition = self.controller.mapView.trackingLocation;
   var myData = { lat: myPosition.lat(), lon: myPosition.lng() }
@@ -112,29 +110,29 @@ SoapStone.Map.prototype.loadDrops = function (filter) {
     dataType: 'json'
   })
 	.then(function(response) {//response should be ONE array of all drops within a mileish
+    debugger;
     self.addSurroundingDrops(response);
 	});
 };
 
+// SoapStone.MapView.prototype.getLocation = function() {
+//     return new Promise(function(resolve, reject) {
+//       if ("geolocation" in navigator) {
+//         navigator.geolocation.getCurrentPosition(function(position) {
+//           var coords = {};
+//           coords.latitude = position.coords.latitude;
+//           coords.longitude = position.coords.longitude;
+//           resolve(coords);
+//         });
+//       } else {
+//           reject(); //Geolocation not available
+//       }
+//   });
+// };
+
 SoapStone.MapView = function () {
   this.filter = null;
 };
-
-SoapStone.MapView.prototype.getLocation = function() {
-return new Promise(function(resolve, reject) {
-      if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          var coords = {};
-          coords.latitude = position.coords.latitude;
-          coords.longitude = position.coords.longitude;
-          resolve(coords);
-        });
-      } else {
-          reject(); //Geolocation not available
-      }
-  });
-};
-
 
 SoapStone.MapView.prototype.init = function () {
   var self = this;
@@ -284,6 +282,7 @@ SoapStone.MapView.prototype.init = function () {
 
 SoapStone.MapView.prototype.showDrops = function (allDrops) {
 	var self = this;
+  debugger;
   allDrops.forEach(function(drop){
     if(drop.withinRange){
       if (drop.hasEventListener == null){
@@ -311,14 +310,15 @@ SoapStone.MapView.prototype.centerMap = function(){
 
 SoapStone.MapView.prototype.watchCurrentPosition = function() {
   var self = this;
-  var positionTimer = navigator.geolocation.watchPosition(function (position) {
+  navigator.geolocation.watchPosition(function (position) {
     if (TRACKING_TESTING_ON) {
       self.trackingLocation = new google.maps.LatLng(TRACKING_TESTING_LAT, TRACKING_TESTING_LON);
     } else {
       self.trackingLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);  
     }
     self.setCirclePosition(self.circle, position);
-    self.controller.map.refreshDrops();//filter doesnt work yet
+    debugger;
+    self.controller.map.refreshDrops();
   });
 };
 
