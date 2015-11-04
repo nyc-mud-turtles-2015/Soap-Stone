@@ -46,10 +46,10 @@ SoapStone.Controller.prototype.createDrop = function(form) {
       position: new google.maps.LatLng(drop.lat, drop.lon),
       // animation: google.maps.Animation.DROP,
       icon: {
-        path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-        scale: 6,
-        strokeColor: "hsl("+drop.calculateUserColor(response.user_id)+",80%,50%)",
-        strokeWeight: 1
+        path: 'M -2,0 0,-2 2,0 0,2 z',//google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+        scale: 4,
+        strokeColor: "hsla("+drop.user.hue+",100%,50%,0.9)",
+        strokeWeight: 3
       }
     });
   }.bind(drop))
@@ -117,13 +117,6 @@ SoapStone.Controller.prototype.createComment = function(drop){
   drop.createComment().then(function () {
     self.dropView.updateComments(drop);
   });
-};
-
-
-SoapStone.Controller.prototype.loadDrops = function () {
-  var self = this;
-  id = location.href.split('/').slice(-1);
-  return this.user.loadDrops(id);
 };
 
 SoapStone.Controller.prototype.loadFollows = function() {
