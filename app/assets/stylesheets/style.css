@@ -466,6 +466,7 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
   color:#fff;
   text-align: center;
   font-size: 1.5em;
+  text-shadow: .05em .05em .05em #636363;
 }
 
 .a0-icon-badge {
@@ -499,8 +500,10 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
 .title {
   font-family: 'Open Sans', sans-serif;
   text-align: center;
-  font-size:3.5em;
+  font-size:3em;
   color:#FFF;
+  margin-top: -0.001em;
+  margin-bottom: -0.001em;
   /*text-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
   z-index: 100;
   text-shadow: .02em .02em .02em #636363;
@@ -517,7 +520,9 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
   }
 
   .slogan {
-    font-size: 1em;
+    font-size: 3em;
+    text-align: center;
+    text-shadow: .02em .02em .02em #636363;
   }
 }
 
