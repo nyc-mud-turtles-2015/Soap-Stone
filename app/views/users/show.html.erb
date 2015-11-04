@@ -18,7 +18,11 @@
       <% if current_user != @user %>
         <%= render 'follow_form' %>
       <% else %>
-
+        <form id="search-form">
+        <!-- <label>STYLE LATER</label> -->
+          <input id="search" type="text" name="query">
+          <input type="submit" value="find user"> 
+        </form>
       <% end %>
     </div>
   </div>

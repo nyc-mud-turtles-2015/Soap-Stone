@@ -117,6 +117,15 @@ SoapStone.UserView.prototype.setUpEventHandlers = function(){
     SoapStone.app.userView.updateUser($(".edit_user"));
   });
 
+  $('#search-form').on('submit', function(event){
+    event.preventDefault();
+    debugger;
+    var myUrl = ;
+    var myData = $(this).serialize();
+    var myType = "POST";
+
+  });
+
 };
 
 
