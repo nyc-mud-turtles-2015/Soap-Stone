@@ -119,35 +119,6 @@ SoapStone.UserView.prototype.setUpEventHandlers = function(){
 
 };
 
-SoapStone.UserView.prototype.updateUser = function (form) {
-  var self = this;
-  var url = form.attr("action")
-  debugger
-
-  var data = form.serializeArray()[3];
-  return $.ajax({
-    type: "PATCH",
-    url:  url,
-    data: data
-  }).then(function (response) {
-    console.log(response);
-  }).fail(
-    console.log(response)
-  );
-};
-
-// SoapStone.Controller.prototype.createDrop = function(form) {
-//   var drop = new SoapStone.Drop(dropData);
-//   var formData = new FormData($(form)[0]);
-//   this.dropView.showUploadIndicator();
-//   drop.save(formData)
-//   .then(function (response) { 
-//     self.dropView.showUploadSuccess.bind(self.dropView)();
-//     var drop = this;
-//   }.bind(drop))
-//   .fail(self.dropView.showUploadFailure.bind(self.dropView));
-// };
-
 
 SoapStone.UserView.prototype.showEditUserForm = function () {
   $(".user").hide();
