@@ -1,9 +1,7 @@
 class Drop < ActiveRecord::Base
   
-  FEET_TO_MILES = 0.000189394
-  CLICKABLE_DISTANCE = 330 * FEET_TO_MILES
+  DATA_REACH_DISTANCE = 1 #330 * FEET_TO_MILES
 
-  attr_reader :distance
   attr_accessor :current_user
 
   belongs_to :user
@@ -25,39 +23,18 @@ class Drop < ActiveRecord::Base
                    :lat_column_name => :lat,
                    :lng_column_name => :lon
 
-  def self.clickable(origin, allowed_users_filter = nil)
+  def self.collect_drops(origin, allowed_users_filter = nil)
     if (allowed_users_filter)
-      clickable_drops = Drop.within(CLICKABLE_DISTANCE, :origin => origin)
+      all_drops = Drop.within(DATA_REACH_DISTANCE, :origin => origin)
       .where(user: allowed_users_filter)
-      .by_distance(:origin => origin)
+      .order(:created_at)
       .includes(:user)
-      .limit(50)
     else
-      clickable_drops = Drop.within(CLICKABLE_DISTANCE, :origin => origin)
-      .by_distance(:origin => origin)
+      all_drops = Drop.within(DATA_REACH_DISTANCE, :origin => origin)
+      .order(:created_at)
       .includes(:user)
-      .limit(50)
     end
-    include_distances(clickable_drops, origin)
   end
-
-
-  def self.outside(origin, allowed_users_filter = nil)
-    if (allowed_users_filter)
-      clickable_drops = Drop.beyond(CLICKABLE_DISTANCE, :origin => origin)
-      .where(user: allowed_users_filter)
-      .by_distance(:origin => origin)
-      .includes(:user)
-      .limit(100)
-    else
-      clickable_drops = Drop.beyond(CLICKABLE_DISTANCE, :origin => origin)
-      .by_distance(:origin => origin)
-      .includes(:user)
-      .limit(100)
-    end
-    include_distances(clickable_drops, origin)  
-  end
-
 
   def has_some_content
     unless photo || text
@@ -85,24 +62,12 @@ class Drop < ActiveRecord::Base
         )
   end
 
-
   def s3_credentials
     {
       bucket: Rails.application.secrets.s3_bucket,
       access_key_id: Rails.application.secrets.s3_key_id,
       secret_access_key: Rails.application.secrets.s3_secret_key
     }
-  end
-
-  def with_distance(origin)
-    @distance = distance_from(origin)
-    self
-  end
-
-  private
-
-  def self.include_distances(drops, origin)
-    drops.map{ |drop| drop.with_distance(origin)}
   end
 
 end

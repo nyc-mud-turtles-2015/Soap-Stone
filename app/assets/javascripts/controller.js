@@ -4,8 +4,9 @@ SoapStone.Controller = function() {
     this.dropView.controller = this;
     this.mapView = new SoapStone.MapView();
     this.mapView.controller = this;
-    this.mapView.watchCurrentPosition();
+    // this.mapView.watchCurrentPosition();
     this.map = new SoapStone.Map();
+    this.map.controller = this;
     var userId = this.getUserId();
     this.initDrops(userId);
   }
@@ -70,9 +71,13 @@ SoapStone.Controller.prototype.initDrops = function(filter) {
   self.mapView.filter = filter;
   return self.mapView.init().then(function () {
     self.map.loadDrops(self.mapView.filter).then(function(){
-      self.mapView.showDrops(self.map.clickableDrops, self.map.outsideDrops);
+      self.mapView.showDrops(self.map.allDrops);
       self.dropView.clearDropList();
-      self.dropView.showDropList(self.map.clickableDrops);
+      var turnedOnDrops = self.map.allDrops.filter(function(drop){//check for drop.withinRange == true
+        return drop.withinRange;
+      });
+      self.dropView.showDropList(turnedOnDrops);
+      self.mapView.watchCurrentPosition();//is this where it should go??????????????????   
       self.pollDrops();
     });
   });
@@ -80,19 +85,21 @@ SoapStone.Controller.prototype.initDrops = function(filter) {
 
 SoapStone.Controller.prototype.pollDrops = function (){
     var self = this;
-    console.log("in the poll drops function");
     window.recentPollInterval = setInterval(function(){
       self.refreshDrops(self.mapView.filter);
-    }, 5000);
+    }, 30000);//increase this later
 };
 
 SoapStone.Controller.prototype.refreshDrops = function(filter) {
   var self = this;
   self.mapView.filter = filter;
-  self.map.refreshDrops(filter).then(function(){
-    self.mapView.showDrops(self.map.clickableDrops, self.map.outsideDrops);
+  self.map.hitTheDataBaseForDrops(filter).then(function(){//HDBfD used to be the refreshdrops function on the Map
+    self.mapView.showDrops(self.map.allDrops);
     self.dropView.clearDropList();
-    self.dropView.showDropList(self.map.clickableDrops);
+    var turnedOnDrops = self.map.allDrops.filter(function(drop){//check for drop.withinRange == true
+      return drop.withinRange;
+    });
+    self.dropView.showDropList(turnedOnDrops);
   });
 };
 
@@ -100,9 +107,12 @@ SoapStone.Controller.prototype.loadDrops = function(filter) {
   var self = this;
   self.mapView.filter = filter;
   self.map.loadDrops(filter).then(function(){
-    self.mapView.showDrops(self.map.clickableDrops, self.map.outsideDrops);
+    self.mapView.showDrops(self.map.allDrops);
     self.dropView.clearDropList();
-    self.dropView.showDropList(self.map.clickableDrops);
+    var turnedOnDrops = self.map.allDrops.filter(function(drop){//check for drop.withinRange == true
+      return drop.withinRange;
+    });
+    self.dropView.showDropList(turnedOnDrops);
   });
 };
 
