@@ -129,14 +129,26 @@ SoapStone.UserView.prototype.setUpEventHandlers = function(){
     }).done(function (response) {
       var id = response.user_id;
       window.location.replace("/users/"+id)
-      //do nothing cause of the redirect
     }).fail(function (responseObj) {
       toastr.error("Could not find that user", "Error");
     })
   });
 
+  $('#search-form #search').keyup(debounce(function(e){
+    $.ajax({
+      data: $(this).serialize(),
+      url:'/users/filter'
+    }).then(function(response){
+      suggestionShow(response);
+    })
+  }, 1000));
+  
 };
 
+
+SoapStone.UserView.prototype.suggestionShow = function () {
+
+};
 
 SoapStone.UserView.prototype.showEditUserForm = function () {
   $(".user").hide();
