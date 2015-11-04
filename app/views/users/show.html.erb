@@ -6,14 +6,19 @@
     <div class="username">
       <%= @user.username %>
     </div>
+    <div class="logout">
+      <a href="/logout" data-method="delete"><i class="material-icons">phonelink_off</i></a>
+    </div>
   </div>
   <div class="pure-g profile">
     <div class="pure-u-1-4 avatar">
       <img id="avatar" src="<%= @user.avatar %>">
     </div>
     <div class="pure=u-3-4 follow-form">
-      <% unless current_user == @user %>
+      <% if current_user != @user %>
         <%= render 'follow_form' %>
+      <% else %>
+
       <% end %>
     </div>
   </div>
@@ -43,6 +48,12 @@
     <% end %>
   </div>
 </div>
+
+<div data-view="user-form" class="user-container hide">
+  <%= render partial: "user_form" %>
+</div>
+
+
 <%= render partial: "handlebars_show_follower" %>
 <%= render partial: "handlebars_show_drop" %>
 

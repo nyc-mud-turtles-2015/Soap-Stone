@@ -105,9 +105,24 @@ SoapStone.UserView.prototype.setUpEventHandlers = function(){
     event.preventDefault();
     url = this.children[0].href
     SoapStone.app.userView.showDrop(url);
+  });
 
-  })
+  $("[data-button='profile-button']").on('click', function (event) {
+    event.preventDefault();
+    SoapStone.app.userView.showEditUserForm();
+  });
 
+  $(".edit_user").on('submit', function (event) {
+    event.preventDefault();
+    SoapStone.app.userView.updateUser($(".edit_user"));
+  });
+
+};
+
+
+SoapStone.UserView.prototype.showEditUserForm = function () {
+  $(".user").hide();
+  $("[data-view='user-form']").show();
 };
 
 SoapStone.UserView.prototype.showFollowers = function(user) {
