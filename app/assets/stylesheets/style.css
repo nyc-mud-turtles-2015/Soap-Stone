@@ -397,13 +397,13 @@ button.close {
 /****** AUTH0 ******/
 #login-background {
   background-image: url("mobile-street.png");
-  background-size: 140% auto;
+  background-size: 170% cover;
   background-repeat: no-repeat;
   background-position: 50% 25%;
 }
 
 .a0-image {
-  animation: wiggle 2.5s linear infinite;
+  animation: wiggle 3s linear infinite;
 }
 
 @keyframes wiggle {
@@ -433,7 +433,7 @@ button.close {
 body #a0-lock .a0-panel,
 body #a0-lock.a0-theme-default .a0-panel,
 body #a0-widget .a0-panel {
-  background-color: #F4B350;
+  background-color: #F9BF3B;
   color: white;
 }
 body #a0-lock .a0-panel .a0-close:hover,
@@ -445,6 +445,7 @@ body #a0-lock .a0-panel .a0-avatar,
 body #a0-lock.a0-theme-default .a0-panel .a0-avatar,
 body #a0-widget .a0-panel .a0-avatar {
   background: rgba(0, 0, 0, 0.9);
+
 }
 body #a0-lock .a0-panel .a0-avatar i,
 body #a0-lock.a0-theme-default .a0-panel .a0-avatar i,
@@ -517,15 +518,22 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
   }
 }
 
+#root {
+  margin-top: -0.5em;
+}
+
 .slogan {
   color:#fff;
   text-align: center;
-  font-size: 1.5em;
-  text-shadow: .05em .05em .05em #636363;
+  font-size: 1.6em;
+  text-shadow: .03em .03em .03em #333333;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: -0.1em;
-  margin-top: -0.3em;
+  margin-bottom: -0.5em;
+  margin-top: -0.5em;
+  z-index: 140;
+  font-family: 'Montserrat', sans-serif;
+  animation-delay: 3s;
 }
 
 .a0-icon-badge {
@@ -533,46 +541,97 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
 }
 
 .title {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   text-align: center;
-  font-size:4em;
+  font-size:3em;
   color:#FFF;
-  margin-top: -0.001em;
-  margin-bottom: -0.001em;
-  /*text-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
-  z-index: 100;
-  text-shadow: .02em .02em .02em #636363;
+  margin-top: 0.4em;
+  margin-bottom: 0.4em;
+  z-index: 120;
+  text-shadow: .1em .1em .1em #333333;
+  animation-delay: 1s;
 }
 
 .about {
-  color:#fff;
-  font-size: 2.5em;
+  color:#EEEEEE;
+  font-size: 1.2em;
   text-align: center;
+  margin-top: -0.5em;
   margin-left: auto;
   margin-right: auto;
-  z-index: 100;
-  text-shadow: .06em .06em .06em #636363;
+  z-index: 140;
+  text-shadow: .1em .1em .1em #333333;
+  font-family: 'Montserrat', sans-serif;
+  /*-webkit-text-stroke: 0.01px #141414;*/
 }
 
 @media screen and (min-width: 35.5em){
   .title {
-    font-size: 6em;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    font-size:5em;
+    color:#FFF;
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+    z-index: 120;
+    text-shadow: .03em .03em .03em #636363;
+    animation-delay: 1s;
   }
 
   #login-background{
-    background-image: url("image4.JPG");
-    max-width:100%;
+    background-image: url("david2.jpg");
+    background-size: 140% auto;
+
   }
 
   .slogan {
     font-size: 3em;
     text-align: center;
     text-shadow: .06em .06em .06em #636363;
+    font-family: 'Montserrat', sans-serif;
+    z-index: 110;
+    animation-delay: 3.5s;
   }
 
   .about {
+    color:#EEEEEE;
     font-size: 2em;
+    text-align: center;
+    margin-top: -0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 140;
+    text-shadow: .1em .1em .1em #333333;
+    font-family: 'Montserrat', sans-serif;
+    -webkit-text-stroke: 0.01px #141414;
+
   }
+
+  .fa-github {
+    color:#EEEEEE;
+    font-size: 1em;
+    text-shadow: .05em .05em .05em #333333;
+  }
+
+  .fa-github:hover {
+    color: #6C7A89;
+  }
+}
+
+.img-container {
+  display: block;
+  text-align: center;
+}
+
+.fa-github {
+  color:#EEEEEE;
+  font-size: 3em;
+  text-shadow: .05em .05em .05em #333333;
+}
+
+.fa-github:hover {
+  color: #F9BF3B;
+  animation: wiggle 2s infinite;
 }
 
 /* fancy loader http://projects.lukehaas.me/css-loaders/ */
