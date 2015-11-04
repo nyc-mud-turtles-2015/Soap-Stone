@@ -13,8 +13,6 @@ moveMe = function (i,j) {
 
 SoapStone.Map = function () {
   this.allDrops = [];
- //  this.outsideDrops = [];
-	// this.clickableDrops = [];
   $('#set-center').on('click',function(e){
     SoapStone.app.mapView.centerMap();
   });
@@ -83,10 +81,6 @@ SoapStone.Map.prototype.hitTheDataBaseForDrops = function (filter) {
   })
   .then(function(response) {
     self.addSurroundingDrops(response);//takes all the data within a mileish and turns them into drops and puts them on an array at self.allDrops
-    // var clickableArray = response[0];
-    // var outsideArray = response[1];
-    // clickableArray.updateDropsArray(self.addClickableDrop, self.clickableDrops, self.outsideDrops, 50)
-    // outsideArray.updateDropsArray(self.addOutsideDrop, self.outsideDrops, self.clickableDrops, 100)
   });
 };
 
@@ -115,21 +109,6 @@ SoapStone.Map.prototype.loadDrops = function (filter) {
     self.addSurroundingDrops(response);
 	});
 };
-
-// SoapStone.MapView.prototype.getLocation = function() {
-//     return new Promise(function(resolve, reject) {
-//       if ("geolocation" in navigator) {
-//         navigator.geolocation.getCurrentPosition(function(position) {
-//           var coords = {};
-//           coords.latitude = position.coords.latitude;
-//           coords.longitude = position.coords.longitude;
-//           resolve(coords);
-//         });
-//       } else {
-//           reject(); //Geolocation not available
-//       }
-//   });
-// };
 
 SoapStone.MapView = function () {
   this.filter = null;
