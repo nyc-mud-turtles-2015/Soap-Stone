@@ -311,7 +311,7 @@ button.close {
 }
 
 .drop-img {
-    width: ;
+  max-height: 50vh;
 }
 
 .menu {
@@ -366,14 +366,38 @@ button.close {
 /****** AUTH0 ******/
 #login-background {
   background-image: url("mobile-street.png");
-  max-width:100%;
-  max-height:auto;
+  background-size: 140% auto;
+  background-repeat: no-repeat;
+  background-position: 50% 25%;
 }
 
 .a0-image {
   animation: wiggle 2.5s linear infinite;
 }
 
+@keyframes wiggle {
+  0%, 7% {
+    transform: rotateZ(0);
+  }
+  15% {
+    transform: rotateZ(-15deg);
+  }
+  20% {
+    transform: rotateZ(30deg);
+  }
+  25% {
+    transform: rotateZ(-30deg);
+  }
+  30% {
+    transform: rotateZ(6deg);
+  }
+  35% {
+    transform: rotateZ(-4deg);
+  }
+  40%, 100% {
+    transform: rotateZ(0);
+  }
+}
 
 body #a0-lock .a0-panel,
 body #a0-lock.a0-theme-default .a0-panel,
@@ -467,46 +491,36 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
   text-align: center;
   font-size: 1.5em;
   text-shadow: .05em .05em .05em #636363;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: -0.1em;
+  margin-top: -0.3em;
 }
 
 .a0-icon-badge {
   display:none;
 }
 
-@keyframes wiggle {
-  0%, 7% {
-    transform: rotateZ(0);
-  }
-  15% {
-    transform: rotateZ(-15deg);
-  }
-  20% {
-    transform: rotateZ(30deg);
-  }
-  25% {
-    transform: rotateZ(-30deg);
-  }
-  30% {
-    transform: rotateZ(6deg);
-  }
-  35% {
-    transform: rotateZ(-4deg);
-  }
-  40%, 100% {
-    transform: rotateZ(0);
-  }
-}
-
 .title {
   font-family: 'Open Sans', sans-serif;
   text-align: center;
-  font-size:3em;
+  font-size:4em;
   color:#FFF;
   margin-top: -0.001em;
   margin-bottom: -0.001em;
   /*text-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
   z-index: 100;
   text-shadow: .02em .02em .02em #636363;
+}
+
+.about {
+  color:#fff;
+  font-size: 2.5em;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 100;
+  text-shadow: .06em .06em .06em #636363;
 }
 
 @media screen and (min-width: 35.5em){
@@ -522,7 +536,11 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
   .slogan {
     font-size: 3em;
     text-align: center;
-    text-shadow: .02em .02em .02em #636363;
+    text-shadow: .06em .06em .06em #636363;
+  }
+
+  .about {
+    font-size: 2em;
   }
 }
 
