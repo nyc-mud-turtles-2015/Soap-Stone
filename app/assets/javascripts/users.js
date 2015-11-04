@@ -67,6 +67,7 @@ SoapStone.UserView = function() {
   this.snapButtonTemplate = Handlebars.compile($("[data-partial='snap-button-partial']").html());
   Handlebars.registerPartial("comment", $("[data-partial='comment-partial']").html());
   this.commentsTemplate = Handlebars.compile($("[data-partial='comment-partial']").html());
+  this.suggestionTemplate = Handlebars.compile($("[data-template='user-suggestions']").html());
   this.setUpEventHandlers();
 };
 
@@ -85,6 +86,8 @@ SoapStone.UserView.prototype.showFollows = function (user) {
 };
 
 SoapStone.UserView.prototype.setUpEventHandlers = function(){
+  var self = this;
+
   $("#followers").on('click', function(event){
     event.preventDefault();
     SoapStone.app.userView.showFollowers(SoapStone.app.user);
@@ -117,8 +120,44 @@ SoapStone.UserView.prototype.setUpEventHandlers = function(){
     SoapStone.app.userView.updateUser($(".edit_user"));
   });
 
+  $('#search-form').on('submit', function(event){
+    event.preventDefault();
+    var myUrl = '/users/search';
+    var myData = $(this).serialize();
+    var myType = "POST";
+    $.ajax({
+      url:myUrl,
+      type: myType,
+      data: myData
+    }).done(function (response) {
+      var id = response.user_id;
+      window.location.replace("/users/"+id)
+    }).fail(function (responseObj) {
+      toastr.error("Could not find that user", "Error");
+    })
+  });
+
+  $('#search-form #search').keyup(debounce(function(e){
+    var myData =$(this).serialize(); 
+    $.ajax({
+      data: myData,
+      url:'/users/filter',
+      type: "POST"
+    }).then(function(response){
+      self.suggestionShow(response);//response is an obj {users: [users collection]}
+    })
+  }, 250));
 };
 
+
+SoapStone.UserView.prototype.suggestionShow = function (response) {
+  var self = this;
+  if (response){
+    // $().val( input.val() + "more text" );
+    $("[data-role='suggestions']").html(self.suggestionTemplate(response))
+    $("[data-role='suggestions']").show()
+  }
+};
 
 SoapStone.UserView.prototype.showEditUserForm = function () {
   $(".user").hide();

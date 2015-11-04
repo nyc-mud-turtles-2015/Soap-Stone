@@ -7,7 +7,7 @@
       <%= @user.username %>
     </div>
     <div class="logout">
-      <a href="/logout" data-method="delete"><i class="material-icons">phonelink_off</i></a>
+      <a href="/logout" data-method="delete"><i class="material-icons">power_settings_new</i></a>
     </div>
   </div>
   <div class="pure-g profile">
@@ -18,7 +18,11 @@
       <% if current_user != @user %>
         <%= render 'follow_form' %>
       <% else %>
-
+        <form id="search-form">
+          <input id="search" type="text" autocomplete="off" name="query">
+          <button type="submit"><i class="material-icons">search</i></button>
+        </form>
+        <ul class = 'hide' data-role='suggestions'></ul>
       <% end %>
     </div>
   </div>
@@ -56,5 +60,6 @@
 
 <%= render partial: "handlebars_show_follower" %>
 <%= render partial: "handlebars_show_drop" %>
+<%= render partial: "handlebars_suggestion" %>
 
     
