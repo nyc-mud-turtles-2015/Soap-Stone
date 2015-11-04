@@ -526,7 +526,7 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
   color:#fff;
   text-align: center;
   font-size: 1.6em;
-  text-shadow: .03em .03em .03em #333333;
+  text-shadow: .04em .04em .04em #333333;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: -0.5em;
@@ -548,7 +548,7 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
   margin-top: 0.4em;
   margin-bottom: 0.4em;
   z-index: 120;
-  text-shadow: .1em .1em .1em #333333;
+  text-shadow: .04em .04em .04em #333333;
   animation-delay: 1s;
 }
 
@@ -574,7 +574,7 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
     margin-top: 0.4em;
     margin-bottom: 0.4em;
     z-index: 120;
-    text-shadow: .03em .03em .03em #636363;
+    text-shadow: .038em .03em .03em #333333;
     animation-delay: 1s;
   }
 
@@ -587,7 +587,7 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
   .slogan {
     font-size: 3em;
     text-align: center;
-    text-shadow: .06em .06em .06em #636363;
+    text-shadow: .035em .035em .035em #333333;
     font-family: 'Montserrat', sans-serif;
     z-index: 110;
     animation-delay: 3.5s;
