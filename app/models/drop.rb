@@ -27,14 +27,12 @@ class Drop < ActiveRecord::Base
     if (allowed_users_filter)
       all_drops = Drop.within(DATA_REACH_DISTANCE, :origin => origin)
       .where(user: allowed_users_filter)
-      .sort(:created_at)
+      .order(:created_at)
       .includes(:user)
-      .limit(50)
     else
       all_drops = Drop.within(DATA_REACH_DISTANCE, :origin => origin)
-      .sort(:created_at)
+      .order(:created_at)
       .includes(:user)
-      .limit(50)
     end
   end
 

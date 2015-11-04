@@ -1,14 +1,18 @@
 SoapStone.Map.prototype.addSurroundingDrops = function (allDropsData) {//allDropData is the array of all point we get from the ajax
   var self = this;//the map
-  allDropData.forEach(function (dropData) {
+  self.allDrops.forEach(function (drop, i) {
+    drop.marker.setMap(null);
+  });
+  self.allDrops = [];
+  allDropsData.forEach(function (dropData) {
     self.allDrops.push(self.addDrop(dropData));
   });
-  debugger;
   this.controller.mapView.showDrops(self.allDrops);
 };
 
 
 SoapStone.Map.prototype.addDrop = function (dropData) {
+  var self = this;
   var drop = new SoapStone.Drop(dropData);
   if (drop.lat && drop.lon) {//sanity check
     var iconObj;
@@ -33,7 +37,7 @@ SoapStone.Map.prototype.addDrop = function (dropData) {
       position: new google.maps.LatLng(drop.lat, drop.lon),
       icon: iconObj
     });
-    drop.marker.setMap(self.contoller.mapView.map);
+    drop.marker.setMap(self.controller.mapView.map);
   }
   return drop;
 };
@@ -42,6 +46,10 @@ SoapStone.Map.prototype.refreshDrops = function () {
   var self = this;
   self.allDrops.forEach(function(drop){
     var distance = drop.distanceFromTarget(self.controller.mapView.trackingLocation);//fuck demeter
+    
+    console.log("      ME: ", self.controller.mapView.trackingLocation.lat(), self.controller.mapView.trackingLocation.lng())
+    console.log("   Other: ", drop.googleLatLng.lat(), drop.googleLatLng.lng())
+    console.log("DISTANCE: ", distance)
     if (distance > 330){//refactor the 330 to be an attribute on the map instead of just being here
       drop.withinRange = false;
       drop.marker.icon = {

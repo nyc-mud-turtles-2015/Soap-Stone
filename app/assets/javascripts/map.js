@@ -5,7 +5,7 @@ moveMe = function (i) {
   var self = SoapStone.app.mapView;
   self.trackingLocation =  new google.maps.LatLng(TRACKING_TESTING_LAT += i/10000, TRACKING_TESTING_LON += i/10000);
   self.setCirclePosition(self.circle, {coords: {latitude: TRACKING_TESTING_LAT += i/10000, longitude: TRACKING_TESTING_LON += i/10000}});
-  self.controller.refreshDrops();
+  self.controller.map.refreshDrops();
 };
 
 
@@ -62,7 +62,6 @@ SoapStone.Map.prototype.clearMarkers = function(){
 };
 
 SoapStone.Map.prototype.hitTheDataBaseForDrops = function (filter) {
-  debugger;
   var self = this;
   var myUrl = '/drops';
   var myPosition = SoapStone.app.mapView.trackingLocation;
@@ -91,7 +90,7 @@ SoapStone.Map.prototype.hitTheDataBaseForDrops = function (filter) {
 
 SoapStone.Map.prototype.loadDrops = function (filter) {
   this.clearMarkers();
-  debugger;
+  
 	var self = this;
   var myPosition = self.controller.mapView.trackingLocation;
   var myData = { lat: myPosition.lat(), lon: myPosition.lng() }
@@ -110,7 +109,7 @@ SoapStone.Map.prototype.loadDrops = function (filter) {
     dataType: 'json'
   })
 	.then(function(response) {//response should be ONE array of all drops within a mileish
-    debugger;
+    
     self.addSurroundingDrops(response);
 	});
 };
@@ -282,20 +281,18 @@ SoapStone.MapView.prototype.init = function () {
 
 SoapStone.MapView.prototype.showDrops = function (allDrops) {
 	var self = this;
-  debugger;
+  
   allDrops.forEach(function(drop){
     if(drop.withinRange){
       if (drop.hasEventListener == null){
-        drop.marker.addListener('click', function() {
-          SoapStone.app.showDrop(drop.id);
-        })
+        google.maps.event.addListener(drop.marker, 'click', function () {
+            SoapStone.app.showDrop(drop.id);
+        });
       }
       drop.hasEventListener = true;
     }else{
       if (drop.hasEventListener){
-        drop.marker.removeListener('click', function() {//remove??
-          SoapStone.app.showDrop(drop.id);
-        });
+        google.maps.event.clearListeners(drop.marker, 'click');
       }
       drop.hasEventListener = null;
     }
@@ -317,7 +314,7 @@ SoapStone.MapView.prototype.watchCurrentPosition = function() {
       self.trackingLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);  
     }
     self.setCirclePosition(self.circle, position);
-    debugger;
+    
     self.controller.map.refreshDrops();
   });
 };

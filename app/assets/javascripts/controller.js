@@ -85,14 +85,12 @@ SoapStone.Controller.prototype.initDrops = function(filter) {
 
 SoapStone.Controller.prototype.pollDrops = function (){
     var self = this;
-    debugger;
     window.recentPollInterval = setInterval(function(){
       self.refreshDrops(self.mapView.filter);
-    }, 5000);//increase this later
+    }, 30000);//increase this later
 };
 
 SoapStone.Controller.prototype.refreshDrops = function(filter) {
-  debugger;
   var self = this;
   self.mapView.filter = filter;
   self.map.hitTheDataBaseForDrops(filter).then(function(){//HDBfD used to be the refreshdrops function on the Map
