@@ -2,8 +2,8 @@
 <h2>New Drop</h2>
 <%= form_tag "", :"data-role" => "drop-form", :"class" => "new-drop-form pure-form-stacked" do %>
     <%= text_area_tag :"drop[text]", "" %>
-    <%= label_tag "drop[photo]", "ADD A PHOTO", class: "photo-label button raised" %>
-    <%= file_field_tag :"drop[photo]", accept: "image/*", class: "photo-button" %>
-  <%= submit_tag "DROP", class: "submit-button raised" %>
+    <%= label_tag "drop[photo]", "ADD A PHOTO", class: "photo-label button raised orange", :"data-role" => "photo-label" %>
+    <%= file_field_tag :"drop[photo]", accept: "image/*", class: "photo-button", :"data-role" => "photo-upload" %>
+  <%= submit_tag "DROP", class: "submit-button raised orange" %>
   <div class="loader">
 <% end %>

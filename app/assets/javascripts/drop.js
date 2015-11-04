@@ -127,11 +127,7 @@ SoapStone.DropView = function () {
 SoapStone.DropView.prototype.setUpEventHandlers = function () {
   var self = this;
 
-  $("[data-role='drop-form']").on('submit', function (event) {
-    event.preventDefault();
-    self.controller.createDrop($("[data-role='drop-form']"));
-  });
-
+  // Filter tabs
   $("[data-button='friend-filter']").on('click', function (e) {
     $('.tabs .tab').removeClass('selected');
     $('.tabs .friend').addClass('selected');
@@ -144,6 +140,7 @@ SoapStone.DropView.prototype.setUpEventHandlers = function () {
     self.controller.loadDrops();
   });
 
+  // Floating buttons
   $("[data-button='new']").on('click', function (event) {
     event.preventDefault();
     self.showNewDropForm();
@@ -160,6 +157,24 @@ SoapStone.DropView.prototype.setUpEventHandlers = function () {
 
   $("[data-button='profile']").on('click', function (e) {
     location.replace('/users/me');
+  });
+
+  // New drop form handlers
+  $("[data-role='photo-upload']").on('change', function (event) {
+    if (this.files.length > 0) {
+      $("[data-role='photo-label']")
+      .removeClass('orange').addClass('white').addClass('has-file')
+      .html($('<span>PHOTO READY TO DROP</span>'));  
+    } else {
+      $("[data-role='photo-label']")
+      .addClass('orange').removeClass('white').removeClass('has-file')
+      .html('<span>ADD A PHOTO</span>');  
+    }
+  });
+
+  $("[data-role='drop-form']").on('submit', function (event) {
+    event.preventDefault();
+    self.controller.createDrop($("[data-role='drop-form']"));
   });
 
   $("[data-button='close-form']").add('.new-form-lightbox').on('click', function (event) {
@@ -265,8 +280,6 @@ SoapStone.DropView.prototype.hideDropList = function() {
   $("[data-view='map']").removeClass("drop-list-open");
   this.controller.mapView.panVertically(-$(window).height() * 0.25);
 };
-
-
 
 SoapStone.DropView.prototype.showDropList = function (drops) {
   var self = this;

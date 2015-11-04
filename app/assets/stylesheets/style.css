@@ -866,27 +866,27 @@ button.floating-round:active {
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
-button.orange {
+button.orange, input.orange, label.button.orange {
     background: #FF9800;
     color: white;
 }
-    button.orange:hover {
+    button.orange:hover, input.orange:hover, label.button.orange:hover{
         background: #FB8C00;
     }
 
-    button.orange:active {
+    button.orange:active, input.orange:active, label.button.orange:active {
         background: #F57C00;
     }
 
-button.white {
+button.white, input.white, label.button.white {
     background: white;
     color: #FF9800;
 }
-    button.white:hover {
+    button.white:hover, input.white:hover, label.button.white:hover {
         color: #FB8C00;
     }
     
-    button.white:active {
+    button.white:active, input.white:active, label.button.white:active {
         color: #F57C00;
     }
 
@@ -898,20 +898,23 @@ button.raised, .button.raised, input.raised {
     font-size: 14px;
     line-height: 36px;
     border-radius: 3px;
-    background: #FF9800;
-    color: white;
     min-width: 88px;
     margin-top: 16px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     transition: box-shadow 0.5s, background-color  0.5s;
 }
 
+.raised i, .raised span {
+    vertical-align:middle;
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+}
+
 button:hover.raised, .button:hover.raised, input:hover.raised  {
-    background: #FB8C00;
 }
 
 button:active.raised, .button:active.raised, input:active.raised  {
-    background: #F57C00;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
