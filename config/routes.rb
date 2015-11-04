@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   resources :maps, only: [:index]
   get "/drops/followees" => 'drops#followees'
-  # get "/drops/users/:id" => 'drops#higlight'
+
+  get 'users/me' => 'users#me'
+
   resources :users, only: [:show, :edit, :update] do
     resources :follows, only: [:index]
     resources :drops, only: [:index]

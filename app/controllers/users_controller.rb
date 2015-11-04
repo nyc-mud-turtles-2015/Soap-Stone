@@ -18,4 +18,8 @@ class UsersController < ApplicationController
       render plain: {failure: @user.errors.full_messages.join(",")}.to_json, status: 422
     end
   end
+
+  def me
+    redirect_to user_path(current_user)
+  end
 end

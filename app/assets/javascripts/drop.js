@@ -127,37 +127,69 @@ SoapStone.DropView = function () {
 SoapStone.DropView.prototype.setUpEventHandlers = function () {
   var self = this;
 
+  // Filter tabs
+  $("[data-button='friend-filter']").on('click', function (e) {
+    $('.tabs .tab').removeClass('selected');
+    $('.tabs .friend').addClass('selected');
+    self.controller.loadDrops("/followees");
+  });
+
+  $("[data-button='public-filter']").on('click', function (e) {
+    $('.tabs .tab').removeClass('selected');
+    $('.tabs .public').addClass('selected');
+    self.controller.loadDrops();
+  });
+
+  // Floating buttons
+  $("[data-button='new']").on('click', function (event) {
+    event.preventDefault();
+    self.showNewDropForm();
+  });
+
+  $("[data-button='center']").on('click', function (event) {
+    self.controller.mapView.centerMap();
+  });
+
+  $("[data-button='list']").on('click', function (event) {
+    event.preventDefault();
+    self.popupDropList();
+  });
+
+  $("[data-button='profile']").on('click', function (e) {
+    location.replace('/users/me');
+  });
+
+  // New drop form handlers
+  $("[data-role='photo-upload']").on('change', function (event) {
+    if (this.files.length > 0) {
+      $("[data-role='photo-label']")
+      .removeClass('orange').addClass('white').addClass('has-file')
+      .html($('<span>PHOTO READY TO DROP</span>'));  
+    } else {
+      $("[data-role='photo-label']")
+      .addClass('orange').removeClass('white').removeClass('has-file')
+      .html('<span>ADD A PHOTO</span>');  
+    }
+  });
+
   $("[data-role='drop-form']").on('submit', function (event) {
     event.preventDefault();
     self.controller.createDrop($("[data-role='drop-form']"));
   });
 
-  $("[data-button='friend-filter']").on('click', function (e) {
-    self.controller.loadDrops("/followees");
-  });
-
-  $("[data-button='public-filter']").on('click', function (e) {
-    self.controller.loadDrops();
-  });
-
-  $("[data-button='new-button']").on('click', function (event) {
-    event.preventDefault();
-    self.showNewDropForm();
-  });
-
-  $("[data-button='close-form']").on('click', function (event) {
+  $("[data-button='close-form']").add('.new-form-lightbox').on('click', function (event) {
     event.preventDefault();
     self.hideNewDropForm();
   });
 };
 
 SoapStone.DropView.prototype.showNewDropForm = function () {
-  $("[data-view='new-form']").show();
+  $("[data-view='map']").addClass("drop-form-open");
 };
 
 SoapStone.DropView.prototype.hideNewDropForm = function () {
   $("[data-view='new-form']").removeClass('uploading');
-  $("[data-view='new-form']").hide();
+  $("[data-view='map']").removeClass("drop-form-open");
 };
 
 SoapStone.DropView.prototype.showUploadIndicator = function () {
@@ -177,21 +209,35 @@ SoapStone.DropView.prototype.showUploadFailure = function (response) {
 };
 
 SoapStone.DropView.prototype.updateSnapButton = function (drop) {
-  $("[data-button='snap-button']").replaceWith(this.snapButtonTemplate(drop));
+  $("[data-role='snaps']").replaceWith(this.snapButtonTemplate(drop));
 };
 
 SoapStone.DropView.prototype.updateComments = function (drop) {
+  var self = this;
+
   $(".comment-list").replaceWith(this.commentsTemplate(drop));
+  
+  $("[data-button='comment-button']").on('click', function (event){
+    event.preventDefault();
+    self.controller.createComment(drop);
+    $("[data-form='comment-form']").val('');
+  });
+  
+  $("[data-button='snap-button']").on('click', function (event) {
+    event.preventDefault();
+    self.controller.addSnap(drop);
+  });
 };
 
 SoapStone.DropView.prototype.showDrop = function (drop) {
   var self = this;
-  $('body').append(this.showTemplate(drop));
-  $("[data-view='map']").hide();
-  $("[data-menu='map']").hide();
-  $("[data-button='close-drop']").on('click', function (event) {
-    self.closeDrop();
-  });
+  $("[data-view='map']").append(this.showTemplate(drop));
+  window.setTimeout(function() {
+    $("[data-view='map']").addClass('drop-open');
+    $("[data-button='close-drop']").on('click', function (event) {
+      self.closeDrop();
+    });
+  }, 50);
 
   $("[data-button='snap-button']").on('click', function (event) {
     event.preventDefault();
@@ -223,6 +269,16 @@ SoapStone.DropView.prototype.clearMarkerAnimations = function (drops) {
     var drop = drops[i];
     drop.marker.setAnimation(null);
   }
+};
+
+SoapStone.DropView.prototype.popupDropList = function() {
+  $("[data-view='map']").addClass("drop-list-open");
+  this.controller.mapView.panVertically($(window).height() * 0.25);
+};
+
+SoapStone.DropView.prototype.hideDropList = function() {
+  $("[data-view='map']").removeClass("drop-list-open");
+  this.controller.mapView.panVertically(-$(window).height() * 0.25);
 };
 
 SoapStone.DropView.prototype.showDropList = function (drops) {
@@ -258,11 +314,15 @@ SoapStone.DropView.prototype.showDropList = function (drops) {
       marker.setAnimation(google.maps.Animation.BOUNCE);
     }
   });
+  $("[data-button='close-list']").add('.new-form-lightbox').on('click', function (event) {
+    event.preventDefault();
+    self.hideDropList();
+  });
 };
 
 SoapStone.DropView.prototype.closeDrop  = function () {
-  $("[data-view='drop']").remove();
-  $("[data-menu='drop']").remove();
-  $("[data-view='map']").show();
-  $("[data-menu='map']").show();
+  $("[data-view='map']").removeClass('drop-open');
+  window.setTimeout(function() {
+      $("[data-view='drop']").remove();
+  }, 500);
 };

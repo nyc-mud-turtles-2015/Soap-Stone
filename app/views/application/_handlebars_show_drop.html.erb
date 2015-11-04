@@ -1,40 +1,33 @@
 <script data-template='show-drop' type="text/x-handlebars-template">
-  <article data-view="drop" class="view user pure-g">
+  <article data-view="drop" class="view drop pure-g bottom-sheet">
+    <div class="drop-wrapper">
     {{#if has_photo}}
-    <div class="image-container pure-u-1 pure-sm-3-4">
-      <button data-button="close-drop" class="close button-large pure-button">X</button>
-      <img src="{{photo}}" class="drop-img pure-img-responsive">
-    </div>
-    <div class="drop-info pure-g pure-u-1 pure-sm-1-4">
-      <div class="pure-u">
-        <a href="/users/{{user.id}}">
-          <img class="drop-avatar" src="{{user.avatar}}">
-        </a>
-      </div>
-      <div class="pure-u-3-4">
-        <h2 class="drop-text">{{text}}</h2>
-      </div>
+    <div class="drop-content with-image">
+      <img src="{{photo}}" class="drop-img">
+      {{#if text}}
+      <p class="drop-text">{{text}}</p>
+      {{/if}}
+      <a href="/users/{{user.id}}">
+        <img class="drop-avatar" src="{{user.avatar}}">
+      </a>
     </div>
     {{else}}
-    <div class="pure-u-1">
-        <button data-button="close-drop" class="close button-large pure-button">X</button>
-        <div class="drop-text-wrapper">
-          <div class="drop-text-container">
-            <h2 class="drop-text">{{text}}</h2>
-          </div>
-        </div>
-    </div>
-    <div class="drop-info pure-g pure-u-1 pure-sm-1-4">
-      <div class="pure-u-1-4">
-        <a href="/users/{{user.id}}">
-          <img class="drop-avatar" src="{{user.avatar}}">
-        </a>
-      </div>
+    <div class="drop-content text-only">
+      <p class="drop-text">{{text}}</p>
+      <a href="/users/{{user.id}}">
+        <img class="drop-avatar" src="{{user.avatar}}">
+      </a>
     </div>
     {{/if}}
-    {{> comment}}
+    </div>
+    <div class="drop-info">
+      <button data-button="close-drop" class="close"><i class="material-icons md-light md-24">clear</i></button>
+      <h2>By {{user.username}}</h2>
+      {{> comment}}
   </article>
-  <div data-menu="drop" class="menu pure-g">
+</script>
+
+<!--   <div data-menu="drop" class="menu pure-g">
     <div class="pure-u-1-5">
       {{> snap-button}}
     </div><div class="pure-u-3-5">
@@ -45,31 +38,43 @@
     <button data-button="comment-button" class="pure-button"><i class="material-icons">chat_bubble</i></button>
     </div>
   </div>
-</script>
+ -->
 
 <script data-partial="snap-button-partial" type="text/x-handlebars-template">
+  <div data-role="snaps" class="snap-widget">
+  {{pluralize snaps_count "snap"}}
   {{#if snapped_by_you}}
-    <button data-button="snap-button" disabled class="pure-button pure-button-disabled">{{pluralize snaps_count "Snap"}}</button>
+    <button data-button="snap-button" disabled class="snap icon-toggle"><i class="material-icons md-24">flare</i></button>
   {{else}}
-    <button data-button="snap-button" class="pure-button">{{pluralize snaps_count "Snap"}}</button>
+    <button data-button="snap-button" class="snap icon-toggle inactive"><i class="material-icons md-24">flare</i></button>
   {{/if}}
+  </div>
 </script>
 
 <script data-partial="comment-partial" type="text/x-handlebars-template">
-  <div class="comment-list">
-    <h3 class="pure-u-1">{{pluralize comments_count "comment"}}</h3>
+  <div class="comment-list list">
+  <div class="drop-metadata">
+  <p class="drop-time">{{timeAgo created_at}} ago</p>
+    {{> snap-button}}
+  </div>
     {{#each comments}}
-      <div class="comment-item pure-g pure-u-1">
-        <div class="pure-u">
+      <div class="comment-item list-item">
+        <div class="list-avatar">
           <a href="/users/{{user.id}}">
-            <img class="comment-avatar" src="{{user.avatar}}">
+            <img src="{{user.avatar}}">
           </a>
         </div>
-        <div class="pure-u-3-4">
+        <div class="comment-content list-content">
           <h3 class="comment-username">{{user.username}}</h3>
-          <p class="comment-text">{{text}}</p>
+          <p class="comment-text list-text">{{text}}</p>
         </div>
       </div>
+    {{else}}
+    <div class="no-content">Be the first to comment on this drop!</div>
     {{/each}}
+    <div class="comment-form">
+      <textarea data-form="comment-form" name="comment" class="comment-entry" type="text"></textarea>
+      <button data-button="comment-button" class="raised orange comment">COMMENT</button>
+    </script>
   </div>
 </script>

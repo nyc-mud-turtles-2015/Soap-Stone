@@ -1,4 +1,4 @@
-var TRACKING_TESTING_ON = true;
+var TRACKING_TESTING_ON = false;
 var TRACKING_TESTING_LAT = 40.704887199999995, TRACKING_TESTING_LON = -74.0123736;
 moveMe = function (i,j) {
   console.log("moving you");
@@ -297,6 +297,10 @@ SoapStone.MapView.prototype.watchCurrentPosition = function() {
     
     self.controller.map.refreshDrops();
   });
+};
+
+SoapStone.MapView.prototype.panVertically = function (pixels) {
+  this.map.panBy(0, pixels);
 };
 
 SoapStone.MapView.prototype.setCirclePosition = function (circle, position) {
