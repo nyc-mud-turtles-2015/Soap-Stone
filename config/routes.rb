@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get "/drops/followees" => 'drops#followees'
   get 'users/me' => 'users#me'
   post "users/search" => 'users#search'
+  post "users/filter" => 'users#filter'
   resources :users, only: [:show, :edit, :update] do
     resources :follows, only: [:index]
     resources :drops, only: [:index]
