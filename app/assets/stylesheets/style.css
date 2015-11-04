@@ -10,13 +10,6 @@ html {
   padding: .5em;
 }
 
-.material-icons {
-  font-size: 4em;
-  position: fixed;
-  text-decoration: none;
-  color: white;
-}
-
 #avatar {
   float: left;
   margin-right: 1em;

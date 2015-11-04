@@ -1,4 +1,4 @@
-var TRACKING_TESTING_ON = true;
+var TRACKING_TESTING_ON = false;
 var TRACKING_TESTING_LAT = 40.704887199999995, TRACKING_TESTING_LON = -74.0123736;
 moveMe = function (i,j) {
   console.log("moving you");
