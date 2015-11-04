@@ -119,11 +119,20 @@ SoapStone.UserView.prototype.setUpEventHandlers = function(){
 
   $('#search-form').on('submit', function(event){
     event.preventDefault();
-    debugger;
-    var myUrl = ;
+    var myUrl = '/users/search';
     var myData = $(this).serialize();
     var myType = "POST";
-
+    $.ajax({
+      url:myUrl,
+      type: myType,
+      data: myData
+    }).done(function (response) {
+      var id = response.user_id;
+      window.location.replace("/users/"+id)
+      //do nothing cause of the redirect
+    }).fail(function (responseObj) {
+      toastr.error("Could not find that user", "Error");
+    })
   });
 
 };
