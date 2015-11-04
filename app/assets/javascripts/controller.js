@@ -42,17 +42,17 @@ SoapStone.Controller.prototype.createDrop = function(form) {
   .then(function (response) { 
     self.dropView.showUploadSuccess.bind(self.dropView)();
     var drop = this;
+    Math.seedrandom(response.user_id);//WET and the same thing as the user calculate color but it didnt like when I tried to call that method so I took the behavior out here
+    var newColor = Math.floor(Math.random() * 359) + 1;
     drop.marker = new google.maps.Marker({
       map: self.mapView.map,
       cursor: 'crosshair',
       position: new google.maps.LatLng(drop.lat, drop.lon),
-      // animation: google.maps.Animation.DROP,
       icon: {
         path: 'M -2,0 0,-2 2,0 0,2 z',//google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-        scale: 4,
-        strokeColor: "hsla("+drop.user.hue+",100%,50%,0.9)",
-        strokeWeight: 3
-      }
+        scale: 1,//4,
+        strokeColor: "hsla("+newColor+",100%,50%,0.9)",
+        strokeWeight: 5}
     });
   }.bind(drop))
   .fail(self.dropView.showUploadFailure.bind(self.dropView));

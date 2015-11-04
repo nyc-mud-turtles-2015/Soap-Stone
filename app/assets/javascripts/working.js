@@ -7,7 +7,7 @@ SoapStone.Map.prototype.addSurroundingDrops = function (allDropsData) {//allDrop
   allDropsData.forEach(function (dropData) {
     self.allDrops.push(self.addDrop(dropData));
   });
-  this.controller.mapView.showDrops(self.allDrops);
+  this.refreshDrops();
 };
 
 
@@ -76,14 +76,12 @@ SoapStone.Map.prototype.refreshDrops = function () {
 };
 
 SoapStone.Map.prototype.pinClutterHelper = function (closeDrops) {
-  var pinClutterLimit = 40;
-  var newestCloseDrops = closeDrops.sort(function (drop) {drop.created_at})
+  var pinClutterLimit = 4;
+  var newestCloseDrops = closeDrops.sort(function (drop) {return drop.created_at})
   filteredOutDrops = [];
   if (newestCloseDrops.length > pinClutterLimit) {
-    debugger;
     filteredOutDrops = newestCloseDrops.splice(pinClutterLimit, newestCloseDrops.length - pinClutterLimit);
   }
-  debugger;
   filteredOutDrops.forEach(function (drop) {
     drop.marker.setMap(null);
   })
