@@ -76,11 +76,11 @@ SoapStone.Map.prototype.refreshDrops = function () {
 };
 
 SoapStone.Map.prototype.pinClutterHelper = function (closeDrops) {
-  var pinClutterLimit = 4;
-  var newestCloseDrops = closeDrops.sort(function (drop) {return drop.created_at})
+  var pinClutterLimit = 5;
+  var newestCloseDrops = closeDrops.sort(function (drop) {return drop.created_at}).reverse();
   filteredOutDrops = [];
   if (newestCloseDrops.length > pinClutterLimit) {
-    filteredOutDrops = newestCloseDrops.splice(pinClutterLimit, newestCloseDrops.length - pinClutterLimit);
+    filteredOutDrops = newestCloseDrops.splice(pinClutterLimit);
   }
   filteredOutDrops.forEach(function (drop) {
     drop.marker.setMap(null);

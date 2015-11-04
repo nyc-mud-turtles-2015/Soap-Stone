@@ -38,7 +38,7 @@ class DropsController < ApplicationController
   def create
     drop = current_user.drops.new(drop_params)
     if drop.save
-      render json: {user_id: current_user.id}.to_json
+      render json: {drop_info: drop, user_info: current_user}.to_json
     else
       render plain: {failure: drop.errors.full_messages.join(",")}.to_json, status: 500
     end
