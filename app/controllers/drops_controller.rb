@@ -22,7 +22,6 @@ class DropsController < ApplicationController
 
   def followees
     current_location = [params[:lat].to_f, params[:lon].to_f]
-
     target_ids = current_user.followees.pluck(:id)
     available_drops = Drop.collect_drops(current_location, target_ids, 20)#see all following drops within 20 miles
     render json: available_drops
