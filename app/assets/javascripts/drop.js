@@ -133,16 +133,24 @@ SoapStone.DropView.prototype.setUpEventHandlers = function () {
   });
 
   $("[data-button='friend-filter']").on('click', function (e) {
+    $('.tabs .tab').removeClass('selected');
+    $('.tabs .friend').addClass('selected');
     self.controller.loadDrops("/followees");
   });
 
   $("[data-button='public-filter']").on('click', function (e) {
+    $('.tabs .tab').removeClass('selected');
+    $('.tabs .public').addClass('selected');
     self.controller.loadDrops();
   });
 
   $("[data-button='new']").on('click', function (event) {
     event.preventDefault();
     self.showNewDropForm();
+  });
+
+  $("[data-button='center']").on('click', function (event) {
+    self.controller.mapView.centerMap();
   });
 
   $("[data-button='list']").on('click', function (event) {
@@ -187,7 +195,7 @@ SoapStone.DropView.prototype.updateSnapButton = function (drop) {
 
 SoapStone.DropView.prototype.updateComments = function (drop) {
   var self = this;
-  
+
   $(".comment-list").replaceWith(this.commentsTemplate(drop));
   
   $("[data-button='comment-button']").on('click', function (event){

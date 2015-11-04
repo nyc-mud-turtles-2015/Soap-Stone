@@ -140,6 +140,7 @@ a {
     position: relative;
     width: 100%;
     background: black;
+    display: table;
 }
 
     .drop-wrapper .drop-avatar {
@@ -154,16 +155,20 @@ a {
         left: 16px;
     }
 
-    .drop-wrapper .with-image {
+    .drop-wrapper .drop-content.with-image {
+        display: table-cell;
+        vertical-align: middle;        
         text-align: center;
     }
 
-    .drop-wrapper .with-image .drop-img {
-        height: 50vh;
+    .drop-wrapper .drop-content.with-image .drop-img {
+        height: auto;
+        width: auto;
         max-height: 50vh;
+        max-width: 100%;       
     }
 
-    .drop-wrapper .with-image .drop-text {
+    .drop-wrapper .drop-content.with-image .drop-text {
         letter-spacing: normal;
         position: absolute;
         bottom: 16px;
@@ -326,7 +331,7 @@ a {
 
 #google-map-container #googleMap {
     position: absolute;
-    top: 0;
+    top: 56px;
     left: 0;
     width: 100%;
     height: 100%;
@@ -341,27 +346,32 @@ a {
 .new-drop-form {
     position: relative;
     text-align: center;
+    margin: 16px;
 }
 
-.new-drop-form .photo-button {
-    width: 0;
-    height: 0;
-}
+    .new-drop-form .photo-button {
+        width: 0;
+        height: 0;
+    }
 
-.new-drop-form .photo-button:focus {
-    outline: none;
-}
+    .new-drop-form .photo-button:focus {
+        outline: none;
+    }
 
-.new-drop-form .photo-label,
-.new-drop-form textarea {
-    width: 80%;
-    margin: 0.5em auto;
-}
+    .new-drop-form .photo-label {
+        width: 100%;
+        cursor: pointer;
+    }
 
-.new-drop-form textarea { 
-    height: 4em;
-    margin-top: 16px;
-}
+    .new-drop-form textarea { 
+        display: block;
+        width: 100%;
+        height: 5em;
+        text-align: left;
+        -webkit-box-shadow: inset 0 3px 6px rgba(0,0,0,0.24);
+        box-shadow: inset 0 3px 6px rgba(0,0,0,0.24);
+        border: 1px solid rgba(0,0,0,0.12);
+    }
 
 .page {
     width: 100%;
@@ -921,7 +931,8 @@ button.list {
     bottom: 24px;
 }
 
-button.menu-button {
+button.profile {
+    padding: 0;
     left: 24px;   
     bottom: 104px;
 }
@@ -1026,6 +1037,46 @@ button.snap {
         height: 48px;
     }
 
+nav.tabs {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    marging: 0;
+    padding: 0;
+    border: none;
+    background-color: white;
+    height: 56px;
+}
+    nav.tabs button.tab {
+        outline: 0;
+        height: 56px;
+        display: inline-block;
+        border: none;
+        padding: 8px;
+        margin: 0;
+        color: rgba(0, 0, 0, 0.78);
+        background-color: white;
+        border-bottom: 3px solid white;
+        width: 49%;
+        max-width: 50%;
+        transition: color 0.5s;
+    }
+
+    nav.tabs button.tab:hover {
+        color: #FF9800;
+    }
+
+    nav.tabs button.tab.selected {
+        color: #FF9800;
+        border-bottom: 3px solid #FF9800;
+    }
+
+    nav.tabs button.tab i {
+        display: block;
+    }
+
+
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-24 { font-size: 24px; }
 .material-icons.md-36 { font-size: 36px; }
@@ -1042,7 +1093,7 @@ button.snap {
 .loader {
     display: none;
 }
-.uploading .new-drop-form input[type='text'],
+.uploading .new-drop-form textarea,
 .uploading .new-drop-form input[type='file'],
 .uploading .new-drop-form input[type='submit'],
 .uploading .new-drop-form label {
