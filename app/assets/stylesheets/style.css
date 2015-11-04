@@ -496,6 +496,9 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
   margin-right: auto;
   margin-bottom: -0.2em;
   margin-top: 0.1em;
+  z-index: 110;
+  animation-delay: 3s;
+
 }
 
 .a0-icon-badge {
@@ -511,6 +514,7 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
   margin-bottom: 0.4em;
   z-index: 120;
   text-shadow: .03em .03em .03em #636363;
+  animation-delay: 1s;
 }
 
 .about {
@@ -534,6 +538,7 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
     margin-bottom: 0.4em;
     z-index: 120;
     text-shadow: .03em .03em .03em #636363;
+    animation-delay: 1s;
   }
 
   #login-background{
@@ -547,11 +552,37 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
     text-align: center;
     text-shadow: .06em .06em .06em #636363;
     font-family: 'Montserrat', sans-serif;
+    z-index: 110;
+    animation-delay: 3.5s;
   }
 
   .about {
     font-size: 2em;
   }
+
+  .fa-github {
+    color:white;
+    font-size: 1em;
+  }
+
+  .fa-github:hover {
+    color: #6C7A89;
+  }
+}
+
+.img-container {
+  display: block;
+  text-align: center;
+}
+
+.fa-github {
+  color:white;
+  font-size: 4em;
+}
+
+.fa-github:hover {
+  color: #BDC3C7;
+  animation: wiggle 2s infinite;
 }
 
 /* fancy loader http://projects.lukehaas.me/css-loaders/ */
