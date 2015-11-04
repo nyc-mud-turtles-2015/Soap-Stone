@@ -1,13 +1,13 @@
 <script data-template='show-user' type="text/x-handlebars-template">
-  <div data-view="user" class="view user">
+  <div data-view="users" class="view user">
     <article class="follow pure-g">
           <button data-button="close-follow" class="close button-large pure-button">X</button>
-            <div class="pure-u">
+            <div class="pure-u-1-4 avatar">
               <a href="/users/{{id}}">
-                <img class="follower-avatar" src="{{avatar}}">
+                <img class="follower-avatar" id="avatar" src="{{avatar}}">
               </a>
             </div>
-            <div class="pure-u-1-2">
+            <div class="pure-u-3-4">
               <h3 class="follower-username">{{username}}</h3>
             </div>
     </article>

@@ -60,7 +60,13 @@ SoapStone.User.prototype.loadFollows = function(id) {
 
 SoapStone.UserView = function() {
   var showTemplateSource   = $("[data-template='show-user']").html();
+  var showDropSource = $("[data-template='show-drop']").html();
   this.showTemplate = Handlebars.compile(showTemplateSource);
+  this.showDropTemplate = Handlebars.compile(showDropSource);
+  Handlebars.registerPartial("snap-button", $("[data-partial='snap-button-partial']").html());
+  this.snapButtonTemplate = Handlebars.compile($("[data-partial='snap-button-partial']").html());
+  Handlebars.registerPartial("comment", $("[data-partial='comment-partial']").html());
+  this.commentsTemplate = Handlebars.compile($("[data-partial='comment-partial']").html());
   this.setUpEventHandlers();
 };
 
@@ -94,6 +100,14 @@ SoapStone.UserView.prototype.setUpEventHandlers = function(){
     var id = location.href.split('/').slice(-1); //WET code same line as 66
     window.location.href = "/?user_id="+id;
   });
+
+  $(".open-drop").on('click', function(event){
+    event.preventDefault();
+    url = this.children[0].href
+    SoapStone.app.userView.showDrop(url);
+
+  })
+
 };
 
 SoapStone.UserView.prototype.showFollowers = function(user) {
@@ -122,7 +136,32 @@ SoapStone.UserView.prototype.showFollowees = function(user) {
   });
 };
 
+SoapStone.UserView.prototype.showDrop = function(url) {
+  var self = this;
+  $.ajax({
+    type: "GET",
+    url: url,
+    dataType: "json"
+   })
+  .then(function (response) {
+    $("[data-view='user']").hide();
+    $('body').append(self.showDropTemplate(response));
+    $("[data-button='close-drop']").on('click', function (event) {
+      self.closeDrop();  
+    })
+  })
+  .fail(function () {
+    reject();
+  });
+};
+
 SoapStone.UserView.prototype.closeFollows = function () {
-  $("[data-view='user']").remove();
+  $("[data-view='users']").remove();
   $(".user").show();
+};
+
+SoapStone.UserView.prototype.closeDrop  = function () {
+  $("[data-view='drop']").remove();
+  $("[data-menu='drop']").remove();
+  $("[data-view='user']").show();
 };

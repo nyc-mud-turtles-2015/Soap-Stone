@@ -10,19 +10,31 @@ html {
   padding: .5em;
 }
 
+.material-icons {
+  font-size: 4em;
+  position: fixed;
+  text-decoration: none;
+  color: white;
+}
+
 #avatar {
   float: left;
   margin-right: 1em;
-  position: relative;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
   border: 1px solid #7f8c8d;
 }
 
-li {
-  list-style-type: none;
-  display: inline;
+.home {
+  float: left;
+  position: absolute;
+}
+
+.logout {
+  position: absolute;
+  right: 4.5em;
+  top: .02em;
 }
 
 .menu {
@@ -52,7 +64,7 @@ li {
   letter-spacing: 2px;
   text-transform: uppercase;
   font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
-
+  color: white;
 }
 
 .splash-container {
@@ -63,8 +75,8 @@ li {
 }
 
 .following {
-  margin: 0 auto;
-  width: 20em;
+  margin: 0 auto;  
+  width: 100%;  
   border: 0 none;
   font-weight: 600;
   letter-spacing: 2px;
@@ -75,30 +87,49 @@ li {
   font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
 }
 
-#followers, #followees, #drops {
+#followers, #followees {
   text-align: center;
   padding: .3em;
-  border: #ccc solid 1px;
   height: 2em;
   font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
   font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
-
 }
 
+#drops {
+  text-align: center;
+  padding: .3em;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+}
+
+.open-drop {
+  border-radius: 50%;
+  padding: .2em;
+}
+
+a {
+  text-decoration: none;
+}
 .follow-form {
+  width: 70%;
   padding: 1em;
 }
 
+.follower-username {
+  padding: .2em;
+}
+
 .follow {
-  margin: 0 auto;
-  width: 20em;
+  margin: 0 auto;  
+  width: 100%;
   font-weight: 600;
   letter-spacing: 1.5px;
   background-color: white;
   color: blue;
-  border-radius: 5px;
   border: #ccc solid 1px;
   text-transform: uppercase;
   font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;

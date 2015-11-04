@@ -1,0 +1,8 @@
+<%= form_for @user do |f| %>
+    <button data-button="close-form" class="close button-large pure-button">X</button>
+  <div>
+    <%= f.label :username %>
+    <%= f.text_field :username, class: 'u-full-width' %>
+  </div>
+  <%= f.submit class: 'pure-button' %>
+<% end %>

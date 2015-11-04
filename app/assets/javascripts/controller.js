@@ -13,7 +13,7 @@ SoapStone.Controller = function() {
   if ($("[data-view='user']").exists()) {
     this.user = new SoapStone.User();
     this.userView = new SoapStone.UserView();
-    Promise.all([this.loadFollows(), this.loadDrops()]).then(function() {
+    Promise.all([this.loadFollows(), this.loadUserDrops()]).then(function() {
       //viewstuff
     });
   }
@@ -130,9 +130,15 @@ SoapStone.Controller.prototype.createComment = function(drop){
   });
 };
 
+SoapStone.Controller.prototype.loadUserDrops = function () {
+  var self = this;
+  id = location.href.replace(/[?]/g,'').split('/').slice(-1);
+  return this.user.loadDrops(id);
+};
+
 SoapStone.Controller.prototype.loadFollows = function() {
   var self = this;
-  id = location.href.split('/').slice(-1);
+  id = location.href.replace(/[?]/g,'').split('/').slice(-1);
   return this.user.loadFollows(id);  
 };
 
