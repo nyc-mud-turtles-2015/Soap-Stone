@@ -7,6 +7,7 @@ SoapStone.Drop = function (args) {
 
 SoapStone.Drop.prototype.setAttributes = function (args) {
   this.id = args.id;
+  this.withinRange;
   if (args.coords) {
     this.coords = {};
     this.coords.longitude = args.coords.longitude;
@@ -21,9 +22,10 @@ SoapStone.Drop.prototype.setAttributes = function (args) {
     this.lat = this.coords.latitude;
     this.lon = this.coords.longitude;
   }
+  this.googleLatLng = new google.maps.LatLng(this.lat, this.lon);
   this.text = args.text;
   this.photo = args.photo;
-  this.distance = args.distance;
+  this.distance = args.distance;//depricated
   this.has_photo = args["has_photo?"];
   this.created_at = args.created_at;
   this.snaps_count = args.snaps_count;
@@ -37,6 +39,11 @@ SoapStone.Drop.prototype.setAttributes = function (args) {
       return new SoapStone.Comment(data);
     });
   }
+};
+
+SoapStone.Drop.prototype.distanceFromTarget = function (target) {//we will use target as me for now but this can be used generally
+  var meterDistance = google.maps.geometry.spherical.computeDistanceBetween(target, this.googleLatLng);
+  return meterDistance*3.28084;//convert the meters which we get from the google function to feet to use in our if statements
 };
 
 SoapStone.Drop.prototype.save = function (formData) {
@@ -92,6 +99,8 @@ SoapStone.Drop.prototype.createComment = function (comment) {
     self.comments_count += 1;
   });
 };
+
+
 
 SoapStone.Comment = function (args) {
   this.text = args.text;
