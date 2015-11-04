@@ -13,6 +13,7 @@
  *= require pure.css
  *= require grids-responsive.css
  *= require toastr.css
+ *= require animate.css
  *= require_tree .
  *= require_self
  */
