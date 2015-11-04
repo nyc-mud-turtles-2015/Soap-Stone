@@ -237,6 +237,7 @@ SoapStone.MapView.prototype.init = function () {
             zoomControlOptions: {
               position: google.maps.ControlPosition.TOP_RIGHT
             },
+            mapTypeControl: false,
             streetViewControl: false,
             styles: mapStyles,
             mapTypeId:google.maps.MapTypeId.ROADMAP
