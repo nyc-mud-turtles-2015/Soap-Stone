@@ -158,6 +158,10 @@ SoapStone.DropView.prototype.setUpEventHandlers = function () {
     self.popupDropList();
   });
 
+  $("[data-button='profile']").on('click', function (e) {
+    location.replace('/users/me');
+  });
+
   $("[data-button='close-form']").add('.new-form-lightbox').on('click', function (event) {
     event.preventDefault();
     self.hideNewDropForm();
