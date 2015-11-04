@@ -22,4 +22,15 @@ class UsersController < ApplicationController
   def me
     redirect_to user_path(current_user)
   end
+
+  def search
+    query_name = params[:query]
+    target = User.find_by(username: query_name)
+    if target
+      render json: {user_id: target.id}
+    else
+      status 404
+    end
+  end
+
 end
