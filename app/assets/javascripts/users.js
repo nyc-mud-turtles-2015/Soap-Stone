@@ -71,29 +71,15 @@ SoapStone.UserView = function() {
   this.setUpEventHandlers();
 };
 
-SoapStone.UserView.prototype.showFollows = function (user) {
-  var followerItems = $(document.createDocumentFragment());
-  var followeeItems = $(document.createDocumentFragment());
-  var self = this;
-  user.followers.forEach( function (follower) {
-    followerItems.append(self.showTemplate(follower));
-  });
-  $("[data-role='follower-list']").html(followerItems);
-  user.followees.forEach( function (followee) {
-    followeeItems.append(self.showTemplate(followee));
-  });
-  $("[data-role='followee-list']").html(followeeItems);
-};
-
 SoapStone.UserView.prototype.setUpEventHandlers = function(){
   var self = this;
 
-  $("#followers").on('click', function(event){
+  $("[data-role='show-followers']").on('click', function(event){
     event.preventDefault();
     SoapStone.app.userView.showFollowers(SoapStone.app.user);
   });
 
-  $("#followees").on('click', function(event){
+  $("[data-role='show-followees']").on('click', function(event){
     event.preventDefault();
     SoapStone.app.userView.showFollowees(SoapStone.app.user);
   });
@@ -106,7 +92,7 @@ SoapStone.UserView.prototype.setUpEventHandlers = function(){
 
   $(".open-drop").on('click', function(event){
     event.preventDefault();
-    url = this.children[0].href
+    url = this.children[0].href;
     SoapStone.app.userView.showDrop(url);
   });
 
@@ -166,12 +152,10 @@ SoapStone.UserView.prototype.showEditUserForm = function () {
 
 SoapStone.UserView.prototype.showFollowers = function(user) {
   var self = this;
-  var followerItems = $(document.createDocumentFragment());
-  user.followers.forEach( function (follower) {
-    followerItems.append(self.showTemplate(follower));
-  });
+  var followerHtml = this.showTemplate({users: user.followers,
+    title: "Followers"});
   $(".user").hide();
-  $('body').append(followerItems);
+  $('body').append(followerHtml);
   $("[data-button='close-follow']").on('click', function (event) {
     self.closeFollows();
   });
@@ -179,12 +163,10 @@ SoapStone.UserView.prototype.showFollowers = function(user) {
 
 SoapStone.UserView.prototype.showFollowees = function(user) {
   var self = this;
-  var followeeItems = $(document.createDocumentFragment());
-  user.followees.forEach( function (followee) {
-    followeeItems.append(self.showTemplate(followee));
-  });
+  var followeeHtml = this.showTemplate({users: user.followees,
+    title: "Following"});
   $(".user").hide();
-  $('body').append(followeeItems);
+  $('body').append(followeeHtml);
   $("[data-button='close-follow']").on('click', function (event) {
     self.closeFollows();
   });
@@ -198,11 +180,14 @@ SoapStone.UserView.prototype.showDrop = function(url) {
     dataType: "json"
    })
   .then(function (response) {
-    $("[data-view='user']").hide();
-    $('body').append(self.showDropTemplate(response));
-    $("[data-button='close-drop']").on('click', function (event) {
-      self.closeDrop();  
-    })
+    drop = new SoapStone.Drop(response);
+    $('body').append(self.showDropTemplate(drop));
+    window.setTimeout(function() {
+      $('body').addClass('drop-open');
+      $("[data-button='close-drop']").on('click', function (event) {
+        self.closeDrop();
+      });
+    }, 50);
   })
   .fail(function () {
     reject();
@@ -210,12 +195,13 @@ SoapStone.UserView.prototype.showDrop = function(url) {
 };
 
 SoapStone.UserView.prototype.closeFollows = function () {
-  $("[data-view='users']").remove();
+  $(".follow-page").remove();
   $(".user").show();
 };
 
 SoapStone.UserView.prototype.closeDrop  = function () {
-  $("[data-view='drop']").remove();
-  $("[data-menu='drop']").remove();
-  $("[data-view='user']").show();
+  $('body').removeClass('drop-open');
+  window.setTimeout(function() {
+      $("[data-view='drop']").remove();
+  }, 500);
 };

@@ -1,15 +1,17 @@
-<div data-view="user" class="user">
-  <div class="head">
-    <div class="home">
-      <a href="/" ><i class="material-icons">satellite</i></a>
-    </div>
-    <div class="username">
-      <%= @user.username %>
-    </div>
-    <div class="logout">
-      <a href="/logout" data-method="delete"><i class="material-icons">power_settings_new</i></a>
-    </div>
-  </div>
+<div data-view="user" class="user view">
+  <header> 
+    <a href="/" class="home"><i class="material-icons">satellite</i></a>
+    <%= @user.username %>
+    <% if current_user == @user %>
+      <form id="search-form">
+        <input id="search" type="text" autocomplete="off" name="query" placeholder="Find users">
+        <button type="submit"><i class="material-icons">search</i></button>
+      </form>
+      <ul class='hide suggestions' data-role='suggestions'></ul>
+    <% end %>
+    <a href="/logout" class="logout" data-method="delete"><i class="material-icons">power_settings_new</i></a>
+  </header>
+
   <div class="pure-g profile">
     <div class="pure-u-1-4 avatar">
       <img id="avatar" src="<%= @user.avatar %>">
@@ -17,33 +19,27 @@
     <div class="pure=u-3-4 follow-form">
       <% if current_user != @user %>
         <%= render 'follow_form' %>
-      <% else %>
-        <form id="search-form">
-          <input id="search" type="text" autocomplete="off" name="query">
-          <button type="submit"><i class="material-icons">search</i></button>
-        </form>
-        <ul class = 'hide' data-role='suggestions'></ul>
       <% end %>
     </div>
   </div>
-  <div class="pure-g">
-    <div class="pure-u-sm-1-3 pure-u-1" id="followers">
+  <div class="profile-info">
+    <div data-role="show-followers">
       <%= pluralize(@user.followers.count, 'follower') %>
     </div>
-    <div class="pure-u-sm-1-3 pure-u-1" id="followees">
+    <div data-role="show-followees">
       <%= @user.followees.count %> following
     </div>       
-    <div class="pure-u-sm-1-3 pure-u-1" id="drops">
+    <div data-role="show-drop-map" id="drops">
       <%= link_to pluralize(@user.drops.count, 'drop'), user_drops_path(@user) %>
     </div>
   </div>
 
   
-  <div class="pure-g content" id="drops">
+  <div class="pure-g content drop-thumbs">
     <% if current_user == @user %>
       <% @user.drops.each do |drop| %>
         <% if drop.photo_file_name.nil? %>
-          <div class="pure-u-1-4 pure-u-lg-1-8 open-drop"><%= link_to drop.text, drop_path(drop) %></div>
+          <div class="pure-u-1-4 pure-u-lg-1-8 open-drop text-only"><%= link_to drop.text, drop_path(drop) %></div>
         <% else %>
           <div class="pure-u-1-4 pure-u-lg-1-8 open-drop"><%=  link_to image_tag(drop.photo(:thumb), { :class => "pure-img" }), drop_path(drop) %> 
         </div>
