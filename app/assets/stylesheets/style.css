@@ -93,6 +93,13 @@ html {
         background-color: rgba(0, 0, 0, 0.06);
     }
 
+    .user.view .follow {
+        float: right;
+        margin-right: 16px;
+        min-width: 120px;
+        transition: background-color 0.5s, color 0.5s;
+    }
+
 .drop-thumbs {
     text-align: center;
 }
@@ -166,6 +173,7 @@ html {
 
 .profile {
   padding-top: 48px;
+  height: 128px;
 }
 
 .splash-container {
@@ -199,8 +207,9 @@ a {
   text-decoration: none;
 }
 .follow-form {
-  width: 70%;
-  padding: 1em;
+  margin: 0;
+  padding: 0;
+  float: right;
 }
 
 .follower-username {
@@ -330,7 +339,7 @@ a {
   display: none;
 }
 
-.drop-text-wrapper {
+/*.drop-text-wrapper {
     margin: 0;
     display: table;
     width:100%;
@@ -341,8 +350,8 @@ a {
     display: table-cell;
     vertical-align:middle;
 }
-
-.drop-item {
+*/
+/*.drop-item {
     padding: 0.9em 1em;
     border-bottom: 1px solid rgba(0, 0, 0, 0.54);
     border-left: 6px solid transparent;
@@ -350,16 +359,51 @@ a {
 }
 
 .list-avatar {
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
+
+}*/
+
+.drop-list .droplist-item {
+    position: relative;
+    min-height: 60px;
 }
 
-.drop-avatar {
+.drop-list .droplist-avatar {
+    margin-top: 8px;
+    margin-left: 8px;
+}
+
+.drop-list .droplist-avatar img {
     width: 40px;
     height: 40px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
 }
 
+.drop-list .droplist-content {
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+    padding-left: 8px;
+}
+
+.drop-action {
+  float:right;
+  padding-top: 16px;
+}
+
+.drop-action a {
+  text-decoration: none;
+  color: #FF9800;
+}
+
+.drop-action a:hover {
+  color: #FB8C00;
+}
+
+.drop-action a:active {
+  color: #F57C00;
+}
+
+/*
 .drop-name {
     margin: 0;
 }
@@ -368,9 +412,9 @@ a {
     font-size: 70%;
     margin: 3em 0;
     padding-left: 1.5em;
-}
+}*/
 
-.drop-link {
+/*.drop-link {
   text-decoration: none;
   float:right;
   padding-top:0.7em;
@@ -379,7 +423,7 @@ a {
 
 .drop-link:hover {
   color: grey;
-}
+}*/
 
 .drop-list-empty {
     margin: 1em 0;
@@ -387,7 +431,7 @@ a {
     text-align: center;
 }
 
-.drop-item.selected {
+.droplist-item.selected {
     background-color: #f9f8f7;
 }
 
@@ -867,7 +911,9 @@ button.floating-action:active {
   .drop-list {
     overflow:scroll;
     height: calc(100vh - 3.5em);
-    left:66.5%;
+    left: 66.5%;
+    width: 32.5%;
+    max-width: 32.5%;
   }
 
   .drop-item{
@@ -1049,6 +1095,7 @@ button.profile {
 }
 
 button.close {
+    outline: none;
     position: absolute;
     left: 12px;
     top: 10px;
@@ -1160,7 +1207,7 @@ nav.tabs {
     height: 56px;
 }
     nav.tabs button.tab {
-        outline: 0;
+        outline: none;
         height: 56px;
         display: inline-block;
         border: none;

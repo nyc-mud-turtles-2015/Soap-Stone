@@ -1,19 +1,32 @@
 <script data-template='drop-list' type="text/x-handlebars-template">
-  <div class="drop-list pure-u-1 pure-u-md-1-3 bottom-sheet">
+  <div class="drop-list list pure-u-1 pure-u-md-1-3 bottom-sheet">
   <button data-button="close-list" class="close"><i id="list-close" class="material-icons md-light md-24">clear</i></button>
   <h2>Nearby Drops</h2>
     {{#each .}}
-    <div class="drop-item pure-g" data-drop-id="{{id}}">
-      <div class="drop-avatar pure-u-1-8">
+    <div class="droplist-item list-item pure-g" data-drop-id="{{id}}">
+      <div class="droplist-avatar pure-u-1-8">
         <a href="/users/{{user.id}}" title="{{user.username}}">
-          <img class="list-avatar" src="{{user.avatar}}">
+          <img src="{{user.avatar}}">
         </a>
       </div>
-      <div class="drop-distance pure-u-1-4">{{dist distance}} away</div>
-      <div class="drop-time pure-u-1-4">{{timeAgo created_at}} ago</div>
-      <div class="drop-snap pure-u-1-4">{{pluralize snaps_count "snap"}}</div>
-      <div class="drop-link pure-u-1-8">
-        <i class="material-icons"><a class="drop-link" data-drop="{{id}}" href="#">expand_more</a></i>
+      <div class="drop-distance pure-u-1-4 droplist-content">
+        <h3>{{dist distance "number"}}</h3> 
+        <p class="list-text">{{dist distance "unit"}} away</p>
+      </div>
+      <div class="drop-time pure-u-1-4 droplist-content">
+        <h3>{{timeAgo created_at "number"}}</h3>
+        <p class="list-text">{{timeAgo created_at "unit"}}</p>
+      </div>
+      <div class="drop-snap pure-u-1-5 droplist-content">
+        <h3>{{snaps_count}}</h3>
+        <p class="list-text">{{pluralize snaps_count "snap" "snaps" true}}</p>
+      </div>
+      <div class="drop-action pure-u-1-8 droplist-content">
+      {{#if has_photo}}
+        <i class="material-icons"><a class="drop-link" data-drop="{{id}}" href="#">panorama</a></i>
+      {{else}}
+        <i class="material-icons"><a class="drop-link" data-drop="{{id}}" href="#">font_download</a></i>
+      {{/if}}
       </div>
     </div>
     {{else}}

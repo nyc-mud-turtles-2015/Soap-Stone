@@ -1,9 +1,11 @@
 // Handlebars Helpers
-Handlebars.registerHelper('pluralize', function(count, singular, plural) {
+Handlebars.registerHelper('pluralize', function(count, singular, plural, wordOnly) {
   if (count === 1) {
+    if (wordOnly) {return singular;}
     return String(count) + " " + singular;
   } else {
     if (typeof plural === "string") {
+      if (wordOnly) {return plural;}
       return String(count) + " " + plural;
     } else {
       return String(count) + " " + singular + "s";
@@ -11,18 +13,22 @@ Handlebars.registerHelper('pluralize', function(count, singular, plural) {
   }
 });
 
-Handlebars.registerHelper('dist', function(miles) {
+Handlebars.registerHelper('dist', function(miles, part) {
   var MILES_TO_FEET = 5280;
   if (miles >= 1) {
+    if (part && part == "number") { return String(miles.toFixed(1)); }
+    if (part && part == "unit")   { return "miles"; }
     return  miles.toFixed(1) + " miles";
   }
   else{
     var feet = Math.round(miles * MILES_TO_FEET);
+    if (part && part == "number") { return String(feet); }
+    if (part && part == "unit")   { return (feet == 1) ? "foot" : "feet"; }
     return (feet == 1) ? "1 foot" : feet + " feet";
   }
 });
 
-Handlebars.registerHelper('timeAgo', function(time) {
+Handlebars.registerHelper('timeAgo', function(time, part) {
   var units = [
     { name: "second", limit: 60, in_seconds: 1 },
     { name: "minute", limit: 3600, in_seconds: 60 },
@@ -33,13 +39,16 @@ Handlebars.registerHelper('timeAgo', function(time) {
     { name: "year", limit: null, in_seconds: 31556926 }
   ];
   var diff = (new Date() - new Date(time)) / 1000;
+  if (diff < 5 && part == "unit");
   if (diff < 5) return "now";
 
   var i = 0, unit;
   while (unit = units[i++]) {
     if (diff < unit.limit || !unit.limit){
       diff =  Math.floor(diff / unit.in_seconds);
-      return diff + " " + unit.name + (diff>1 ? "s" : "");
+      if (part && part == "number") { return String(diff); }
+      if (part && part == "unit")   { return unit.name + (diff>1 ? "s ago" : " ago"); }
+      return diff + " " + unit.name + (diff>1 ? "s ago" : " ago");
     }
   }
 });

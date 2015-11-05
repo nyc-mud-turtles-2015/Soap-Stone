@@ -148,6 +148,9 @@ SoapStone.DropView.prototype.setUpEventHandlers = function () {
 
   $("[data-button='center']").on('click', function (event) {
     self.controller.mapView.centerMap();
+    if ($("[data-view='map'].drop-list-open")) {
+      self.controller.mapView.panVertically($(window).height() * 0.25);
+    }
   });
 
   $("[data-button='list']").on('click', function (event) {
@@ -302,21 +305,21 @@ SoapStone.DropView.prototype.showDropList = function (drops) {
       self.controller.showDrop(dropId);
     }
   });
-  $(".drop-list").on('mouseenter', '.drop-item', function(event) {
+  $(".drop-list").on('mouseenter', '.droplist-item', function(event) {
     $(this).addClass("selected");
     var marker = self.getMarker(drops, Number(this.dataset.dropId));
     if (marker) {
       marker.setAnimation(google.maps.Animation.BOUNCE);
     }
   });
-  $(".drop-list").on('mouseleave', '.drop-item', function(event) {
+  $(".drop-list").on('mouseleave', '.droplist-item', function(event) {
     $(this).removeClass("selected");
     var marker = self.getMarker(drops, Number(this.dataset.dropId));
     if (marker) {
       marker.setAnimation(null);
     }
   });
-  $(".drop-list").on('click', '.drop-item', function(event) {
+  $(".drop-list").on('click', '.droplist-item', function(event) {
     $('.drop-item').removeClass("selected");
     $(this).addClass("selected");
     self.clearMarkerAnimations(drops);
