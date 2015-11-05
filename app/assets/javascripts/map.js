@@ -18,42 +18,6 @@ SoapStone.Map = function () {
   });
 };
 
-SoapStone.Map.prototype.addClickableDrop = function (dropData) {
-  var drop = new SoapStone.Drop(dropData);
-  if (drop.lat && drop.lon) {
-    drop.marker = new google.maps.Marker({
-      position: new google.maps.LatLng(drop.lat, drop.lon),
-      cursor: 'crosshair',
-      icon: {
-        path: 'M -2,0 0,-2 2,0 0,2 z',//google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-        scale: 1,//4,
-        strokeColor: "hsla("+drop.user.hue+",100%,50%,0.9)",
-        strokeWeight: 5//3
-      }
-    });
-    drop.marker.setMap(SoapStone.app.mapView.map);
-    SoapStone.app.map.clickableDrops.unshift(drop);//bad???? why was 'this' the window and not a map?
-  }
-};
-
-SoapStone.Map.prototype.addOutsideDrop = function (dropData) {
-  var drop = new SoapStone.Drop(dropData);
-  if (drop.lat && drop.lon) {
-  drop.marker = new google.maps.Marker({
-    position: new google.maps.LatLng(drop.lat, drop.lon),
-    clickable: false,
-    icon: {
-      path: 'M -2,0 0,-2 2,0 0,2 z',//google.maps.SymbolPath.BACKWARD_OPEN_ARROW,
-      scale: 4,
-      strokeColor: "hsl("+drop.user.hue+",30%,50%)",
-      strokeWeight: 3,
-    }
-  });
-  drop.marker.setMap(SoapStone.app.mapView.map);
-  SoapStone.app.map.outsideDrops.unshift(drop);
-  }
-};
-
 SoapStone.Map.prototype.clearMarkers = function(){
   this.allDrops.forEach(function(drop){
     drop.marker.setMap(null);
@@ -250,6 +214,7 @@ SoapStone.MapView.prototype.init = function () {
           };
           self.map = new google.maps.Map(document.getElementById("googleMap"),self.mapProp);
           self.circle = new google.maps.Circle({
+            clickable: false,
             strokeColor: '#0000FF',
             strokeOpacity: 0.25,
             strokeWeight: 2,

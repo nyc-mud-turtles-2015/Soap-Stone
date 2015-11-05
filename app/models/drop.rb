@@ -1,6 +1,6 @@
 class Drop < ActiveRecord::Base
   
-  DATA_REACH_DISTANCE = 1 #330 * FEET_TO_MILES
+  DATA_REACH_DISTANCE = 5 #330 * FEET_TO_MILES
 
   attr_accessor :current_user
 
@@ -24,10 +24,11 @@ class Drop < ActiveRecord::Base
                    :lng_column_name => :lon
 
   def self.collect_drops(origin, allowed_users_filter = nil, distance = DATA_REACH_DISTANCE)
-    all_drops = if distance
-      Drop.within(distance, :origin => origin)
+    all_drops = []
+    if distance
+      all_drops = Drop.within(distance, :origin => origin)
     else
-      Drop.all
+      all_drops = Drop.all
     end
     all_drops = all_drops.where(user: allowed_users_filter) if allowed_users_filter
     all_drops.order(:created_at)
