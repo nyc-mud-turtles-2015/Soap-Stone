@@ -21,6 +21,7 @@ gem 'uglifier', '>= 1.3.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'sass-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -41,7 +42,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
   gem 'rmagick'
   gem 'aws-sdk-v1'
 
-group :test do 
+group :test do
   gem 'rspec-rails'
   gem 'capybara'
   gem 'simplecov', require: false
@@ -66,6 +67,6 @@ group :development do
   gem 'spring'
 end
 
-group :production do 
+group :production do
   gem 'rails_12factor'
 end
