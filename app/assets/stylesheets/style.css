@@ -1,6 +1,6 @@
 html {
   box-sizing: border-box;
-} 
+}
 
 *, *:before, *:after {
   box-sizing: inherit;
@@ -107,8 +107,8 @@ html {
 .open-drop {
     -webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.24);
     box-shadow: 0 3px 6px rgba(0,0,0,0.24);
-    border-radius: 0;  
-    margin: 8px;  
+    border-radius: 0;
+    margin: 8px;
     width: 88px;
     height: 88px;
     overflow: hidden;
@@ -162,6 +162,13 @@ html {
   border-radius: 50%;
 }
 
+#user-logout:hover {
+  color: #FDE3A7;
+}
+
+#map-home:hover {
+  color: #FDE3A7;
+}
 
 .menu {
   padding-top: 26px;
@@ -332,7 +339,7 @@ a {
 
 .user-list h3 {
     margin-top: 8px;
-    font-size: 18px;    
+    font-size: 18px;
 }
 
 .hide {
