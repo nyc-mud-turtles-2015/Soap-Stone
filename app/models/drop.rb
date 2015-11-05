@@ -35,9 +35,14 @@ class Drop < ActiveRecord::Base
   end
 
   def has_some_content
-    unless photo || text
+    # binding.pry
+    unless self.photo_attached? || self.text.length > 0
       errors.add(:drop, "you need something in here to drop some sick art")
     end
+  end
+
+  def photo_attached?
+    !self.photo.queued_for_write.eql?({})
   end
 
   def snapped_by?(user = nil)
