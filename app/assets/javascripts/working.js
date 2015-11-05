@@ -15,6 +15,8 @@ SoapStone.Map.prototype.addDrop = function (dropData) {
   var drop = new SoapStone.Drop(dropData);
   if (drop.lat && drop.lon) {//sanity check
     var iconObj;
+    var clickablility;
+    var markerCursor;
     if (drop.distanceFromTarget(self.controller.mapView.trackingLocation) > 330){
       drop.withinRange = false;
       iconObj = {
@@ -23,6 +25,8 @@ SoapStone.Map.prototype.addDrop = function (dropData) {
         strokeColor: "hsla("+drop.user.hue+",100%,50%,0.4)",
         strokeWeight: 2
       }
+      markerCursor = 'none';
+      clickablility = false;
     }else{
       drop.withinRange = true;
       iconObj = {
@@ -31,10 +35,13 @@ SoapStone.Map.prototype.addDrop = function (dropData) {
         strokeColor: "hsla("+drop.user.hue+",100%,50%,0.9)",
         strokeWeight: 5//3
       }
+      markerCursor = 'crosshair';
+      clickablility = true;
     }
     drop.marker = new google.maps.Marker({
       position: new google.maps.LatLng(drop.lat, drop.lon),
-      icon: iconObj
+      icon: iconObj,
+      clickable: clickablility
     });
     drop.marker.setMap(self.controller.mapView.map);
   }
@@ -54,6 +61,9 @@ SoapStone.Map.prototype.refreshDrops = function () {
         strokeColor: "hsla("+drop.user.hue+",100%,50%,0.4)",
         strokeWeight: 2}
       )
+      drop.marker.setVisible(true);
+      drop.marker.setClickable(false);
+      drop.marker.setCursor('none');
     }else{
       drop.withinRange = true;
       closeDrops.push(drop);
@@ -63,6 +73,9 @@ SoapStone.Map.prototype.refreshDrops = function () {
         strokeColor: "hsla("+drop.user.hue+",100%,50%,0.9)",
         strokeWeight: 5}//3
       )
+      drop.marker.setClickable(true);
+      drop.marker.setCursor('crosshair');
+      drop.marker.setVisible(true);
     }
   });//forEach
   self.pinClutterHelper(closeDrops);
@@ -82,6 +95,6 @@ SoapStone.Map.prototype.pinClutterHelper = function (closeDrops) {
     filteredOutDrops = newestCloseDrops.splice(pinClutterLimit);
   }
   filteredOutDrops.forEach(function (drop) {
-    drop.marker.setMap(null);
+    drop.marker.setVisible(false);
   })
 };
