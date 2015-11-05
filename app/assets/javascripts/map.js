@@ -70,6 +70,7 @@ SoapStone.Map.prototype.hitTheDataBaseForDrops = function (filter) {
     if (typeof filter !== "number"){
       myUrl+=filter;
     }else{
+      $('.tabs .tab').removeClass('selected');
       myData.user_id = filter;
     }
   }
@@ -95,6 +96,7 @@ SoapStone.Map.prototype.loadDrops = function (filter) {
     if (typeof filter !== "number"){
       myUrl+=filter;// '/followees'
     }else{
+      $('.tabs .tab').removeClass('selected');
       myData.user_id = filter;
     }
   }
@@ -231,9 +233,13 @@ SoapStone.MapView.prototype.init = function () {
           } else {
             self.trackingLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);  
           }
+          var myZoom = 17;
+          if (self.filter){
+            myZoom = 12;
+          }
           self.mapProp = {
             center: self.trackingLocation, //find center of collection
-            zoom:17,
+            zoom: myZoom,
             zoomControlOptions: {
               position: google.maps.ControlPosition.TOP_RIGHT
             },
@@ -283,6 +289,7 @@ SoapStone.MapView.prototype.showDrops = function (allDrops) {
 
 SoapStone.MapView.prototype.centerMap = function(){
   var self = this;
+  self.map.setZoom(17);
   self.map.panTo(self.trackingLocation);
 };
 
