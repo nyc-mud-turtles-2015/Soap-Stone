@@ -37,6 +37,7 @@ html {
   padding-right: 20px;
 }
 
+
 .profile {
   padding-top: 4em;
 }
@@ -782,7 +783,45 @@ button.floating-action:active {
     transition: bottom 0.45s ease-out 0.05s, box-shadow 0.5s, background-color 0.5s;
 }
 
+/**** DESKTOP MAP ****/
 
+@media screen and (min-width: 48em)	{
+  .drop-list {
+    overflow:scroll;
+    height: calc(100vh - 3.5em);
+    left:66.5%;
+  }
+
+  .drop-item{
+    max-width: 35%;
+  }
+
+  #list-close {
+    display:none;
+  }
+
+  .floating-round.white.list {
+    display:none;
+  }
+
+  .floating-round.white.profile {
+    bottom:24px;
+  }
+
+  .floating-round.orange.new {
+    position:absolute;
+    margin-right: 30.5em;
+  }
+
+  .floating-round.white.center {
+    position:absolute;
+    margin-right: 30.5em;
+  }
+
+  /*button.floating-round.white.profile {
+    margin-top: 3em;
+  }*/
+}
 
 /* dim map when form is up */
 .new-form-lightbox {
