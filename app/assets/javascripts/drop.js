@@ -169,6 +169,7 @@ SoapStone.DropView.prototype.setUpEventHandlers = function () {
       $("[data-role='photo-label']")
       .addClass('orange').removeClass('white').removeClass('has-file')
       .html('<span>ADD A PHOTO</span>');
+
     }
   });
 
@@ -199,6 +200,10 @@ SoapStone.DropView.prototype.showUploadIndicator = function () {
 SoapStone.DropView.prototype.showUploadSuccess = function (response) {
   console.log("Drop posted successfuly!");
   toastr.success("Drop Posted", "Success");
+  $("[data-role='drop-form']")[0].reset();
+  $("[data-role='photo-label']")
+  .addClass('orange').removeClass('white').removeClass('has-file')
+  .html('<span>ADD A PHOTO</span>');
   this.hideNewDropForm();
 };
 
