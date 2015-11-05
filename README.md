@@ -20,6 +20,6 @@ SoapStone is a social media platform using the Google Maps API. A user will be a
 
 ##Team
 * [Jake "Jakebot" Roth](https://github.com/jkrth617)
-* [Matt "The JavaScript Aborist" Walsh](https://github.com/walsh9)
+* [Matt "The JavaScript Arborist" Walsh](https://github.com/walsh9)
 * [Peter "Copy-Paste Pete" Rosal](https://github.com/r05al)
 * [David "Just Got Charged $50" Tu](https://github.com/spacebear5000)
