@@ -550,7 +550,7 @@ a {
 
 /****** AUTH0 ******/
 #login-background {
-  background-image: url("/images/mobile-street.png");
+  background-image: url("images/mobile-street.png");
   background-size: 170% cover;
   background-repeat: no-repeat;
   background-position: 50% 25%;
@@ -733,7 +733,7 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
   }
 
   #login-background{
-    background-image: url("/images/david2.jpg");
+    background-image: url("images/david2.jpg");
     background-size: 140% auto;
 
   }
