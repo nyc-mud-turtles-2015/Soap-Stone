@@ -1,6 +1,6 @@
 class Drop < ActiveRecord::Base
   
-  DATA_REACH_DISTANCE = 1 #330 * FEET_TO_MILES
+  DATA_REACH_DISTANCE = 5 #330 * FEET_TO_MILES
 
   attr_accessor :current_user
 
