@@ -13,6 +13,7 @@ SoapStone.Controller = function() {
   if ($("[data-view='user']").exists()) {
     this.user = new SoapStone.User();
     this.userView = new SoapStone.UserView();
+    this.userView.controller = this;
     Promise.all([this.loadFollows(), this.loadUserDrops()]).then(function() {
       //viewstuff
     });
@@ -121,14 +122,22 @@ SoapStone.Controller.prototype.loadDrops = function(filter) {
 SoapStone.Controller.prototype.addSnap = function(drop){
   var self = this;
   drop.addSnap().then(function(){
-    self.dropView.updateSnapButton(drop);
+    if (self.dropView) {
+      self.dropView.updateSnapButton(drop);
+    } else {
+      self.userView.updateSnapButton(drop);
+    }
   });
 };
 
 SoapStone.Controller.prototype.createComment = function(drop){
   var self = this;
   drop.createComment().then(function () {
-    self.dropView.updateComments(drop);
+    if (self.dropView) {
+      self.dropView.updateComments(drop);
+    } else {
+      self.userView.updateComments(drop);
+    }
   });
 };
 

@@ -1,34 +1,160 @@
 html {
   box-sizing: border-box;
-}
+} 
 
 *, *:before, *:after {
   box-sizing: inherit;
 }
 
-.avatar {
-  padding: .5em;
+.user.view header {
+    position: fixed;
+    height: 48px
 }
+    .user.view a.home {
+        position: absolute;
+        left: 16px;
+        top: 5px;
+        border: 0;
+        background: transparent;
+        color: rgba(255, 255, 255, 1);
+    }
+
+    .user.view #search-form input {
+        position: absolute;
+        right: 56px;
+        width: 160px;
+        top: 64px;
+        border: 0;
+        background: white;
+        font-size: 14px;
+        padding: 6px;
+        -webkit-box-shadow: inset 0 3px 6px rgba(0,0,0,0.24);
+        box-shadow: inset 0 3px 6px rgba(0,0,0,0.24);
+        border: 1px solid rgba(0,0,0,0.12);
+        color: rgba(0, 0, 0, 0.78);
+    }
+
+    .user.view #search-form button {
+        position: absolute;
+        right: 12px;
+        top: 60px;
+        border: 0;
+        height: 24px;
+        background: transparent;
+        color: rgba(255, 255, 255, 1);
+        color: rgba(0, 0, 0, 0.78);
+    }
+
+    .user.view a.logout {
+        position: absolute;
+        right: 16px;
+        top: 5px;
+        border: 0;
+        background: transparent;
+        color: rgba(255, 255, 255, 1);
+    }
+
+    .user.view .suggestions {
+        position: absolute;
+        right: 56px;
+        width: 160px;
+        top: 95px;
+        background: white;
+        display: block;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        -webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.24);
+        box-shadow: 0 3px 6px rgba(0,0,0,0.24);
+    }
+
+    .user.view .suggestions li {
+        display: block;
+        height: 32px;
+        line-height: 32px;
+        font-size: 14px;
+        padding: 0;
+        margin: 0;
+        white-space: nowrap;
+    }
+
+
+    .user.view .suggestions li a {
+        display: inline-block;
+        padding: 0 8px;
+        letter-spacing: normal;
+        width: 100%;
+        color: rgba(0, 0, 0, 0.54);
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .user.view .suggestions li a:hover {
+        background-color: rgba(0, 0, 0, 0.06);
+    }
+
+.drop-thumbs {
+    text-align: center;
+}
+
+.open-drop {
+    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.24);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.24);
+    border-radius: 0;  
+    margin: 8px;  
+    width: 88px;
+    height: 88px;
+    overflow: hidden;
+}
+
+.open-drop.text-only {
+    text-align: center;
+    background-color: #FF9800;;
+    color: white;
+}
+.open-drop.text-only a{
+    padding: 16px;
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: white;
+}
+
+.profile-info {
+   margin-top: 16px;
+   border-top: 1px solid rgba(0,0,0,0.12);
+}
+
+.profile-info div {
+   height: 48px;
+   font-size: 18px;
+   color: rgba(0, 0, 0, 0.78);
+   border-bottom: 1px solid rgba(0,0,0,0.12);
+   padding: 16px;
+   cursor: pointer;
+}
+
+.profile-info div a {
+   display: block;
+   color: rgba(0, 0, 0, 0.78);
+   height: 48px;
+   width: 100%;
+}
+
+.profile-info div:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+
 
 #avatar {
   float: left;
-  margin-right: 1em;
+  margin-left: 16px;
+  margin-top: 16px;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  border: 1px solid #7f8c8d;
 }
 
-.home {
-  float: left;
-  position: absolute;
-}
-
-.logout {
-  position: absolute;
-  right: 4.5em;
-  top: .02em;
-}
 
 .menu {
   padding-top: 26px;
@@ -39,27 +165,7 @@ html {
 
 
 .profile {
-  padding-top: 4em;
-}
-
-.head {
-  position: fixed;
-  border: #ccc solid 1px;
-  background-color: orange;
-  height: 4em;
-  width: 100%;
-}
-
-.username {
-  padding: 1.5em;
-  text-align: center;
-  margin: 0 auto;
-  font-weight: 600;
-  letter-spacing: 2px;
-  color: rgba(0, 0, 0, 0.78);
-  text-transform: uppercase;
-  font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
-  color: white;
+  padding-top: 48px;
 }
 
 .splash-container {
@@ -78,8 +184,6 @@ html {
   background-color: #2ecc71;
   color: white;
   border-radius: 5px;
-  text-transform: uppercase;
-  font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
 }
 
 #followers, #followees {
@@ -88,22 +192,7 @@ html {
   height: 2em;
   font-weight: 600;
   letter-spacing: 1px;
-  text-transform: uppercase;
   font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
-}
-
-#drops {
-  text-align: center;
-  padding: .3em;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
-}
-
-.open-drop {
-  border-radius: 50%;
-  padding: .2em;
 }
 
 a {
@@ -116,18 +205,6 @@ a {
 
 .follower-username {
   padding: .2em;
-}
-
-.follow {
-  margin: 0 auto;
-  width: 100%;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  background-color: white;
-  color: blue;
-  border: #ccc solid 1px;
-  text-transform: uppercase;
-  font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
 }
 
 .drop-wrapper {
@@ -244,8 +321,9 @@ a {
         padding: 8px 0 0 0;
     }
 
-.user {
-  background-color: #ecf0f1;
+.user-list h3 {
+    margin-top: 8px;
+    font-size: 18px;    
 }
 
 .hide {
@@ -1056,7 +1134,7 @@ button.snap {
     box-shadow: 0 3px 6px rgba(0,0,0,0.24);
 }
 
-    .bottom-sheet h2 {
+    .bottom-sheet h2, .user.view header, .follow-page header {
         letter-spacing: 0.1em;
         width: 100%;
         background: #FF9800;

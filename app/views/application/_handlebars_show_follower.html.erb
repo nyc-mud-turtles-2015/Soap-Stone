@@ -1,15 +1,22 @@
 <script data-template='show-user' type="text/x-handlebars-template">
-  <div data-view="users" class="view user">
-    <article class="follow pure-g">
-          <button data-button="close-follow" class="close button-large pure-button">X</button>
-            <div class="pure-u-1-4 avatar">
-              <a href="/users/{{id}}">
-                <img class="follower-avatar" id="avatar" src="{{avatar}}">
-              </a>
-            </div>
-            <div class="pure-u-3-4">
-              <h3 class="follower-username">{{username}}</h3>
-            </div>
-    </article>
+  <div class="follow-page">
+  <button data-button="close-follow" class="close"><i class="material-icons md-light md-24">clear</i></button>
+    <header>{{title}}</header>
+    <div data-view="user-list" class="view user-list list">
+    {{#each users}}
+      <article class="follow list-item">
+        <div class="list-avatar">
+          <a href="/users/{{id}}">
+            <img src="{{avatar}}">
+          </a>
+        </div>
+        <div class="list-content">
+          <h3>{{username}}</h3>
+        </div>
+      </article>
+    {{else}}
+      <div class="no-content">No users found</a>
+    {{/each}}
+    </div>
   </div>
 </script>
