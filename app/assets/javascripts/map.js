@@ -208,6 +208,7 @@ SoapStone.MapView.prototype.init = function () {
           };
           self.map = new google.maps.Map(document.getElementById("googleMap"),self.mapProp);
           self.circle = new google.maps.Circle({
+            clickable: false,
             strokeColor: '#0000FF',
             strokeOpacity: 0.25,
             strokeWeight: 2,
