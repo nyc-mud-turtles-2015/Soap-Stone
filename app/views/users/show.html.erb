@@ -1,6 +1,6 @@
 <div data-view="user" class="user view">
   <header> 
-    <a href="/" class="home"><i class="material-icons">satellite</i></a>
+    <a href="/" class="home"><i class="material-icons">map</i></a>
     <%= @user.username %>
     <% if current_user == @user %>
       <form id="search-form">
@@ -12,11 +12,11 @@
     <a href="/logout" class="logout" data-method="delete"><i class="material-icons">power_settings_new</i></a>
   </header>
 
-  <div class="pure-g profile">
-    <div class="pure-u-1-4 avatar">
+  <div class="profile">
+    <div class="avatar">
       <img id="avatar" src="<%= @user.avatar %>">
     </div>
-    <div class="pure=u-3-4 follow-form">
+    <div class="follow-form">
       <% if current_user != @user %>
         <%= render 'follow_form' %>
       <% end %>

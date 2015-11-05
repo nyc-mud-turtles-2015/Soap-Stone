@@ -93,6 +93,13 @@ html {
         background-color: rgba(0, 0, 0, 0.06);
     }
 
+    .user.view .follow {
+        float: right;
+        margin-right: 16px;
+        min-width: 120px;
+        transition: background-color 0.5s, color 0.5s;
+    }
+
 .drop-thumbs {
     text-align: center;
 }
@@ -166,6 +173,7 @@ html {
 
 .profile {
   padding-top: 48px;
+  height: 128px;
 }
 
 .splash-container {
@@ -199,8 +207,9 @@ a {
   text-decoration: none;
 }
 .follow-form {
-  width: 70%;
-  padding: 1em;
+  margin: 0;
+  padding: 0;
+  float: right;
 }
 
 .follower-username {
@@ -387,13 +396,11 @@ a {
 }
 
 .drop-action a:hover {
-  text-decoration: none;
-  color: #FF9800;
+  color: #FB8C00;
 }
 
 .drop-action a:active {
-  text-decoration: none;
-  color: #FF9800;
+  color: #F57C00;
 }
 
 /*
@@ -1088,6 +1095,7 @@ button.profile {
 }
 
 button.close {
+    outline: none;
     position: absolute;
     left: 12px;
     top: 10px;
@@ -1199,7 +1207,7 @@ nav.tabs {
     height: 56px;
 }
     nav.tabs button.tab {
-        outline: 0;
+        outline: none;
         height: 56px;
         display: inline-block;
         border: none;
