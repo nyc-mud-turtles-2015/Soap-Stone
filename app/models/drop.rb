@@ -58,7 +58,7 @@ class Drop < ActiveRecord::Base
     to_json(methods: [:snapped_by?, :has_photo?],
       only: [:id, :photo, :text, :created_at, :lon, :lat, :snaps_count, :comments_count],
       include: {
-        user:     { only: [:username, :avatar] },
+        user:     { only: [:id, :username, :avatar] },
         comments: { only: [:text, :created_at],
           include: { user: { only: [:username, :avatar, :id] } }
         } }
