@@ -188,6 +188,16 @@ SoapStone.UserView.prototype.showDrop = function(url) {
         self.closeDrop();
       });
     }, 50);
+    $("[data-button='snap-button']").on('click', function (event) {
+      event.preventDefault();
+      self.controller.addSnap(drop);
+    });
+
+    $("[data-button='comment-button']").on('click', function (event){
+      event.preventDefault();
+      self.controller.createComment(drop);
+      $("[data-form='comment-form']").val('');
+    });
   })
   .fail(function () {
     reject();
@@ -204,4 +214,25 @@ SoapStone.UserView.prototype.closeDrop  = function () {
   window.setTimeout(function() {
       $("[data-view='drop']").remove();
   }, 500);
+};
+
+SoapStone.UserView.prototype.updateSnapButton = function (drop) {
+  $("[data-role='snaps']").replaceWith(this.snapButtonTemplate(drop));
+};
+
+SoapStone.UserView.prototype.updateComments = function (drop) {
+  var self = this;
+
+  $(".comment-list").replaceWith(this.commentsTemplate(drop));
+
+  $("[data-button='comment-button']").on('click', function (event){
+    event.preventDefault();
+    self.controller.createComment(drop);
+    $("[data-form='comment-form']").val('');
+  });
+
+  $("[data-button='snap-button']").on('click', function (event) {
+    event.preventDefault();
+    self.controller.addSnap(drop);
+  });
 };
