@@ -1,6 +1,6 @@
 <div data-view="user" class="user view">
-  <header> 
-    <a href="/" class="home"><i class="material-icons">map</i></a>
+  <header>
+    <a href="/" class="home"><i id="map-home" class="material-icons">map</i></a>
     <%= @user.username %>
     <% if current_user == @user %>
       <form id="search-form">
@@ -9,7 +9,7 @@
       </form>
       <ul class='hide suggestions' data-role='suggestions'></ul>
     <% end %>
-    <a href="/logout" class="logout" data-method="delete"><i class="material-icons">power_settings_new</i></a>
+    <a href="/logout" class="logout" data-method="delete"><i id="user-logout" class="material-icons">power_settings_new</i></a>
   </header>
 
   <div class="profile">
@@ -28,20 +28,20 @@
     </div>
     <div data-role="show-followees">
       <%= @user.followees.count %> following
-    </div>       
+    </div>
     <div data-role="show-drop-map" id="drops">
       <%= link_to pluralize(@user.drops.count, 'drop'), user_drops_path(@user) %>
     </div>
   </div>
 
-  
+
   <div class="pure-g content drop-thumbs">
     <% if current_user == @user %>
       <% @user.drops.each do |drop| %>
         <% if drop.photo_file_name.nil? %>
           <div class="pure-u-1-4 pure-u-lg-1-8 open-drop text-only"><%= link_to drop.text, drop_path(drop) %></div>
         <% else %>
-          <div class="pure-u-1-4 pure-u-lg-1-8 open-drop"><%=  link_to image_tag(drop.photo(:thumb), { :class => "pure-img" }), drop_path(drop) %> 
+          <div class="pure-u-1-4 pure-u-lg-1-8 open-drop"><%=  link_to image_tag(drop.photo(:thumb), { :class => "pure-img" }), drop_path(drop) %>
         </div>
         <% end %>
       <% end %>
@@ -57,5 +57,3 @@
 <%= render partial: "handlebars_show_follower" %>
 <%= render partial: "handlebars_show_drop" %>
 <%= render partial: "handlebars_suggestion" %>
-
-    
