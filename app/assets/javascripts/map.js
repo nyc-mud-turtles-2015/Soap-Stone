@@ -65,7 +65,7 @@ SoapStone.Map.prototype.hitTheDataBaseForDrops = function (filter) {
   var self = this;
   var myUrl = '/drops';
   var myPosition = SoapStone.app.mapView.trackingLocation;
-  var myData = { lat: myPosition.lat(), lon: myPosition.lng() }
+  var myData = { lat: myPosition.lat(), lon: myPosition.lng() };
   if (filter){
     if (typeof filter !== "number"){
       myUrl+=filter;
