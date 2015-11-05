@@ -148,7 +148,7 @@ SoapStone.DropView.prototype.setUpEventHandlers = function () {
 
   $("[data-button='center']").on('click', function (event) {
     self.controller.mapView.centerMap();
-    if ($("[data-view='map'].drop-list-open")) {
+    if ($("[data-view='map'].drop-list-open").exists()) {
       self.controller.mapView.panVertically($(window).height() * 0.25);
     }
   });
