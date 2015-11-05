@@ -7,10 +7,10 @@
     </div>
   </div>
 
-  <button data-button="new" class="floating-round orange new"><i class="material-icons md-24">create</i></button>
-  <button  data-button="center" class="floating-round white center"><i class="material-icons md-24">gps_fixed</i></button>
+  <button data-button="new" class="floating-round orange new pure-u-1"><i class="material-icons md-24">create</i></button>
+  <button data-button="center" class="floating-round white center"><i class="material-icons md-24">gps_fixed</i></button>
   <button data-button="list" class="floating-round white list"><i class="material-icons md-24">list</i></button>
-  <button data-button="profile" class="floating-round white profile"><i class="material-icons md-24">person</i></button>
+  <button data-button="profile" class="floating-round white profile pure-u-1"><i class="material-icons md-24">person</i></button>
 
 
   <nav class="tabs">
@@ -23,22 +23,6 @@
   <%= render partial: "drop_form" %>
   </div>
 </div>
-
-<!-- <div data-menu="map" class="menu map" class="pure-g" class="hide">
-  <div class="pure-u-1-5">
-    <%= button_to user_path(current_user), method: :get, class: "pure-button" do %>
-      <%= current_user.username %>
-    <% end %>
-  </div><div class="pure-u-1-5">
-    <button id="set-center" class="pure-button">Center</button>
-  </div><div class="pure-u-1-5">
-    <button data-button="friend-filter" class="pure-button">Following</button>
-  </div><div class="pure-u-1-5">
-    <button data-button="public-filter" class="pure-button">All</button>
-  </div><div class="pure-u-1-5">
-    <button data-button="new-button" class="pure-button">Drop</button>
-  </div>
-</div> -->
 
 <%= render partial: "handlebars_show_drop" %>
 <%= render partial: "handlebars_drop_list" %>

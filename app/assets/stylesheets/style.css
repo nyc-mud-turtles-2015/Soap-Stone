@@ -37,6 +37,7 @@ html {
   padding-right: 20px;
 }
 
+
 .profile {
   padding-top: 4em;
 }
@@ -69,8 +70,8 @@ html {
 }
 
 .following {
-  margin: 0 auto;  
-  width: 100%;  
+  margin: 0 auto;
+  width: 100%;
   border: 0 none;
   font-weight: 600;
   letter-spacing: 2px;
@@ -118,7 +119,7 @@ a {
 }
 
 .follow {
-  margin: 0 auto;  
+  margin: 0 auto;
   width: 100%;
   font-weight: 600;
   letter-spacing: 1.5px;
@@ -150,7 +151,7 @@ a {
 
     .drop-wrapper .drop-content.with-image {
         display: table-cell;
-        vertical-align: middle;        
+        vertical-align: middle;
         text-align: center;
     }
 
@@ -158,7 +159,7 @@ a {
         height: auto;
         width: auto;
         max-height: 50vh;
-        max-width: 100%;       
+        max-width: 100%;
     }
 
     .drop-wrapper .drop-content.with-image .drop-text {
@@ -208,7 +209,7 @@ a {
     .list .list-avatar {
         position: absolute;
         left: 0;
-        padding-left: 16px; 
+        padding-left: 16px;
     }
 
     .list .list-avatar img {
@@ -276,43 +277,41 @@ a {
   border-radius: 50%;
 }
 
-    .drop-avatar {
-        width: 40px;
-        height: 40px;
-    }
+.drop-avatar {
+    width: 40px;
+    height: 40px;
+}
 
-    .drop-name {
-        margin: 0;
-    }
+.drop-name {
+    margin: 0;
+}
 
-    .drop-time, .drop-distance, .drop-snap {
-        font-size: 70%;
-        margin: 3em 0;
-        padding-left: 1.5em;
-    }
+.drop-time, .drop-distance, .drop-snap {
+    font-size: 70%;
+    margin: 3em 0;
+    padding-left: 1.5em;
+}
 
-    .drop-link {
-      text-decoration: none;
-      float:right;
-      padding-top:0.7em;
-      color: black;
-    }
+.drop-link {
+  text-decoration: none;
+  float:right;
+  padding-top:0.7em;
+  color: black;
+}
 
-    .drop-link:hover {
-      color: grey;
-    }
+.drop-link:hover {
+  color: grey;
+}
 
-    .drop-list-empty {
-        margin: 1em 0;
-        color: #888;
-        text-align: center;
-    }
+.drop-list-empty {
+    margin: 1em 0;
+    color: #888;
+    text-align: center;
+}
 
 .drop-item.selected {
     background-color: #f9f8f7;
 }
-
-
 
 #google-map-container {
     position: relative;
@@ -342,29 +341,29 @@ a {
     margin: 16px;
 }
 
-    .new-drop-form .photo-button {
-        width: 0;
-        height: 0;
-    }
+.new-drop-form .photo-button {
+    width: 0;
+    height: 0;
+}
 
-    .new-drop-form .photo-button:focus {
-        outline: none;
-    }
+.new-drop-form .photo-button:focus {
+    outline: none;
+}
 
-    .new-drop-form .photo-label {
-        width: 100%;
-        cursor: pointer;
-    }
+.new-drop-form .photo-label {
+    width: 100%;
+    cursor: pointer;
+}
 
-    .new-drop-form textarea { 
-        display: block;
-        width: 100%;
-        height: 5em;
-        text-align: left;
-        -webkit-box-shadow: inset 0 3px 6px rgba(0,0,0,0.24);
-        box-shadow: inset 0 3px 6px rgba(0,0,0,0.24);
-        border: 1px solid rgba(0,0,0,0.12);
-    }
+.new-drop-form textarea {
+    display: block;
+    width: 100%;
+    height: 5em;
+    text-align: left;
+    -webkit-box-shadow: inset 0 3px 6px rgba(0,0,0,0.24);
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.24);
+    border: 1px solid rgba(0,0,0,0.12);
+}
 
 .page {
     width: 100%;
@@ -686,7 +685,7 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
 
 
 /* slide map with views */
-#google-map-container { 
+#google-map-container {
     padding-bottom: 100vh;
     transition: padding-bottom 0.5s ease-in;
 }
@@ -698,7 +697,7 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
 
 .drop-form-open #google-map-container {
     padding-bottom: 50vh;
-    transition: padding-bottom 0.5s ease-out;  
+    transition: padding-bottom 0.5s ease-out;
 }
 
 .drop-open #google-map-container {
@@ -709,7 +708,7 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
 /* slide drop show page */
 .view.drop {
     height: 0;
-    z-index: 1006;    
+    z-index: 1006;
     transition: height 0.5s ease-in;
 }
 
@@ -732,21 +731,21 @@ body #a0-widget .a0-panel .a0-footer .a0-logo i {
 
 .drop-open .view.drop {
     height: 100vh;
-    max-height: 100vh; 
+    max-height: 100vh;
     transition: height 0.45s ease-out;
 }
 .drop-open .drop-wrapper {
-    height: 50vh; 
+    height: 50vh;
     transition: height 0.45s ease-out;
 }
 .drop-open .drop-info {
-    height: 50vh; 
-    max-height: 50vh; 
+    height: 50vh;
+    max-height: 50vh;
     transition: height 0.45s ease-out;
 }
 
 /* slide droplist */
-.drop-list { 
+.drop-list {
     height: 0;
     z-index: 1002;
     background-color: white;
@@ -784,7 +783,45 @@ button.floating-action:active {
     transition: bottom 0.45s ease-out 0.05s, box-shadow 0.5s, background-color 0.5s;
 }
 
+/**** DESKTOP MAP ****/
 
+@media screen and (min-width: 48em)	{
+  .drop-list {
+    overflow:scroll;
+    height: calc(100vh - 3.5em);
+    left:66.5%;
+  }
+
+  .drop-item{
+    max-width: 35%;
+  }
+
+  #list-close {
+    display:none;
+  }
+
+  .floating-round.white.list {
+    display:none;
+  }
+
+  .floating-round.white.profile {
+    bottom:24px;
+  }
+
+  .floating-round.orange.new {
+    position:absolute;
+    margin-right: 30.5em;
+  }
+
+  .floating-round.white.center {
+    position:absolute;
+    margin-right: 30.5em;
+  }
+
+  /*button.floating-round.white.profile {
+    margin-top: 3em;
+  }*/
+}
 
 /* dim map when form is up */
 .new-form-lightbox {
@@ -806,7 +843,7 @@ button.floating-action:active {
 }
 
 /* show/hide form */
-.drop-form { 
+.drop-form {
     height: 0;
     transition: height 0.5s ease-in;
 }
@@ -878,7 +915,7 @@ button.white, input.white, label.button.white {
     button.white:hover, input.white:hover, label.button.white:hover {
         color: #FB8C00;
     }
-    
+
     button.white:active, input.white:active, label.button.white:active {
         color: #F57C00;
     }
@@ -913,23 +950,23 @@ button:active.raised, .button:active.raised, input:active.raised  {
 
 button.new {
     z-index: 1003;
-    right: 24px;   
+    right: 24px;
     bottom: 24px;
 }
 
 button.center {
-    right: 24px;   
+    right: 24px;
     bottom: 104px;
 }
 
 button.list {
-    left: 24px;   
+    left: 24px;
     bottom: 24px;
 }
 
 button.profile {
     padding: 0;
-    left: 24px;   
+    left: 24px;
     bottom: 104px;
 }
 
@@ -956,7 +993,7 @@ button.snap {
 
     .drop-metadata .drop-time {
         margin: 0;
-        line-height: 40px;  
+        line-height: 40px;
         font-size: 14px;
         color: rgba(0, 0, 0, 0.54);
         display: inline-block;
@@ -967,7 +1004,7 @@ button.snap {
         float: right;
         margin: 0;
         padding: 0 56px 0 0;
-        line-height: 40px;  
+        line-height: 40px;
         font-size: 14px;
         color: rgba(0, 0, 0, 0.54);
         display: inline-block;
