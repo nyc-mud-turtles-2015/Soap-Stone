@@ -175,6 +175,7 @@ SoapStone.DropView.prototype.setUpEventHandlers = function () {
   $("[data-role='drop-form']").on('submit', function (event) {
     event.preventDefault();
     self.controller.createDrop($("[data-role='drop-form']"));
+    $("#drop_text").val('');
   });
 
   $("[data-button='close-form']").add('.new-form-lightbox').on('click', function (event) {
