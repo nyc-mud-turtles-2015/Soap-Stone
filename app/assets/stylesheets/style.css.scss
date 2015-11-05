@@ -100,6 +100,19 @@ html {
         transition: background-color 0.5s, color 0.5s;
     }
 
+    .user.view .avatar {
+        margin-top: 16px;
+        margin-left: 16px;
+    }
+
+    .user.view .avatar img {
+        width: 66px;
+        height: 66px;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+    }
+
 .drop-thumbs {
     text-align: center;
 }
@@ -150,16 +163,6 @@ html {
 
 .profile-info div:hover {
     background-color: rgba(0, 0, 0, 0.06);
-}
-
-
-#avatar {
-  float: left;
-  margin-left: 16px;
-  margin-top: 16px;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
 }
 
 #user-logout:hover {
