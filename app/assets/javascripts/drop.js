@@ -281,8 +281,14 @@ SoapStone.DropView.prototype.hideDropList = function() {
   this.controller.mapView.panVertically(-$(window).height() * 0.25);
 };
 
+SoapStone.DropView.prototype.sortAndFilter = function (drops) {
+  var orderedDrops = drops.sort(function (drop) {return drop.created_at}).reverse();
+  return orderedDrops.slice(0,30);
+};
+
 SoapStone.DropView.prototype.showDropList = function (drops) {
   var self = this;
+  drops = self.sortAndFilter(drops);
   $("[data-view='map']").append(this.dropListTemplate(drops));
   $(".drop-list").on('click', 'a', function(event){
     if (event.target.dataset.drop) {
