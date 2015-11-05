@@ -810,12 +810,12 @@ button.floating-action:active {
 
   .floating-round.orange.new {
     position:absolute;
-    margin-right: 30.5em;
+    right: calc(33% + 24px);
   }
 
   .floating-round.white.center {
     position:absolute;
-    margin-right: 30.5em;
+    right: calc(33% + 24px);
   }
 
   /*button.floating-round.white.profile {
