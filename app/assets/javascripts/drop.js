@@ -285,8 +285,12 @@ SoapStone.DropView.prototype.popupDropList = function() {
 };
 
 SoapStone.DropView.prototype.hideDropList = function() {
+  var self = this;
   $("[data-view='map']").removeClass("drop-list-open");
   this.controller.mapView.panVertically(-$(window).height() * 0.25);
+  window.setTimeout(function() {
+    google.maps.event.trigger(self.controller.mapView.map, 'resize');
+  }, 500);
 };
 
 SoapStone.DropView.prototype.sortAndFilter = function (drops) {
